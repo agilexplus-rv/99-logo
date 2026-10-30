@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>99 — Delivered Nine</title>
+  <!-- Monoline 9. Bowl r=52 c(96,96) sw=32 (stem tangent x=148). Stem 96→218. 45° arm →(232,134). -->
+  <g transform="translate(-10,-3)" fill="none" stroke="#000" stroke-width="32" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="96" cy="96" r="52"/>
+    <path d="M148 96 V218 L232 134"/>
+  </g>
+</svg>

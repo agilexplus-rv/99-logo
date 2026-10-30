@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 461 256" width="461" height="256">
+  <title>99 — Completion Ring lockup</title>
+  <g transform="translate(12.77,50.77) scale(0.7021)"><g fill="none" stroke="#000" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"><circle cx="88" cy="88" r="56"/><path d="M176 168 L196 188 L236 140"/></g></g>
+  <g transform="translate(227.87,60.17) scale(0.9167)" fill="#000"><circle cx="52" cy="52" r="38" fill="none" stroke="#000" stroke-width="24"/><path d="M78 52 H102 V122 L78 146 Z"/><g transform="translate(126,0)"><circle cx="52" cy="52" r="38" fill="none" stroke="#000" stroke-width="24"/><path d="M78 52 H102 V122 L78 146 Z"/></g></g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>99 — Radial 99</title>
+  <!-- Two nines, engineered spacing (126 apart). Bowl r=38 sw=24 at (52,52); stem x78–102, bottom-right trimmed at 45°. -->
+  <g transform="translate(13,54)" fill="#000">
+    <circle cx="52" cy="52" r="38" fill="none" stroke="#000" stroke-width="24"/>
+    <path d="M78 52 H102 V122 L78 146 Z"/>
+    <g transform="translate(126,0)">
+      <circle cx="52" cy="52" r="38" fill="none" stroke="#000" stroke-width="24"/>
+      <path d="M78 52 H102 V122 L78 146 Z"/>
+    </g>
+  </g>
+</svg>
