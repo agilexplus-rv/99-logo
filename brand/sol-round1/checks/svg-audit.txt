@@ -1,0 +1,21 @@
+
+=== a-cut-and-curve.svg  (767 bytes)
+viewBox 0 0 344 256 · aspect 1.344 (wide)
+colours 1: #000000 · gradients 0 · anchors 28
+margins L33.2 R27.8 T25.4 B25.2 · bbox fill 0.66
+✔ no issues found
+production-readiness score: 100/100 (heuristic)
+
+=== b-counterform.svg  (329 bytes)
+viewBox 0 0 256 256 · aspect 1.0 (square)
+colours 1: #000000 · gradients 0 · anchors 29
+margins L24.0 R24.0 T28.0 B28.0 · bbox fill 0.635
+✔ no issues found
+production-readiness score: 100/100 (heuristic)
+
+=== c-joint.svg  (462 bytes)
+viewBox 0 0 256 256 · aspect 1.0 (square)
+colours 1: #000000 · gradients 0 · anchors 34
+margins L32.0 R32.0 T20.0 B20.0 · bbox fill 0.633
+✔ no issues found
+production-readiness score: 100/100 (heuristic)
