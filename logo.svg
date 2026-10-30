@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" fill="none" role="img" aria-labelledby="logo-title logo-desc">
+  <title id="logo-title">99 — Software to Solutions</title>
+  <desc id="logo-desc">Minimal geometric logo for 99: two interlocking 9s where the first represents software engineering and the second resolves into a forward checkmark representing delivered solutions.</desc>
+
+  <!-- Background -->
+  <rect width="800" height="500" rx="32" fill="#090D16" />
+
+  <!-- Subtle grid accent representing structure / engineering -->
+  <g opacity="0.06" stroke="#94A3B8" stroke-width="1">
+    <line x1="160" y1="0" x2="160" y2="500" />
+    <line x1="640" y1="0" x2="640" y2="500" />
+    <line x1="0" y1="110" x2="800" y2="110" />
+    <line x1="0" y1="360" x2="800" y2="360" />
+  </g>
+
+  <!-- Mark Group: "99" — Left 9 (Code/Structure) + Right 9 (Delivered Solution/Check) -->
+  <g transform="translate(215, 95)">
+    <!-- First 9: Geometric monoline representing precision software architecture -->
+    <!-- Upper loop (code node) -->
+    <circle cx="80" cy="80" r="56" stroke="#F8FAFC" stroke-width="28" />
+    <!-- Descending stem with clean terminal -->
+    <path d="M 136 80 L 136 160 C 136 208 98 240 48 240" stroke="#F8FAFC" stroke-width="28" stroke-linecap="round" />
+
+    <!-- Second 9: Resolves into an ascending checkmark / forward vector (Solutions Delivered) -->
+    <!-- Upper loop -->
+    <circle cx="244" cy="80" r="56" stroke="#10B981" stroke-width="28" />
+    <!-- Descending stem that pivots into a rising solution checkmark -->
+    <path d="M 300 80 L 300 184 L 256 228 L 368 116" stroke="#10B981" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Wordmark & Positioning Statement -->
+  <g transform="translate(400, 418)" text-anchor="middle">
+    <text font-family="system-ui, -apple-system, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#94A3B8" letter-spacing="6">
+      BEYOND SOFTWARE <tspan fill="#10B981" dx="6">&#8212;</tspan><tspan fill="#F8FAFC" dx="6">SOLUTIONS DELIVERED</tspan>
+    </text>
+  </g>
+</svg>
