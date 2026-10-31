@@ -16,6 +16,7 @@ const PAGES = [
   { name: '09-journey-step4', path: '/site/home', full: false, anchor: '#journey', frac: 0.78 },
   { name: '11-natural-home', path: '/site/home', natural: true },
   { name: '12-natural-collateral', path: '/collateral', natural: true },
+  { name: '13-natural-home-light', path: '/site/home', natural: true, light: true },
   { name: '10-flow', flow: [
       { path: '/', click: '[data-pkg="clay"]' },
       { click: '[data-logo="the-seal"]' },
