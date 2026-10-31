@@ -30,6 +30,7 @@
         '--accent-text': '#DA4B14',
         '--on-accent': '#FFFFFF',
         '--muted-ink': '#756C66',
+        '--accent-cream': '#C53E0A',
         '--accent-pale': '#FFD9C2',
         '--accent-deep': '#6E1F06',
         '--accent-soft': 'rgba(216,68,11,.14)',
@@ -61,6 +62,7 @@
         '--accent-text': '#C26641',
         '--on-accent': '#FFFFFF',
         '--muted-ink': '#766B65',
+        '--accent-cream': '#AB5534',
         '--accent-pale': '#EBD6C8',
         '--accent-deep': '#6B2E17',
         '--accent-soft': 'rgba(192,96,58,.15)',
@@ -92,6 +94,7 @@
         '--accent-text': '#C9973F',
         '--on-accent': '#0C1013',
         '--muted-ink': '#6A6E73',
+        '--accent-cream': '#8A672B',
         '--accent-pale': '#EFE3C0',
         '--accent-deep': '#6B4E15',
         '--accent-soft': 'rgba(201,151,63,.14)',
@@ -144,7 +147,7 @@
       /* the mock-site "reference" palette was tuned for a dark ground: invert it */
       root.style.setProperty('--sand', '#5A5049');
       root.style.setProperty('--slate', pkg.tokens['--muted-ink']);
-      root.style.setProperty('--accent-text', pkg.tokens['--accent-ink']);
+      root.style.setProperty('--accent-text', pkg.tokens['--accent-cream']);
       root.style.setProperty('--ref-muted-light', '#756C67');
       root.style.setProperty('--ref-muted-dark', '#5A5049');
       root.style.setProperty('--ref-hair', 'rgba(0,0,0,.12)');
