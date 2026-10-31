@@ -12,6 +12,8 @@ from pathlib import Path
 SITE = Path(__file__).resolve().parent.parent / "site"
 (SITE / "site").mkdir(parents=True, exist_ok=True)
 
+ASSET_V = "20261031b"
+
 LOGO = '<span data-logo-slot aria-hidden="true"></span>'
 NAV = f"""<header class="nav"><div class="wrap">
   <a class="logo" href="home" aria-label="99 — home" style="color:var(--accent)">{LOGO}
@@ -59,8 +61,8 @@ def page(title, body, svc="", about="", extra_css="", extra_js=""):
 <title>{title}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Space+Grotesk:wght@400;500;700&display=swap">
-<script src="../assets/theme.js"></script>
-<link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/theme.js?v={ASSET_V}"></script>
+<link rel="stylesheet" href="../assets/site.css?v={ASSET_V}">
 {extra_css}
 </head>
 <body>
@@ -444,9 +446,17 @@ ABOUT = """
 </main>
 """
 
+def stamp_collateral():
+    p = SITE / "collateral.html"
+    t = p.read_text()
+    import re as _re
+    t = _re.sub(r'assets/theme\.js(\?v=[0-9a-z]+)?', 'assets/theme.js?v=' + ASSET_V, t)
+    p.write_text(t)
+
+stamp_collateral()
 (SITE / "site" / "home.html").write_text(page("99 — One to ninety-nine", HOME,
-    extra_css='<link rel="stylesheet" href="../assets/mock.css">',
-    extra_js='<script src="../assets/mock.js"></script>'))
+    extra_css=f'<link rel="stylesheet" href="../assets/mock.css?v={ASSET_V}">',
+    extra_js=f'<script src="../assets/mock.js?v={ASSET_V}"></script>'))
 (SITE / "site" / "services.html").write_text(page("99 — Services", SERVICES, svc='aria-current="page"'))
 (SITE / "site" / "about.html").write_text(page("99 — About", ABOUT, about='aria-current="page"'))
 print("wrote site/site/{home,services,about}.html")

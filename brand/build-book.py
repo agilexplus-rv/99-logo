@@ -38,6 +38,8 @@ SEAL = ('<svg viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor"
         'H 200 L 212 64 V 192 L 200 204 H 152 L 176 180 H 188 V 136 H 152 L 140 124 V 64 Z M 164 76 '
         'H 188 V 112 H 164 Z"/></svg>')
 
+ASSET_V = "20261031b"
+
 MARKS = [
     dict(id="the-sign", name="The Sign", role="Idea-led · typographic", svg=SIGN, rec=True,
          idea="A closing quotation mark is a 99 — the sign that ends the statement.",
@@ -136,8 +138,8 @@ def main():
 <title>99 — brand book</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72;700&family=Space+Grotesk:wght@400;500;700&display=swap">
-<script src="assets/theme.js"></script>
-<link rel="stylesheet" href="assets/book.css">
+<script src="assets/theme.js?v={ASSET_V}"></script>
+<link rel="stylesheet" href="assets/book.css?v={ASSET_V}">
 </head>
 <body>
 
@@ -347,7 +349,7 @@ def main():
   99designs), print/Pantone proofing, a reversed-weight optical pass, and a small-size cut for The Seal.</p>
 </div></footer>
 
-<script src="assets/book.js"></script>
+<script src="assets/book.js?v={ASSET_V}"></script>
 </body></html>
 """
     (SITE / "index.html").write_text(doc)

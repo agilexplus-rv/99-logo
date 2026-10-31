@@ -63,6 +63,7 @@ await mkdir('shots', { recursive: true });
 for (const p of PAGES) {
   const vp = p.w ? { width: p.w, height: p.h } : VIEWPORTS.desktop;
   const ctx = await browser.newContext({ viewport: vp, deviceScaleFactor: 1 });
+  if (p.light) await ctx.addInitScript(function () { try { localStorage.setItem('99-mode', 'light'); } catch (e) {} });
   const page = await ctx.newPage();
   const errors = [];
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });

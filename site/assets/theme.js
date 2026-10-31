@@ -132,6 +132,12 @@
       root.style.setProperty('--surface-2', '#ffffff');
       root.style.setProperty('--line', 'rgba(0,0,0,.10)');
       root.style.setProperty('--accent-soft', 'color-mix(in srgb,' + pkg.tokens['--accent'] + ' 12%, transparent)');
+      /* the mock-site "reference" greys were tuned for a dark ground */
+      root.style.setProperty('--ref-muted-dark', '#5A5049');
+      root.style.setProperty('--ref-hair', 'rgba(0,0,0,.12)');
+    } else {
+      root.style.removeProperty('--ref-muted-dark');
+      root.style.removeProperty('--ref-hair');
     }
     return key;
   }
@@ -234,7 +240,7 @@
       'font-size:.7rem;cursor:pointer;box-shadow:0 12px 30px -16px #000;font-family:var(--font-body)}' +
       'body.bc-collapsed .bc-chip{display:flex}' +
       '.bc-progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:2000;transition:width .08s linear}' +
-      '.bc-notice{position:fixed;bottom:16px;left:12px;z-index:1001;max-width:300px;padding:11px 13px;border-radius:12px;' +
+      '.bc-notice{position:fixed;bottom:16px;right:12px;z-index:1001;max-width:300px;padding:11px 13px;border-radius:12px;' +
       'background:var(--paper);color:var(--ink);box-shadow:0 18px 50px -20px #000;font-size:.8rem;font-family:var(--font-body)}' +
       '.bc-notice b{font-family:var(--font-display);font-weight:var(--display-weight)}' +
       '.bc-notice button{margin-top:7px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 11px;font-size:.76rem;font-family:inherit;cursor:pointer}';
