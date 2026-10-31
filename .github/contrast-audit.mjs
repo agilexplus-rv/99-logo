@@ -106,11 +106,13 @@ for (const [name, path, sel] of [['home', '/site/home', '#how'], ['services', '/
   const page = await ctx.newPage();
   try {
     await page.goto(BASE + path, { waitUntil: 'networkidle', timeout: 45000 });
-    await page.evaluate((s) => { const a = document.querySelector('a[href="' + s + '"]'); if (a) a.click(); }, sel);
+    await page.evaluate((s) => { const a = document.querySelector('a[href$="' + s + '"]'); if (a) a.click(); }, sel);
     await page.waitForTimeout(1200);
     const r = await page.evaluate((s) => {
       const el = document.querySelector(s);
-      const chrome = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--chrome-h')) || 0;
+      const bar = document.getElementById('bc-topbar');
+      const nav = document.querySelector('.nav');
+      const chrome = (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0);
       return { top: el ? Math.round(el.getBoundingClientRect().top) : null, chrome: Math.round(chrome) };
     }, sel);
     const ok = r.top !== null && r.top >= r.chrome - 24 && r.top <= r.chrome + 80;
