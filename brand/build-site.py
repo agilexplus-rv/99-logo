@@ -57,12 +57,32 @@ FOOT = f"""<footer class="foot"><div class="wrap">
 </div></footer>"""
 
 
-def page(title, body, svc="", about="", extra_css="", extra_js="", how="home#how"):
+def _og(title, desc, path):
+    """Description + Open Graph + Twitter card, so shared links are not title-only."""
+    base = "https://99-branding.agilexplus.dev"
+    return (
+        f'<meta name="description" content="{desc}">\n'
+        f'<meta property="og:type" content="website">\n'
+        f'<meta property="og:site_name" content="99">\n'
+        f'<meta property="og:title" content="{title}">\n'
+        f'<meta property="og:description" content="{desc}">\n'
+        f'<meta property="og:url" content="{base}{path}">\n'
+        f'<meta property="og:image" content="{base}/og-image.png">\n'
+        f'<meta name="twitter:card" content="summary_large_image">\n'
+        f'<meta name="twitter:title" content="{title}">\n'
+        f'<meta name="twitter:description" content="{desc}">\n'
+        f'<meta name="twitter:image" content="{base}/og-image.png">'
+    )
+
+
+def page(title, body, svc="", about="", extra_css="", extra_js="", how="home#how", desc="", path="/"):
+    OG = _og(title, desc, path)
     return f"""<!doctype html>
 <html lang="en" data-package="ember">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
+{OG}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Space+Grotesk:wght@400;500;700&display=swap">
 <script src="../assets/theme.js?v={ASSET_V}"></script>
@@ -458,9 +478,12 @@ def stamp_collateral():
     p.write_text(t)
 
 stamp_collateral()
-(SITE / "site" / "home.html").write_text(page("99 — Software, hosting and continual improvement", HOME, how="#how",
+(SITE / "site" / "home.html").write_text(page("99 — Software, hosting and continual improvement", HOME, how="#how", path="/site/home",
+    desc="99 builds software, hosts it and improves it continually — one accountable senior team from the first conversation to the last number. Malta.",
     extra_css=f'<link rel="stylesheet" href="../assets/mock.css?v={ASSET_V}">',
     extra_js=f'<script src="../assets/mock.js?v={ASSET_V}"></script>'))
-(SITE / "site" / "services.html").write_text(page("Services — 99", SERVICES, svc='aria-current="page"'))
-(SITE / "site" / "about.html").write_text(page("About — 99", ABOUT, about='aria-current="page"'))
+(SITE / "site" / "services.html").write_text(page("Services — 99", SERVICES, svc='aria-current="page"', path="/site/services",
+    desc="Scoping, build, hosting, improvement and growth under one accountable name. No published price list — every engagement starts with a written proposal."))
+(SITE / "site" / "about.html").write_text(page("About — 99", ABOUT, about='aria-current="page"', path="/site/about",
+    desc="99 is a small senior team in Malta. The people who scope your work build it, host it and keep improving it."))
 print("wrote site/site/{home,services,about}.html")
