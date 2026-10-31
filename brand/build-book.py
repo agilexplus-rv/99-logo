@@ -252,7 +252,7 @@ def main():
     <div class="app"><p class="lab">Business card</p><div class="box">
       <div class="card-elem" data-inject style="border-color:transparent;padding:0"></div>
       <div class="card-elem" style="margin-top:10px">
-        <span style="color:var(--sand)">Rudie<br>99 · Malta<br>rudie@agilexplus.com</span></div>
+        <span style="color:var(--sand)">Paul Gauci<br>99 · Malta<br>paul@99.systems</span></div>
     </div></div>
     <div class="app"><p class="lab">At size</p><div class="box" style="gap:16px;display:flex">
       <span class="ladder"><span class="sz" style="width:64px;height:64px" data-inject></span><small>64</small></span>
