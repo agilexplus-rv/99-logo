@@ -148,3 +148,25 @@ for (const label of ['Letterhead', 'Proposal', 'Quote', 'Invoice', 'Business car
   await ctx.close();
 }
 await gapB.close();
+
+// ---- arriving on a URL that already has the hash (bookmark, shared link, typed) ----
+const deep = await chromium.launch();
+console.log('\n=== DEEP LINK (page loaded with #hash) ===');
+for (const [path, sel] of [['/site/services#engagement', '#engagement'], ['/site/home#journey', '#journey'], ['/site/home#how', '#how']]) {
+  const ctx = await deep.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  try {
+    await page.goto(BASE + path, { waitUntil: 'networkidle', timeout: 45000 });
+    await page.waitForTimeout(1600);
+    const r = await page.evaluate((s) => {
+      const el = document.querySelector(s);
+      const bar = document.getElementById('bc-topbar');
+      const nav = document.querySelector('.nav');
+      const chrome = (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0);
+      return { top: el ? Math.round(el.getBoundingClientRect().top) : null, chrome: Math.round(chrome) };
+    }, sel);
+    console.log(`${path.padEnd(30)} top=${r.top}px chrome=${r.chrome}px`);
+  } catch (e) { console.log(`${path} deep-link check failed`); }
+  await ctx.close();
+}
+await deep.close();
