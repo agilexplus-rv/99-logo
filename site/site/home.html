@@ -52,17 +52,24 @@
     <p class="micro">How we work</p>
     <h2 class="tone">Most firms start counting at the launch.
       <span class="t2">We start at one.</span></h2>
-    <div class="timeline">
-      <div class="tl-step"><div class="dot">01</div><h4>Scoping</h4>
-        <p>A written definition of done, a cost range, and an honest go / no-go.</p></div>
-      <div class="tl-step"><div class="dot">02</div><h4>Software</h4>
-        <p>Web apps, internal tools and the integrations between them.</p></div>
-      <div class="tl-step"><div class="dot">03</div><h4>Hosting</h4>
-        <p>Infrastructure, deploys, backups, certificates, alerting.</p></div>
-      <div class="tl-step"><div class="dot">04</div><h4>Maintenance</h4>
-        <p>Patching, upgrades, cost review and the 2 a.m. page.</p></div>
-      <div class="tl-step"><div class="dot">05</div><h4>Enhancement</h4>
-        <p>When the business changes shape, the next count starts.</p></div>
+    <div class="railhead">
+      <div class="dots" id="dots" role="tablist" aria-label="Stages"></div>
+      <div class="navarrows">
+        <button type="button" id="rail-prev" aria-label="Previous stage">&larr;</button>
+        <button type="button" id="rail-next" aria-label="Next stage">&rarr;</button>
+      </div>
+    </div>
+    <div class="rail" id="rail" tabindex="0" aria-label="The five stages of the count">
+      <article class="slide"><span class="n">01</span><h4>Scoping</h4>
+        <p>A written definition of done, a cost range, and an honest go / no-go before anyone writes code.</p></article>
+      <article class="slide"><span class="n">02</span><h4>Software</h4>
+        <p>Web apps, internal tools and the integrations between them — built by the people who scoped it.</p></article>
+      <article class="slide"><span class="n">03</span><h4>Hosting</h4>
+        <p>Infrastructure, deploys, backups you have actually restored, certificates, alerting.</p></article>
+      <article class="slide"><span class="n">04</span><h4>Maintenance</h4>
+        <p>Patching, dependency upgrades, cost review and the 2 a.m. page. The half nobody advertises.</p></article>
+      <article class="slide"><span class="n">05</span><h4>Enhancement</h4>
+        <p>When the business changes shape, the system should too. The next count starts here.</p></article>
     </div>
   </div></section>
 
@@ -119,33 +126,31 @@
       <h2 class="tone">The unglamorous half of ownership.
         <span class="t2">Priced, not discovered.</span></h2>
     </div>
-    <div class="crow reveal">
-      <div class="gloss">01</div>
-      <div><h4>Infrastructure</h4>
-        <div class="tags"><span class="stamp">Reviewed quarterly</span></div></div>
-      <div><p>Reproducible environments, deploys you can trust, certificates that do not expire on a Friday, and
-      alerting that reaches a person who can act on it.</p></div>
-    </div>
-    <div class="crow reveal">
-      <div class="gloss">02</div>
-      <div><h4>Dependencies</h4>
-        <div class="tags"><span class="stamp">Tracked on a calendar</span></div></div>
-      <div><p>Every framework you depend on will end-of-life on a date. We keep that date, and we do something about
-      it before it becomes an incident rather than after.</p></div>
-    </div>
-    <div class="crow reveal">
-      <div class="gloss">03</div>
-      <div><h4>Cost</h4>
-        <div class="tags"><span class="stamp">Line-item reviewed</span></div></div>
-      <div><p>Cloud and hosting bills drift upward quietly. A quarterly review of what is actually running usually
-      finds money, and occasionally a whole service nobody needed.</p></div>
-    </div>
-    <div class="crow reveal">
-      <div class="gloss">04</div>
-      <div><h4>Enhancement</h4>
-        <div class="tags"><span class="stamp">Scoped, not assumed</span></div></div>
-      <div><p>Every month carries enhancement time, so the system can follow the business without a change request
-      turning into a negotiation.</p></div>
+    <div class="acc reveal">
+      <details open>
+        <summary><span class="gloss">01</span><h4>Infrastructure</h4><span class="plus">+</span></summary>
+        <div class="body">Reproducible environments, deploys you can trust, certificates that do not expire on a
+        Friday, and alerting that reaches a person who can act on it.
+        <div class="tags" style="margin-top:10px"><span class="stamp">Reviewed quarterly</span></div></div>
+      </details>
+      <details>
+        <summary><span class="gloss">02</span><h4>Dependencies</h4><span class="plus">+</span></summary>
+        <div class="body">Every framework you depend on will reach end-of-life on a date. We keep that date, and we do
+        something about it before it becomes an incident rather than after.
+        <div class="tags" style="margin-top:10px"><span class="stamp">Tracked on a calendar</span></div></div>
+      </details>
+      <details>
+        <summary><span class="gloss">03</span><h4>Cost</h4><span class="plus">+</span></summary>
+        <div class="body">Cloud and hosting bills drift upward quietly. A quarterly review of what is actually running
+        usually finds money, and occasionally an entire service nobody needed.
+        <div class="tags" style="margin-top:10px"><span class="stamp">Line-item reviewed</span></div></div>
+      </details>
+      <details>
+        <summary><span class="gloss">04</span><h4>Enhancement</h4><span class="plus">+</span></summary>
+        <div class="body">Every month carries enhancement time, so the system can follow the business without a change
+        request turning into a negotiation.
+        <div class="tags" style="margin-top:10px"><span class="stamp">Scoped, not assumed</span></div></div>
+      </details>
     </div>
   </div></section>
 

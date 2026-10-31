@@ -128,3 +128,46 @@
     initTimeline();
   });
 })();
+
+/* ---------------- conveyor: dots + arrows ---------------- */
+(function () {
+  var rail = document.getElementById('rail');
+  if (!rail) return;
+  var dots = document.getElementById('dots');
+  var slides = Array.prototype.slice.call(rail.querySelectorAll('.slide'));
+
+  slides.forEach(function (s, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'Stage ' + (i + 1));
+    b.addEventListener('click', function () { go(i); });
+    dots.appendChild(b);
+  });
+  var btns = Array.prototype.slice.call(dots.children);
+
+  function current() {
+    var best = 0, min = Infinity;
+    slides.forEach(function (s, i) {
+      var d = Math.abs(s.offsetLeft - rail.scrollLeft - rail.offsetLeft);
+      if (d < min) { min = d; best = i; }
+    });
+    return best;
+  }
+  function paint() {
+    var i = current();
+    btns.forEach(function (b, j) { b.setAttribute('aria-current', String(i === j)); });
+  }
+  function go(i) {
+    var s = slides[Math.max(0, Math.min(slides.length - 1, i))];
+    if (s) rail.scrollTo({ left: s.offsetLeft - rail.offsetLeft, behavior: 'smooth' });
+  }
+  rail.addEventListener('scroll', function () { window.requestAnimationFrame(paint); }, { passive: true });
+  document.getElementById('rail-prev').addEventListener('click', function () { go(current() - 1); });
+  document.getElementById('rail-next').addEventListener('click', function () { go(current() + 1); });
+  rail.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); go(current() + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(current() - 1); }
+  });
+  paint();
+})();

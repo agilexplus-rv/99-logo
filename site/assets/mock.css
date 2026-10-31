@@ -197,3 +197,58 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
   .metrics { grid-template-columns: 1fr; }
   .metrics div { border-right: 0; border-bottom: 1px solid var(--ref-hair-dark); }
 }
+
+/* ---------- ambient ground (from the reference's drifting orange atmosphere) ---------- */
+.hero-ref { position: relative; overflow: hidden; }
+.hero-ref::before {
+  content: ""; position: absolute; inset: -30% -12% auto -12%; height: 118%;
+  background:
+    radial-gradient(46% 52% at 74% 26%, rgba(238,90,30,.26), transparent 72%),
+    radial-gradient(40% 44% at 8% 4%, rgba(201,56,9,.16), transparent 70%);
+  filter: blur(24px); pointer-events: none; animation: ambient 18s ease-in-out infinite alternate;
+}
+.hero-ref .inner { position: relative; }
+@keyframes ambient { from { transform: translate3d(-2%, 2%, 0) scale(1); }
+                     to   { transform: translate3d(3%, -3%, 0) scale(1.06); } }
+
+/* ---------- horizontal conveyor with step dots ---------- */
+.railhead { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+.rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 4px 0 8px; scrollbar-width: none; }
+.rail::-webkit-scrollbar { display: none; }
+.rail > .slide { scroll-snap-align: start; flex: 0 0 clamp(238px, 29%, 300px); }
+.slide { border: 1px solid var(--ref-hair); border-radius: 16px; padding: 22px;
+  background: var(--ref-panel-2); transition: border-color .25s, transform .25s; }
+.slide:hover { border-color: rgba(238,90,30,.6); transform: translateY(-3px); }
+.slide .n { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em;
+  color: var(--ref-orange-1); }
+.slide h4 { margin: 14px 0 8px; font-size: 1.04rem; }
+.slide p { margin: 0; color: var(--ref-muted-dark); font-size: .86rem; }
+.dots { display: flex; gap: 7px; align-items: center; }
+.dots button { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 99px;
+  background: var(--ref-hair); cursor: pointer; transition: width .25s, background .25s; }
+.dots button[aria-current="true"] { width: 24px; background: var(--ref-orange-1); }
+.navarrows { display: flex; gap: 8px; margin-left: auto; }
+.navarrows button { width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+  border: 1px solid var(--ref-hair); background: transparent; color: var(--ref-cream);
+  font-size: .9rem; line-height: 1; }
+.navarrows button:hover { border-color: var(--ref-orange-1); color: #fff; }
+
+/* ---------- accordion (native details, so no JS and keyboard-safe) ---------- */
+.acc { border-top: 1px solid var(--ref-hair-dark); }
+.acc details { border-bottom: 1px solid var(--ref-hair-dark); }
+.acc summary { display: grid; grid-template-columns: 58px 1fr 22px; gap: 20px; align-items: center;
+  padding: 18px 0; cursor: pointer; list-style: none; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary h4 { margin: 0; font-size: 1.02rem; }
+.acc summary .plus { font-family: var(--font-mono); color: var(--ref-orange-2); text-align: center;
+  transition: transform .25s; }
+.acc details[open] summary .plus { transform: rotate(45deg); }
+.acc details[open] summary { border-bottom: 1px solid var(--ref-hair-dark); }
+.acc .body { padding: 16px 0 20px 78px; color: #4A403B; font-size: .92rem; }
+
+@media (max-width: 900px) {
+  .rail > .slide { flex-basis: 78%; }
+  .acc .body { padding-left: 0; }
+  .hero-ref::before { animation: none; }
+}
