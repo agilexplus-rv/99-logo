@@ -7,59 +7,37 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  /* Device tiers + a price band. These are illustrative placeholders for a mock site —
-     not 99's published prices. */
-  var TIERS = [
-    { at: 0,   label: '0',    price: 0 },
-    { at: 5,   label: '5',    price: 240 },
-    { at: 25,  label: '25',   price: 780 },
-    { at: 50,  label: '50',   price: 1280 },
-    { at: 100, label: '100',  price: 2100 },
-    { at: 200, label: '200+', price: 3400 }
-  ];
-
-  function bandFor(value) {
-    var pick = TIERS[0];
-    TIERS.forEach(function (t) { if (value >= t.at) pick = t; });
-    return pick;
-  }
-
-  function money(n) {
-    return '€' + n.toLocaleString('en-IE');
-  }
-
-  /* ---------------- estimator ---------------- */
+  /* ---------------- estimator: scope, never a price ---------------- */
   function initEstimator() {
     var root = $('#estimator');
     if (!root) return;
     var slider = $('#devices', root);
-    var out = $('#price', root);
-    var outNote = $('#price-note', root);
+    var scope = $('#scope', root);
+    var scopeNote = $('#scope-note', root);
+    var cta = $('#est-cta', root);
     var ticks = $$('.ticks span', root);
-    var yearly = false;
+    var partnership = false;
 
     function paint() {
       var v = Number(slider.value);
-      var band = bandFor(v);
-      var price = band.price;
-      if (yearly) price = Math.round(price * 0.85);
-      out.textContent = price ? money(price) : 'Scoped';
-      outNote.textContent = price
-        ? (yearly ? 'per month, billed yearly — 15% saved' : 'per month, billed monthly')
-        : 'scoping required — talk to us';
+      scope.textContent = v > 0 ? v + ' systems' : 'To be scoped';
+      scopeNote.textContent = partnership
+        ? 'the whole count, improved continually — always after a proposal'
+        : 'a defined build, delivered then handed over — always after a proposal';
+      if (cta) cta.textContent = v > 0 ? 'Request a proposal' : 'Start a conversation';
       var pct = (v / Number(slider.max)) * 100;
       slider.style.setProperty('--fill', pct + '%');
       ticks.forEach(function (t) {
         t.classList.toggle('on', t.dataset.at === String(v));
       });
       var box = $('#est-summary', root);
-      if (box) box.textContent = v + ' systems · ' + (yearly ? 'yearly' : 'monthly');
+      if (box) box.textContent = (v > 0 ? v + ' systems' : 'scoped first') + (partnership ? ' · partnership' : ' · project');
     }
 
     slider.addEventListener('input', paint);
     $$('.seg button', root).forEach(function (b) {
       b.addEventListener('click', function () {
-        yearly = b.dataset.billing === 'yearly';
+        partnership = b.dataset.mode === 'partnership';
         $$('.seg button', root).forEach(function (o) {
           o.setAttribute('aria-pressed', String(o === b));
         });
@@ -182,7 +160,7 @@
   paint();
 })();
 
-/* ---------------- tablet journey: scroll drives the screens, the tilt and the cursor ---------------- */
+/* ---------------- tablet journey: scroll drives the screens and the tilt ---------------- */
 (function () {
   var section = document.getElementById('journey');
   if (!section) return;
@@ -190,7 +168,6 @@
   var steps = Array.prototype.slice.call(section.querySelectorAll('.jsteps li'));
   var tabs = Array.prototype.slice.call(section.querySelectorAll('.screen-nav .tab'));
   var tablet = section.querySelector('.tablet');
-  var cursor = section.querySelector('.cursor');
   var bar = section.querySelector('.jbar i');
   var current = -1;
   var mq = window.matchMedia('(max-width: 980px)');
@@ -205,24 +182,6 @@
     });
     steps.forEach(function (s, j) { s.setAttribute('aria-current', String(j === i)); });
     tabs.forEach(function (t, j) { t.setAttribute('aria-current', String(j === i)); });
-    placeCursor(i, true);
-  }
-
-  /* the black dot travels to the active tab and "taps" it, as if opening a page */
-  function placeCursor(i, tap) {
-    if (!cursor || !tabs.length) return;
-    var t = tabs[i], sc = section.querySelector('.screen');
-    if (!t || !sc) return;
-    var tr = t.getBoundingClientRect(), sr = sc.getBoundingClientRect();
-    cursor.style.left = (tr.left - sr.left + t.offsetWidth / 2) + 'px';
-    cursor.style.top = (tr.top - sr.top + t.offsetHeight / 2) + 'px';
-    cursor.classList.add('on');
-    if (tap) {
-      cursor.classList.remove('tap');
-      void cursor.offsetWidth;
-      cursor.classList.add('tap');
-      setTimeout(function () { cursor.classList.remove('tap'); }, 320);
-    }
   }
 
   function progress() {
@@ -258,11 +217,7 @@
   setStep(0);
   update();
 
-  /* narrowing the layout re-measures the cursor anchor */
-  if (window.ResizeObserver) {
-    new ResizeObserver(function () { if (current >= 0) placeCursor(current, false); })
-      .observe(section.querySelector('.screen'));
-  }
+  /* re-apply active state if the layout is resized */
 
   /* reduced motion / small screens: show every screen, stop pinning and tilt */
   function applyMode() {
