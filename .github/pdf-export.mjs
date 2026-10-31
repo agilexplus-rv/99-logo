@@ -32,6 +32,19 @@ for (const [slug, label, size] of DOCS) {
     await page.waitForTimeout(500);
     await page.emulateMedia({ media: 'print' });
     await page.waitForTimeout(250);
+    if (slug === 'business-card') {
+      const tall = await page.evaluate(() => {
+        const out = [];
+        document.querySelectorAll('body, body *').forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.height > 700 || r.width > 800) {
+            out.push(`${el.tagName}.${String(el.className || '').split(' ')[0]} h=${Math.round(r.height)} w=${Math.round(r.width)}`);
+          }
+        });
+        return out.slice(0, 14);
+      });
+      console.log('PRINT-DEBUG ' + JSON.stringify(tall));
+    }
     await page.pdf({
       path: `pdfs/${slug}.pdf`,
       printBackground: true,
