@@ -121,3 +121,30 @@ for (const [name, path, sel] of [['home', '/site/home', '#how'], ['services', '/
   await ctx.close();
 }
 await anc.close();
+
+// ---- collateral: does each A4 sheet have real gap above and below inside its card? ----
+const gapB = await chromium.launch();
+console.log('\n=== COLLATERAL GAP (letterhead = A4) ===');
+for (const label of ['Letterhead', 'Proposal', 'Quote', 'Invoice', 'Business card']) {
+  const ctx = await gapB.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  try {
+    await page.goto(BASE + '/collateral', { waitUntil: 'networkidle', timeout: 45000 });
+    await page.waitForTimeout(500);
+    await page.evaluate((lab) => {
+      const it = [...document.querySelectorAll('.citem')].find((b) => b.textContent.includes(lab));
+      if (it) it.click();
+    }, label);
+    await page.waitForTimeout(600);
+    const m = await page.evaluate(() => {
+      const panel = document.querySelector('.cpanel.active');
+      const doc = panel && panel.querySelector('.doc');
+      if (!panel || !doc) return null;
+      const p = panel.getBoundingClientRect(), d = doc.getBoundingClientRect();
+      return { above: Math.round(d.top - p.top), below: Math.round(p.bottom - d.bottom), dh: Math.round(d.height) };
+    });
+    console.log(`${label.padEnd(14)} gap above=${m ? m.above : '?'}px below=${m ? m.below : '?'}px docH=${m ? m.dh : '?'}px`);
+  } catch (e) { console.log(`${label} gap check failed`); }
+  await ctx.close();
+}
+await gapB.close();
