@@ -15,32 +15,25 @@ const PAGES = [
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390, height: 844 } };
 
 async function settle(page) {
-  // let fonts + IntersectionObserver reveals land
   await page.evaluate(() => document.fonts && document.fonts.ready);
-  await page.evaluate(async () => {
-    await new Promise((r) => {
-      let y = 0;
-      const step = () => {
-        y += window.innerHeight * 0.8;
-        window.scrollTo(0, y);
-        if (y < document.body.scrollHeight) setTimeout(step, 90); else { window.scrollTo(0, 0); setTimeout(r, 350); }
-      };
-      step();
-    });
-  });
-  await page.waitForTimeout(700);
-  // report reveal state so a broken observer is visible in CI, then force final state for the capture
-  const state = await page.evaluate(() => {
-    const all = document.querySelectorAll('.reveal');
-    const on = document.querySelectorAll('.reveal.in');
-    return { total: all.length, revealed: on.length };
-  });
-  console.log(`   reveals ${state.revealed}/${state.total}`);
-  await page.evaluate(() => {
-    document.querySelectorAll('.reveal').forEach((e) => e.classList.add('in'));
-    document.querySelectorAll('.acc details').forEach((d, i) => { if (i === 0) d.open = true; });
-  });
+  // Scroll like a person: real wheel events in small steps, with a frame between each,
+  // so IntersectionObserver actually evaluates at every position.
+  const steps = await page.evaluate(() =>
+    Math.min(40, Math.ceil(document.body.scrollHeight / window.innerHeight) + 2));
+  for (let i = 0; i < steps; i++) {
+    await page.mouse.wheel(0, 620);
+    await page.waitForTimeout(130);
+  }
   await page.waitForTimeout(400);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(500);
+
+  const state = await page.evaluate(() => ({
+    total: document.querySelectorAll('.reveal').length,
+    revealed: document.querySelectorAll('.reveal.in').length
+  }));
+  console.log(`   reveals ${state.revealed}/${state.total}`);
+  return state;
 }
 
 const browser = await chromium.launch();
@@ -56,8 +49,12 @@ for (const p of PAGES) {
 
   try {
     const res = await page.goto(BASE + p.path, { waitUntil: 'networkidle', timeout: 45000 });
-    await settle(page);
-    await page.screenshot({ path: `shots/${p.name}.png`, fullPage: !!p.full });
+    const state = await settle(page);
+    const shotPath = `shots/${p.name}.png`;
+    await page.screenshot({ path: shotPath, fullPage: !!p.full });
+    if (state.total && state.revealed < state.total) {
+      console.log(`   ! ${state.total - state.revealed} reveal(s) never fired — check for real`);
+    }
     console.log(`${p.name}  HTTP ${res && res.status()}  ${p.path}  errors=${errors.length}`);
     if (errors.length) errors.slice(0, 5).forEach((e) => console.log('   !', e.slice(0, 180)));
   } catch (err) {
