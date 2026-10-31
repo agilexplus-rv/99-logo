@@ -64,3 +64,36 @@ for (const r of rows) {
   });
 }
 console.log(`\nTOTAL CONTRAST VIOLATIONS: ${total}`);
+
+// ---- mobile responsiveness check: no horizontal overflow, hamburger present ----
+const mobile = await chromium.launch();
+console.log('\n=== MOBILE (390x844) ===');
+for (const [name, path] of PAGES) {
+  const ctx = await mobile.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const page = await ctx.newPage();
+  try {
+    await page.goto(BASE + path, { waitUntil: 'networkidle', timeout: 45000 });
+    await page.evaluate(() => document.querySelectorAll('.reveal').forEach((e) => e.classList.add('in')));
+    await page.waitForTimeout(350);
+    const m = await page.evaluate(() => {
+      const d = document.documentElement;
+      let widest = null, worst = 0;
+      document.querySelectorAll('body *').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.width > 0 && r.right > window.innerWidth + 2) {
+          if (r.right - window.innerWidth > worst) { worst = r.right - window.innerWidth; widest = el.className || el.tagName; }
+        }
+      });
+      const burger = document.getElementById('navtoggle');
+      return {
+        overflow: d.scrollWidth - window.innerWidth,
+        worstOverflow: Math.round(worst),
+        worstEl: String(widest).slice(0, 60),
+        burgerVisible: burger ? getComputedStyle(burger).display !== 'none' : false
+      };
+    });
+    console.log(`${name.padEnd(11)} overflow=${m.overflow}px  worst=${m.worstOverflow}px (${m.worstEl})  hamburger=${m.burgerVisible}`);
+  } catch (e) { console.log(`${name} mobile check failed`); }
+  await ctx.close();
+}
+await mobile.close();

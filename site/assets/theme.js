@@ -88,7 +88,7 @@
         '--sand': '#CFC6B4',
         '--slate': '#7F8489',
         '--accent': '#C9973F',
-        '--accent-ink': '#89692D',
+        '--accent-ink': '#88692D',
         '--accent-text': '#C9973F',
         '--on-accent': '#0C1013',
         '--muted-ink': '#6A6E73',
