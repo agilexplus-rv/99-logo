@@ -1,0 +1,21 @@
+
+=== a-closing-quote.svg  (490 bytes)
+viewBox 0 0 256 256 · aspect 1.0 (square)
+colours 1: #000000 · gradients 0 · anchors 16
+margins L15.8 R15.8 T40.6 B41.2 · bbox fill 0.597
+✔ no issues found
+production-readiness score: 100/100 (heuristic)
+
+=== b-sign-off.svg  (496 bytes)
+viewBox 0 0 256 256 · aspect 1.0 (square)
+colours 1: #000000 · gradients 0 · anchors 25
+margins L28.0 R28.0 T46.0 B40.0 · bbox fill 0.519
+✔ no issues found
+production-readiness score: 100/100 (heuristic)
+
+=== c-turnkey.svg  (554 bytes)
+viewBox 0 0 256 256 · aspect 1.0 (square)
+colours 1: #000000 · gradients 0 · anchors 32
+margins L18.0 R18.0 T42.0 B44.0 · bbox fill 0.571
+✔ no issues found
+production-readiness score: 100/100 (heuristic)
