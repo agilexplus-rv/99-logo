@@ -140,7 +140,7 @@ def main():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>99 — logo concepts</title>
+<title>Logo concepts — 99</title>
 <style>
   :root {{
     --ink:#120C0A; --ember:#D8440B; --deep:#7A2107; --sand:#E8C9A8; --paper:#F7F2EB; --slate:#8C837D;

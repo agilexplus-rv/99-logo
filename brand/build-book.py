@@ -136,7 +136,7 @@ def main():
 <html lang="en" data-package="ember">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>99 — brand book</title>
+<title>Brand book — 99</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72;700&family=Space+Grotesk:wght@400;500;700&display=swap">
 <script src="assets/theme.js?v={ASSET_V}"></script>

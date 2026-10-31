@@ -458,9 +458,9 @@ def stamp_collateral():
     p.write_text(t)
 
 stamp_collateral()
-(SITE / "site" / "home.html").write_text(page("99 — One to ninety-nine", HOME, how="#how",
+(SITE / "site" / "home.html").write_text(page("99 — Software, hosting and continual improvement", HOME, how="#how",
     extra_css=f'<link rel="stylesheet" href="../assets/mock.css?v={ASSET_V}">',
     extra_js=f'<script src="../assets/mock.js?v={ASSET_V}"></script>'))
-(SITE / "site" / "services.html").write_text(page("99 — Services", SERVICES, svc='aria-current="page"'))
-(SITE / "site" / "about.html").write_text(page("99 — About", ABOUT, about='aria-current="page"'))
+(SITE / "site" / "services.html").write_text(page("Services — 99", SERVICES, svc='aria-current="page"'))
+(SITE / "site" / "about.html").write_text(page("About — 99", ABOUT, about='aria-current="page"'))
 print("wrote site/site/{home,services,about}.html")
