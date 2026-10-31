@@ -12,6 +12,8 @@ const PAGES = [
   { name: '05-home-mobile', path: '/site/home', full: true, w: 390, h: 844 },
   { name: '06-home-viewport', path: '/site/home', full: false },
   { name: '07-book-viewport', path: '/', full: false },
+  { name: '08-journey-step2', path: '/site/home', full: false, anchor: '#journey', frac: 0.34 },
+  { name: '09-journey-step4', path: '/site/home', full: false, anchor: '#journey', frac: 0.78 },
 ];
 
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390, height: 844 } };
@@ -57,7 +59,23 @@ for (const p of PAGES) {
 
   try {
     const res = await page.goto(BASE + p.path, { waitUntil: 'networkidle', timeout: 45000 });
-    const state = await settle(page);
+    let state = { total: 0, revealed: 0 };
+    if (p.anchor) {
+      // jump straight into a scroll-driven section so the pinned state is captured
+      await page.evaluate(([sel, frac]) => {
+        document.documentElement.style.scrollBehavior = 'auto';
+        const el = document.querySelector(sel);
+        if (!el) return;
+        const top = el.getBoundingClientRect().top + window.scrollY;
+        const span = el.offsetHeight - window.innerHeight;
+        window.scrollTo(0, top + Math.max(0, span) * frac);
+      }, [p.anchor, p.frac]);
+      await page.waitForTimeout(900);
+      await page.evaluate(() => document.querySelectorAll('.reveal').forEach((e) => e.classList.add('in')));
+      await page.waitForTimeout(400);
+    } else {
+      state = await settle(page);
+    }
     const shotPath = `shots/${p.name}.png`;
     await page.screenshot({ path: shotPath, fullPage: !!p.full });
     if (state.total && state.revealed < state.total) {

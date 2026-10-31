@@ -253,3 +253,130 @@ html.js .reveal.in { opacity: 1; transform: none; }
   .acc .body { padding-left: 0; }
   .hero-ref::before { animation: none; }
 }
+
+/* ============================================================
+   JOURNEY — sticky tablet that advances as you scroll
+   (the tablet-frame device from the reference video, now driving content)
+   ============================================================ */
+.journey {
+  position: relative; height: 360vh;
+  background:
+    radial-gradient(60% 50% at 78% 22%, rgba(238,90,30,.14), transparent 70%),
+    radial-gradient(50% 40% at 6% 80%, rgba(201,56,9,.10), transparent 70%),
+    var(--ref-panel);
+}
+.journey .sticky {
+  position: sticky; top: 0; height: 100vh;
+  display: grid; grid-template-columns: minmax(230px, 300px) 1fr;
+  gap: 58px; align-items: center; max-width: 1180px; margin: 0 auto; padding: 0 24px;
+}
+.jsteps { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 2px; }
+.jsteps li {
+  display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: baseline;
+  padding: 11px 0; border-bottom: 1px solid var(--ref-hair);
+  opacity: .38; transition: opacity .35s ease, border-color .35s ease;
+}
+.jsteps li[aria-current="true"] { opacity: 1; border-bottom-color: rgba(238,90,30,.5); }
+.jsteps .k { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .1em; color: var(--ref-orange-1); }
+.jsteps h4 { margin: 0 0 3px; font-size: 1rem; }
+.jsteps p { margin: 0; font-size: .8rem; color: var(--ref-muted-dark); }
+
+.jbar { height: 2px; margin-top: 20px; border-radius: 2px; background: var(--ref-hair); overflow: hidden; }
+.jbar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--ref-orange-2), var(--ref-orange-1)); }
+
+/* the device */
+.tablet {
+  position: relative; border-radius: 30px; padding: 20px;
+  background: linear-gradient(158deg, #191310, #0A0605 62%);
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow: 0 70px 130px -55px #000, 0 0 0 1px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.09);
+}
+.tablet::before {
+  content: ""; position: absolute; top: 9px; left: 50%; transform: translateX(-50%);
+  width: 6px; height: 6px; border-radius: 50%; background: #2C2521;
+}
+.screen {
+  position: relative; border-radius: 15px; overflow: hidden;
+  background: var(--ref-panel-2); aspect-ratio: 4 / 3; isolation: isolate;
+}
+.screen::after {  /* screen glare */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(118deg, rgba(255,255,255,.07), transparent 42%);
+}
+
+/* screens */
+.jscreen {
+  position: absolute; inset: 0; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px;
+  opacity: 1; transform: none; background: var(--ref-panel-2);
+}
+html.js .jscreen {
+  opacity: 0; transform: translateY(14px) scale(.995);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.2,.7,.3,1);
+  pointer-events: none;
+}
+html.js .jscreen.active { opacity: 1; transform: none; pointer-events: auto; }
+
+.jscreen .bar-top {
+  display: flex; align-items: center; gap: 8px; justify-content: space-between;
+  font-family: var(--font-mono); font-size: .6rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ref-muted-dark);
+  padding-bottom: 10px; border-bottom: 1px solid var(--ref-hair);
+}
+.jscreen .bar-top b { color: var(--ref-cream); font-weight: 600; }
+.jscreen .dots3 { display: flex; gap: 4px; }
+.jscreen .dots3 i { width: 5px; height: 5px; border-radius: 50%; background: #3A302B; }
+.jscreen h5 {
+  font-family: var(--font-display); font-size: 1.15rem; letter-spacing: -.01em;
+  margin: 2px 0 0; font-weight: var(--display-weight); color: var(--ref-cream);
+}
+.jscreen .sub { font-size: .72rem; color: var(--ref-muted-dark); margin: 0; }
+.jrows { display: grid; gap: 7px; margin-top: 2px; }
+.jrow {
+  display: grid; grid-template-columns: 14px 1fr auto; gap: 9px; align-items: center;
+  padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.05); font-size: .76rem; color: var(--ref-cream);
+}
+.jrow .tick { color: var(--ref-orange-1); font-size: .7rem; }
+.jrow .meta { font-family: var(--font-mono); font-size: .6rem; color: var(--ref-muted-dark); letter-spacing: .06em; }
+.jrow.dim { opacity: .62; }
+.jrow.solid { background: var(--ref-orange-2); border-color: transparent; color: #fff; }
+.jrow.solid .meta { color: rgba(255,255,255,.8); }
+
+.jbars { display: flex; align-items: flex-end; gap: 6px; height: 74px; margin-top: 10px; }
+.jbars i { flex: 1; border-radius: 3px 3px 0 0; background: linear-gradient(180deg, var(--ref-orange-1), var(--ref-orange-2));
+  transform-origin: bottom; }
+html.js .jscreen .jbars i { transform: scaleY(.15); transition: transform .7s cubic-bezier(.2,.7,.3,1); }
+html.js .jscreen.active .jbars i { transform: scaleY(1); }
+.jscreen .foot {
+  margin-top: auto; display: flex; justify-content: space-between; align-items: baseline;
+  font-family: var(--font-mono); font-size: .62rem; letter-spacing: .06em; color: var(--ref-muted-dark);
+}
+.jscreen .foot b { color: var(--ref-orange-1); font-size: .95rem; }
+
+/* graceful degradation: no JS or reduced motion -> no sticky trap, screens in flow */
+html:not(.js) .journey, .no-journey .journey { height: auto; }
+html:not(.js) .journey .sticky, .no-journey .journey .sticky { position: static; height: auto; padding: 60px 24px; }
+html:not(.js) .screen, .no-journey .screen { aspect-ratio: auto; }
+html:not(.js) .jscreen, .no-journey .jscreen { position: static; }
+@media (prefers-reduced-motion: reduce) {
+  html.js .jscreen { opacity: 1; transform: none; transition: none; }
+  html.js .jscreen:not(.active) { display: none; }
+}
+@media (max-width: 980px) {
+  .journey { height: auto; }
+  .journey .sticky { position: static; height: auto; grid-template-columns: 1fr; padding: 56px 24px; gap: 28px; }
+  .screen { aspect-ratio: auto; }
+  .jscreen { position: static; }
+  html.js .jscreen:not(.active) { display: none; }
+  .jsteps { grid-template-columns: 1fr 1fr; display: grid; }
+}
+
+/* hero refinements */
+.hero-ref h1 .t2 { display: block; }
+.hero-stats { display: flex; gap: 30px; margin: 34px 0 0; padding: 18px 0 0;
+  border-top: 1px solid var(--ref-hair); flex-wrap: wrap; }
+.hero-stats div { display: grid; gap: 2px; }
+.hero-stats dt { font-family: var(--font-mono); font-size: .58rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ref-muted-dark); }
+.hero-stats dd { margin: 0; font-family: var(--font-display); font-size: 1.3rem;
+  font-weight: var(--display-weight); letter-spacing: var(--display-track); color: var(--ref-cream); }

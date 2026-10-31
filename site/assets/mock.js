@@ -181,3 +181,64 @@
   });
   paint();
 })();
+
+/* ---------------- tablet journey: scroll drives the screens ---------------- */
+(function () {
+  var section = document.getElementById('journey');
+  if (!section) return;
+  var screens = Array.prototype.slice.call(section.querySelectorAll('.jscreen'));
+  var steps = Array.prototype.slice.call(section.querySelectorAll('.jsteps li'));
+  var bar = section.querySelector('.jbar i');
+  var current = -1;
+  var mq = window.matchMedia('(max-width: 980px)');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function setStep(i) {
+    if (i === current) return;
+    current = i;
+    screens.forEach(function (s, j) {
+      s.classList.toggle('active', j === i);
+      s.setAttribute('aria-hidden', String(j !== i));
+    });
+    steps.forEach(function (s, j) { s.setAttribute('aria-current', String(j === i)); });
+  }
+
+  function progress() {
+    if (mq.matches || reduced.matches) return null;
+    var rect = section.getBoundingClientRect();
+    var total = rect.height - window.innerHeight;
+    if (total <= 0) return null;
+    return Math.max(0, Math.min(1, -rect.top / total));
+  }
+
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var p = progress();
+    if (p === null) { setStep(0); return; }
+    if (bar) bar.style.width = (p * 100).toFixed(1) + '%';
+    var i = Math.min(screens.length - 1, Math.floor(p * screens.length * 0.999));
+    setStep(i);
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  setStep(0);
+  update();
+
+  /* reduced motion / small screens: show every screen, stop pinning */
+  function applyMode() {
+    if (mq.matches || reduced.matches) {
+      screens.forEach(function (s) { s.setAttribute('aria-hidden', 'false'); });
+      document.body.classList.add('no-journey');
+    } else {
+      document.body.classList.remove('no-journey');
+    }
+    onScroll();
+  }
+  if (mq.addEventListener) { mq.addEventListener('change', applyMode); reduced.addEventListener('change', applyMode); }
+  applyMode();
+})();

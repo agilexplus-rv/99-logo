@@ -83,13 +83,19 @@ HOME = """
   <section class="hero-ref"><div class="wrap"><div class="inner">
     <div class="reveal">
       <p class="micro">Software · Hosting · Maintenance · Enhancement</p>
-      <h1 class="tone">One to <span class="t2">ninety-nine.</span></h1>
+      <h1 class="tone">One to ninety-nine.<span class="t2">We start at one.</span></h1>
       <p class="sub">Scoping, software, hosting, maintenance and enhancement under one accountable name — the same
       small senior team from the first conversation to the last number.</p>
       <div class="actions">
         <a class="btn btn-accent" href="about#contact">Start a conversation</a>
-        <a class="btn btn-ghost" href="#estimator">Estimate a retainer</a>
+        <a class="btn btn-ghost" href="#journey">See the whole count</a>
       </div>
+      <dl class="hero-stats">
+        <div><dt>Stages</dt><dd>5</dd></div>
+        <div><dt>Handovers</dt><dd>0</dd></div>
+        <div><dt>Monitored</dt><dd>24/7</dd></div>
+        <div><dt>Accountable name</dt><dd>One</dd></div>
+      </dl>
     </div>
     <div class="reveal orb">
       <div class="card">
@@ -128,6 +134,104 @@ HOME = """
         <p>When the business changes shape, the system should too. The next count starts here.</p></article>
     </div>
   </div></section>
+
+  <section class="journey" id="journey">
+    <div class="sticky">
+      <div>
+        <p class="micro">The whole count</p>
+        <h2 class="tone" style="font-size:clamp(1.5rem,2.4vw,2rem)">One screen,<span class="t2">five stages.</span></h2>
+        <ol class="jsteps">
+          <li aria-current="true"><span class="k">01</span><div><h4>Scoping</h4>
+            <p>Definition of done, written down.</p></div></li>
+          <li><span class="k">02</span><div><h4>Software</h4>
+            <p>Built by the people who scoped it.</p></div></li>
+          <li><span class="k">03</span><div><h4>Hosting</h4>
+            <p>Deploys, backups, alerting.</p></div></li>
+          <li><span class="k">04</span><div><h4>Maintenance</h4>
+            <p>Patches on a calendar, not a panic.</p></div></li>
+          <li><span class="k">05</span><div><h4>Enhancement</h4>
+            <p>The next count begins here.</p></div></li>
+        </ol>
+        <div class="jbar"><i></i></div>
+      </div>
+
+      <div class="tablet">
+        <div class="screen" role="group" aria-label="The five stages, shown in the product">
+
+          <div class="jscreen" data-step="0">
+            <div class="bar-top"><span><b>99</b> · scoping</span><span class="dots3"><i></i><i></i><i></i></span></div>
+            <h5>Definition of done</h5>
+            <p class="sub">Signed off before a line of code</p>
+            <div class="jrows">
+              <div class="jrow"><span class="tick">✓</span><span>Process mapped with the people doing the work</span><span class="meta">WK 1</span></div>
+              <div class="jrow"><span class="tick">✓</span><span>Success defined in numbers</span><span class="meta">WK 1</span></div>
+              <div class="jrow"><span class="tick">✓</span><span>Cost range and go / no-go</span><span class="meta">WK 2</span></div>
+              <div class="jrow dim"><span class="tick">·</span><span>Architecture sketch</span><span class="meta">NEXT</span></div>
+            </div>
+            <div class="foot"><span>SCOPE</span><b>Locked</b></div>
+          </div>
+
+          <div class="jscreen" data-step="1">
+            <div class="bar-top"><span><b>99</b> · build</span><span class="dots3"><i></i><i></i><i></i></span></div>
+            <h5>Pipeline</h5>
+            <p class="sub">Same team that wrote the definition of done</p>
+            <div class="jrows">
+              <div class="jrow"><span class="tick">✓</span><span>Inventory service</span><span class="meta">MERGED</span></div>
+              <div class="jrow solid"><span class="tick">›</span><span>Quoting module</span><span class="meta">BUILDING</span></div>
+              <div class="jrow"><span class="tick">✓</span><span>ERP integration</span><span class="meta">MERGED</span></div>
+              <div class="jrow dim"><span class="tick">·</span><span>Reporting</span><span class="meta">QUEUED</span></div>
+            </div>
+            <div class="foot"><span>TESTS</span><b>412 passing</b></div>
+          </div>
+
+          <div class="jscreen" data-step="2">
+            <div class="bar-top"><span><b>99</b> · hosting</span><span class="dots3"><i></i><i></i><i></i></span></div>
+            <h5>Uptime</h5>
+            <p class="sub">What it looks like on a quiet month</p>
+            <div class="jbars">
+              <i style="height:78%"></i><i style="height:86%"></i><i style="height:71%"></i>
+              <i style="height:92%"></i><i style="height:64%"></i><i style="height:88%"></i>
+              <i style="height:96%"></i><i style="height:82%"></i><i style="height:90%"></i>
+            </div>
+            <div class="jrows">
+              <div class="jrow"><span class="tick">✓</span><span>Backup restored in a drill</span><span class="meta">VERIFIED</span></div>
+              <div class="jrow"><span class="tick">✓</span><span>Certificates auto-renewing</span><span class="meta">OK</span></div>
+            </div>
+            <div class="foot"><span>90-DAY UPTIME</span><b>99.98%</b></div>
+          </div>
+
+          <div class="jscreen" data-step="3">
+            <div class="bar-top"><span><b>99</b> · maintenance</span><span class="dots3"><i></i><i></i><i></i></span></div>
+            <h5>Calendar</h5>
+            <p class="sub">Every dependency has an end-of-life date</p>
+            <div class="jrows">
+              <div class="jrow"><span class="tick">✓</span><span>Framework 4.2 → 4.3</span><span class="meta">APR</span></div>
+              <div class="jrow"><span class="tick">✓</span><span>Database minor upgrade</span><span class="meta">MAY</span></div>
+              <div class="jrow solid"><span class="tick">›</span><span>Runtime 18 → 20</span><span class="meta">JUN</span></div>
+              <div class="jrow dim"><span class="tick">·</span><span>Object storage migration</span><span class="meta">SEP</span></div>
+            </div>
+            <div class="foot"><span>OPEN RISK</span><b>1 scheduled</b></div>
+          </div>
+
+          <div class="jscreen" data-step="4">
+            <div class="bar-top"><span><b>99</b> · enhancement</span><span class="dots3"><i></i><i></i><i></i></span></div>
+            <h5>Next count</h5>
+            <p class="sub">Enhancement time every month, scoped like anything else</p>
+            <div class="jbars">
+              <i style="height:38%"></i><i style="height:46%"></i><i style="height:52%"></i>
+              <i style="height:61%"></i><i style="height:58%"></i><i style="height:73%"></i>
+              <i style="height:81%"></i><i style="height:88%"></i><i style="height:97%"></i>
+            </div>
+            <div class="jrows">
+              <div class="jrow"><span class="tick">✓</span><span>Quote turnaround: 2 days → 40 min</span><span class="meta">LIVE</span></div>
+            </div>
+            <div class="foot"><span>HOURS RETURNED / MO</span><b>68</b></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="cream on-cream"><div class="wrap">
     <div class="reveal" style="max-width:60ch;margin-bottom:34px">
