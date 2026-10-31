@@ -25,7 +25,7 @@
 .on-cream .tone .t2 { color: var(--ref-muted-light); }
 
 /* ---------- cream sections ---------- */
-.cream { background: var(--ref-cream); color: var(--ref-ink); }
+.cream { background: #F7F2EB; color: #120301; }
 .cream .micro { color: var(--accent-ink); }
 .cream p { color: #4A403B; }
 .cream .dim { color: var(--ref-muted-light); }

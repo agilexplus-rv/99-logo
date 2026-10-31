@@ -280,6 +280,9 @@
       '.ticks{color:#5E544E !important}' +
       '.plan .price small,.plan li{color:var(--slate) !important}' +
       '.metrics span{color:#756C67 !important}' +
+      '.doc{background:#FFFFFF !important;color:#120C0A !important}' +
+      '.doc .mut,.doc .brand .sub,.doc .mono,.doc .row,.doc .run,.doc td,.doc th,.doc .sig .contact,.doc .sig .legal{color:#756C66 !important}' +
+      '.doc .nm,.doc h2,.doc .tot,.doc td,.doc .avatar+*{color:#120C0A !important}' +
       '.doc .mut,.doc .brand .sub,.doc .mono.mut,.doc .row{color:var(--muted-ink) !important}' +
       '.sig .contact,.sig .legal{color:var(--muted-ink) !important}';
   }
