@@ -12,13 +12,7 @@ from pathlib import Path
 SITE = Path(__file__).resolve().parent.parent / "site"
 (SITE / "site").mkdir(parents=True, exist_ok=True)
 
-LOGO = ('<svg viewBox="0 0 256 256" aria-hidden="true"><g fill="currentColor" '
-        'transform="translate(128 126) scale(1.22) translate(-128 -126)">'
-        '<path d="M78 56a42 42 0 1 1 0 84a42 42 0 1 1 0 -84ZM120 98C120 150.5 109.5 179.9 59.1 198.8'
-        'L51.75 186.07C86.4 168.56 99 148.4 97.93 136.22ZM178 56a42 42 0 1 1 0 84a42 42 0 1 1 0 -84'
-        'ZM220 98C220 150.5 209.5 179.9 159.1 198.8L151.75 186.07C186.4 168.56 199 148.4 197.93 136.22Z"/>'
-        '</g></svg>')
-
+LOGO = '<span data-logo-slot aria-hidden="true"></span>'
 NAV = f"""<header class="nav"><div class="wrap">
   <a class="logo" href="home" aria-label="99 — home" style="color:var(--accent)">{LOGO}
   </a>

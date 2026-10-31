@@ -14,6 +14,12 @@ const PAGES = [
   { name: '07-book-viewport', path: '/', full: false },
   { name: '08-journey-step2', path: '/site/home', full: false, anchor: '#journey', frac: 0.34 },
   { name: '09-journey-step4', path: '/site/home', full: false, anchor: '#journey', frac: 0.78 },
+  { name: '10-flow', flow: [
+      { path: '/', click: '[data-pkg="clay"]' },
+      { click: '[data-logo="the-seal"]' },
+      { path: '/site/home', shot: 'home' },
+      { path: '/collateral', shot: 'collateral' }
+    ] },
 ];
 
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390, height: 844 } };
@@ -58,6 +64,20 @@ for (const p of PAGES) {
   page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
 
   try {
+    if (p.flow) {
+      for (const step of p.flow) {
+        if (step.path) {
+          await page.goto(BASE + step.path, { waitUntil: 'networkidle', timeout: 45000 });
+          await page.evaluate(() => document.fonts && document.fonts.ready);
+        }
+        if (step.click) { await page.click(step.click); await page.waitForTimeout(800); }
+        if (step.shot) {
+          await page.screenshot({ path: `shots/${p.name}-${step.shot}.png`, fullPage: false });
+        }
+      }
+      await ctx.close();
+      continue;
+    }
     const res = await page.goto(BASE + p.path, { waitUntil: 'networkidle', timeout: 45000 });
     let state = { total: 0, revealed: 0 };
     if (p.anchor) {

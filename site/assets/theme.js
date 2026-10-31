@@ -132,17 +132,47 @@
     return apply(key);
   }
 
+  /* ---------- logo catalogue: one mark per direction (currentColor, so it themes) ---------- */
+  var LOGOS = {
+    'the-sign': '<svg viewBox="0 0 256 256" aria-hidden="true"><g fill="currentColor" transform="translate(128 126) scale(1.22) translate(-128 -126)"><path d="M78 56a42 42 0 1 1 0 84a42 42 0 1 1 0 -84ZM120 98C120 150.5 109.5 179.9 59.1 198.8L51.75 186.07C86.4 168.56 99 148.4 97.93 136.22ZM178 56a42 42 0 1 1 0 84a42 42 0 1 1 0 -84ZM220 98C220 150.5 209.5 179.9 159.1 198.8L151.75 186.07C186.4 168.56 199 148.4 197.93 136.22Z"/></g></svg>',
+    'the-wordmark': '<svg viewBox="0 0 344 256" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" transform="translate(28 15) scale(1.3)" d="M52 8 C23 8 4 28 4 56 C4 84 22 102 48 102 C60 102 70 98 77 90 C73 119 55 136 24 144 L32 166 C79 154 104 120 104 65 V57 C104 27 84 8 52 8 Z M52 31 C36 31 27 41 27 56 C27 71 37 80 52 80 C68 80 79 70 79 55 C79 40 69 31 52 31 Z"/><path fill="currentColor" fill-rule="evenodd" transform="translate(181 15) scale(1.3)" d="M52 8 C23 8 4 28 4 56 C4 84 22 102 48 102 C60 102 70 98 77 90 C73 119 55 136 24 144 L32 166 C79 154 104 120 104 65 V57 C104 27 84 8 52 8 Z M52 31 C36 31 27 41 27 56 C27 71 37 80 52 80 C68 80 79 70 79 55 C79 40 69 31 52 31 Z"/></svg>',
+    'the-sign-off': '<svg viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M28 92a46 46 0 1 0 92 0a46 46 0 1 0 -92 0Z M52 92a22 22 0 1 0 44 0a22 22 0 1 0 -44 0Z"/><path fill="currentColor" d="M96 92h24v80h-24Z"/><path fill="currentColor" fill-rule="evenodd" d="M136 92a46 46 0 1 0 92 0a46 46 0 1 0 -92 0Z M160 92a22 22 0 1 0 44 0a22 22 0 1 0 -44 0Z"/><path fill="currentColor" d="M204 92H228V192A24 24 0 0 1 204 216H28V192H204Z"/></svg>',
+    'the-seal': '<svg viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M 52 24 H 204 L 232 52 V 204 L 204 232 H 52 L 24 204 V 52 Z M 56 52 H 104 L 116 64 V 192 L 104 204 H 56 L 80 180 H 92 V 136 H 56 L 44 124 V 64 Z M 68 76 H 92 V 112 H 68 Z M 152 52 H 200 L 212 64 V 192 L 200 204 H 152 L 176 180 H 188 V 136 H 152 L 140 124 V 64 Z M 164 76 H 188 V 112 H 164 Z"/></svg>'
+  };
+  var LOGO_ORDER = ['the-sign', 'the-wordmark', 'the-sign-off', 'the-seal'];
+
+  function getLogo() {
+    try { var k = global.localStorage.getItem('99-logo'); return k in LOGOS ? k : 'the-sign'; }
+    catch (e) { return 'the-sign'; }
+  }
+  function setLogo(key) {
+    try { global.localStorage.setItem('99-logo', key in LOGOS ? key : 'the-sign'); } catch (e) {}
+  }
+  function logoMark(key) { return LOGOS[key in LOGOS ? key : getLogo()]; }
+  function injectLogos(doc) {
+    doc = doc || global.document;
+    var key = getLogo();
+    Array.prototype.forEach.call(doc.querySelectorAll('[data-logo-slot]'), function (el) {
+      el.innerHTML = logoMark(key);
+      el.setAttribute('data-logo', key);
+    });
+  }
+
   function boot() {
     apply(current());
+    injectLogos();
     // keep sibling mock-site tabs in step
     global.addEventListener('storage', function (e) {
       if (e.key === '99-package') apply(e.newValue || 'ember');
+      if (e.key === '99-logo') injectLogos();
     });
   }
 
   global.Brand99 = {
     PACKAGES: PACKAGES, ORDER: ORDER,
+    LOGOS: LOGOS, LOGO_ORDER: LOGO_ORDER,
     apply: apply, set: set, current: current, boot: boot,
+    getLogo: getLogo, setLogo: setLogo, logoMark: logoMark, injectLogos: injectLogos,
     contrast: contrast,
     ratios: function (key) {
       var t = (PACKAGES[key] || PACKAGES.ember).tokens;

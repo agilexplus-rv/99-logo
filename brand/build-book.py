@@ -170,16 +170,16 @@ def main():
       <p><strong>99 is the last number you need to count to.</strong> It is the point where a system stops being a
       project and starts being infrastructure — and it is the point where most firms leave. We are not arriving there.
       We were there at one, at forty, at ninety.</p>
-      <p>One to ninety-nine: scoping, software, hosting, maintenance, enhancement. A small senior team, so nothing is
+      <p>One to ninety-nine: scoping, software, hosting, improvement and growth. A small senior team, so nothing is
       thrown over a wall — there is no wall. One accountable name for the whole count.</p>
-      <p>And when a count ends, the next one starts. Enhancements are not an upsell; they are the next count.</p>
+      <p>And when a count ends, the next one starts. Continual improvement is not an upsell; it is the next count.</p>
       <p class="small">We never claim 100. Not because we are incomplete, but because there is always one more count
       worth starting.</p>
     </div>
     <div>
       <blockquote><p>For companies that want to digitalise how they actually work — and stay ahead of the ones that
-      won't — 99 is a small senior team that owns the whole count: scoping, software, hosting, maintenance and
-      enhancement, under one accountable name.</p></blockquote>
+      won't — 99 is a small senior team that builds solutions right and improves them continually: scoping,
+      software, hosting, improvement and growth, under one accountable name.</p></blockquote>
       <div class="pillars-stack" style="margin-top:26px">
         <div class="pillar"><h3>Engineered</h3><p>Exactness is the argument. Drawn geometry, real numbers,
         nothing decorative.</p></div>
@@ -238,7 +238,7 @@ def main():
     <div class="row"><span class="d2">99 is where you stop counting.</span><span>display / 1.7rem</span></div>
     <div class="row"><span class="b1">We will tell you honestly whether it is a scoping job, a build, or something a
     spreadsheet already solved.</span><span>body / 1rem</span></div>
-    <div class="row"><span class="m1">Scoping · Software · Hosting · Maintenance · Enhancement</span>
+    <div class="row"><span class="m1">Scoping · Software · Hosting · Improvement · Growth</span>
       <span>mono / 0.76rem / 0.16em</span></div>
   </div>
 </div></section>
@@ -287,8 +287,19 @@ def main():
   performance statistics. The forms on those pages are demos.</p>
 </div></section>
 
+<section id="collateral"><div class="wrap">
+  <p class="eyebrow">07 — Collateral &amp; documents</p>
+  <h2>One identity,<br><span class="dim">on every sheet of paper.</span></h2>
+  <p class="lede" style="margin-top:16px">The client's chosen logo and package drive these too: a mock business card,
+  email signature, letterhead, proposal, quote and invoice — all live, all re-skinnable.</p>
+  <div class="frame-wrap" style="margin-top:24px">
+    <div class="bar"><span>collateral.html</span><a href="collateral" target="_blank" rel="noopener">open full page &rarr;</a></div>
+    <iframe data-site="collateral" class="tall" title="99 — collateral, live" loading="lazy"></iframe>
+  </div>
+</div></section>
+
 <section id="domain"><div class="wrap">
-  <p class="eyebrow">07 — Domain</p>
+  <p class="eyebrow">08 — Domain</p>
   <h2>The name is short. The domains are not.</h2>
   <p class="lede" style="margin-top:16px">Checked against RDAP: {nfree} of the candidates are unregistered and
   {ntaken} are taken. Availability moves hourly — confirm at a registrar before you rely on any of these.</p>
@@ -303,7 +314,7 @@ def main():
 </div></section>
 
 <section id="submit"><div class="wrap">
-  <p class="eyebrow">08 — Your choice</p>
+  <p class="eyebrow">09 — Your choice</p>
   <h2>Send it back.</h2>
   <p class="lede" style="margin-top:16px">Your logo and package selections are already carried into this form. Add
   your name and email and submit — it goes straight to the 99 team at rudie@agilexplus.com.</p>

@@ -73,6 +73,7 @@
   /* ---------------- logos ---------------- */
   function setLogo(id) {
     state.logo = id;
+    try { window.Brand99.setLogo(id); window.Brand99.injectLogos(); } catch (e) {}
     $all('.logo-card').forEach(function (el) {
       el.setAttribute('aria-pressed', String(el.dataset.logo === id));
     });

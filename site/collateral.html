@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" data-package="ember">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>99 — collateral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Space+Grotesk:wght@400;500;700&display=swap">
+<script src="assets/theme.js"></script>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--font-body);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  header{padding:44px 0 8px}
+  .eyebrow{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+  h1{font-family:var(--font-display);font-weight:var(--display-weight);letter-spacing:var(--display-track);font-size:clamp(2rem,4.5vw,3rem);margin:0;line-height:1.04}
+  h1 .dim{color:var(--slate)}
+  .lede{color:var(--sand);max-width:62ch;margin:14px 0 0}
+  .bar{position:sticky;top:0;z-index:20;display:flex;gap:18px;align-items:center;flex-wrap:wrap;
+    padding:14px 0;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--ink) 88%, transparent);backdrop-filter:blur(10px)}
+  .group{display:flex;gap:6px;align-items:center}
+  .group span{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-right:4px}
+  button{border:1px solid var(--line);background:transparent;color:var(--sand);border-radius:99px;
+    padding:7px 12px;font-size:.8rem;font-family:var(--font-body);cursor:pointer}
+  button[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  main{padding:30px 0 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:28px}
+
+  /* ---------- the paper sheets ---------- */
+  .sheet{background:var(--paper);color:var(--ink);border-radius:14px;box-shadow:0 30px 70px -40px #000;
+    overflow:hidden;display:flex;flex-direction:column}
+  .sheet .tag{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--slate);padding:12px 22px;border-bottom:1px solid rgba(0,0,0,.08)}
+  .sheet .body{padding:22px;flex:1}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand [data-logo-slot]{color:var(--accent);display:grid;place-items:center;width:44px;height:34px}
+  .brand [data-logo-slot] svg{width:44px;height:34px;display:block}
+  .brand .nm{font-family:var(--font-display);font-weight:var(--display-weight);letter-spacing:var(--display-track);font-size:1.25rem}
+  .brand .sub{display:block;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--slate)}
+  .mono{font-family:var(--font-mono)}
+  .row{display:flex;justify-content:space-between;gap:16px;font-size:.86rem}
+  .row + .row{margin-top:6px}
+  .mut{color:var(--slate)}
+  .tot{font-family:var(--font-display);font-weight:var(--display-weight);letter-spacing:var(--display-track);font-size:1.5rem}
+  table{width:100%;border-collapse:collapse;font-size:.84rem;margin-top:8px}
+  th,td{text-align:left;padding:7px 8px 7px 0;border-bottom:1px solid rgba(0,0,0,.1)}
+  th{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+  td.num,th.num{text-align:right;font-family:var(--font-mono);font-size:.76rem}
+  .divider{border-top:2px solid var(--ink);margin-top:10px;padding-top:8px}
+  .stamp{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink,#CB400A);
+    border:1px dashed var(--accent);border-radius:4px;padding:3px 7px;display:inline-block}
+  .sig{display:flex;gap:40px;margin-top:26px;align-items:flex-end}
+  .sig .line{border-top:1px solid var(--ink);width:150px;padding-top:4px}
+  .sig .line span{display:block;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+
+  /* signature email (dark) */
+  .sheet.dark{background:var(--ink);color:var(--paper)}
+  .sheet.dark .tag{border-bottom:1px solid var(--line)}
+  .sheet.dark .mut{color:var(--slate)}
+  .sigmail{display:flex;gap:16px;align-items:center}
+  .sigmail [data-logo-slot]{color:var(--accent)}
+  .sigmail [data-logo-slot] svg{width:44px;height:34px;display:block}
+  .sigmail .who{font-size:.92rem}
+  .sigmail .mut{font-size:.8rem}
+  .sigmail .rule{height:34px;width:1px;background:var(--line)}
+  .sigmail .cell{display:flex;flex-direction:column;gap:1px;font-size:.8rem}
+
+  .watermark{position:relative}
+  .watermark::after{content:"SAMPLE — FIGURES ILLUSTRATIVE";position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) rotate(-14deg);font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;
+    color:rgba(0,0,0,.06);border:2px solid rgba(0,0,0,.06);padding:6px 14px;pointer-events:none;white-space:nowrap}
+  footer{padding:40px 0 60px;color:var(--slate);font-size:.84rem;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+  <div class="group"><span>System</span>
+    <button data-pkg="ember" aria-pressed="true">Ember</button>
+    <button data-pkg="clay" aria-pressed="false">Clay</button>
+    <button data-pkg="forge" aria-pressed="false">Forge</button>
+  </div>
+  <div class="group"><span>Mark</span>
+    <button data-logo="the-sign" aria-pressed="true">The Sign</button>
+    <button data-logo="the-wordmark" aria-pressed="false">Wordmark</button>
+    <button data-logo="the-sign-off" aria-pressed="false">Sign-off</button>
+    <button data-logo="the-seal" aria-pressed="false">Seal</button>
+  </div>
+</div></div>
+
+<header><div class="wrap">
+  <p class="eyebrow">99 · brand system</p>
+  <h1>Collateral.<br><span class="dim">Everything on one printing press.</span></h1>
+  <p class="lede">Six documents, live. Switch the system or the mark above and every sheet re-skins instantly — the
+  business card, the email signature, the letterhead and the proposal set are all the same identity, not the same PDF.</p>
+</div></header>
+
+<main><div class="wrap" style="display:contents">
+
+  <!-- 1 · business card -->
+  <div class="sheet watermark"><div class="tag">Business card · 85 × 55 mm</div><div class="body">
+    <div class="brand"><span data-logo-slot aria-hidden="true"></span>
+      <div><span class="nm">99</span><span class="sub">One to ninety-nine</span></div></div>
+    <div class="row" style="margin-top:18px"><span>Rudie Pace</span><span class="num mono">Director</span></div>
+    <div class="row"><span class="mut">Software · Hosting · Improvement · Growth</span></div>
+    <div class="row" style="margin-top:14px"><span class="mono">rudie@agilexplus.com</span></div>
+    <div class="row"><span class="mono">+356&nbsp;••••&nbsp;••••</span><span class="mono">Malta</span></div>
+  </div></div>
+
+  <!-- 2 · email signature -->
+  <div class="sheet dark"><div class="tag">Email signature · inline</div><div class="body">
+    <div class="sigmail">
+      <span data-logo-slot aria-hidden="true"></span>
+      <span class="rule"></span>
+      <span class="cell"><b>Rudie Pace</b><span class="mut">Director · 99</span>
+        <span class="mut mono">rudie@agilexplus.com</span></span>
+      <span class="rule"></span>
+      <span class="cell mut"><span>One to ninety-nine.</span>
+        <span>Solutions built right — and improved continually.</span></span>
+    </div>
+    <div class="divider" style="border-color:var(--line)"></div>
+    <div class="row mut" style="font-size:.74rem"><span>99 · software, hosting, improvement, growth</span>
+      <span class="mono">www.<span style="color:var(--accent)">99.systems</span></span></div>
+  </div></div>
+
+  <!-- 3 · letterhead -->
+  <div class="sheet watermark"><div class="tag">Letterhead · A4, 90 gsm</div><div class="body">
+    <div class="brand"><span data-logo-slot aria-hidden="true"></span>
+      <div><span class="nm">99</span><span class="sub">One to ninety-nine</span></div></div>
+    <div class="row" style="margin-top:20px"><span class="mono">16,&nbsp;Fake&nbsp;Street&nbsp;·&nbsp;Malta</span></div>
+    <div class="row"><span class="mono">rudie@agilexplus.com</span></div>
+    <p style="margin:26px 0 8px;font-family:var(--font-display);font-size:1.05rem">Re: scoping engagement</p>
+    <p class="mut" style="font-size:.86rem;max-width:56ch">Thank you for the conversation. As agreed, this letter
+    confirms the scope, the cadence, and the single accountable name for the engagement.</p>
+    <p class="mut" style="font-size:.86rem;max-width:56ch">We will not publish a price because there is no shelf
+    price — a proposal follows the scoping conversation and is delivered in writing.</p>
+    <div class="sig"><div class="line"><span>Rudie Pace · Director</span></div></div>
+  </div></div>
+
+  <!-- 4 · proposal -->
+  <div class="sheet watermark"><div class="tag">Proposal · five pages, this is the cover</div><div class="body">
+    <div class="brand"><span data-logo-slot aria-hidden="true"></span>
+      <div><span class="nm">99</span><span class="sub">Proposal · confidential</span></div></div>
+    <h2 style="font-family:var(--font-display);font-weight:var(--display-weight);letter-spacing:var(--display-track);margin:22px 0 4px">Built right, improved continually</h2>
+    <p class="mut" style="max-width:54ch">Scoping, software, hosting, improvement and growth under one contract and one
+    accountable name — from the first conversation to the last number.</p>
+    <table>
+      <tr><th>Stage</th><th>Description</th><th class="num">Status</th></tr>
+      <tr><td>01</td><td>Scoping &amp; definition of done</td><td class="num">Included</td></tr>
+      <tr><td>02</td><td>Software delivery</td><td class="num">Included</td></tr>
+      <tr><td>03</td><td>Hosting &amp; monitoring</td><td class="num">Included</td></tr>
+      <tr><td>04</td><td>Continual improvement</td><td class="num">Cadence</td></tr>
+      <tr><td>05</td><td>Growth / enhancement</td><td class="num">Scoped</td></tr>
+    </table>
+    <div class="divider row"><span class="tot">Investment</span><span class="tot">on request</span></div>
+    <p class="mut" style="font-size:.74rem;margin-top:8px">No prices online — every engagement is scoped first.</p>
+  </div></div>
+
+  <!-- 5 · quote -->
+  <div class="sheet watermark"><div class="tag">Quote · no. 99-0142</div><div class="body">
+    <div class="brand"><span data-logo-slot aria-hidden="true"></span>
+      <div><span class="nm">99</span><span class="sub">Quote · valid 30 days</span></div></div>
+    <table style="margin-top:16px">
+      <tr><th>Item</th><th>Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr>
+      <tr><td>Scoping &amp; definition of done</td><td class="num">1</td><td class="num">—</td><td class="num">—</td></tr>
+      <tr><td>Software delivery</td><td class="num">1</td><td class="num">—</td><td class="num">—</td></tr>
+      <tr><td>Hosting &amp; monitoring (12 mo)</td><td class="num">12</td><td class="num">—</td><td class="num">—</td></tr>
+      <tr><td>Continual improvement (12 mo)</td><td class="num">12</td><td class="num">—</td><td class="num">—</td></tr>
+    </table>
+    <div class="divider row"><span>Total</span><span class="tot">€&nbsp;—,—</span></div>
+    <p class="mut" style="font-size:.74rem;margin-top:10px"><span class="stamp">SAMPLE</span>&nbsp; Amounts are agreed in
+    writing after scoping — never published.</p>
+  </div></div>
+
+  <!-- 6 · invoice -->
+  <div class="sheet watermark"><div class="tag">Invoice · INV-99-0207</div><div class="body">
+    <div class="brand"><span data-logo-slot aria-hidden="true"></span>
+      <div><span class="nm">99</span><span class="sub">Invoice</span></div></div>
+    <div class="row" style="margin-top:14px"><span class="mono">Billed to</span><span class="mono">Due</span></div>
+    <div class="row"><span>Example Client Ltd</span><span>14 days</span></div>
+    <table style="margin-top:14px">
+      <tr><th>Description</th><th class="num">Amount</th></tr>
+      <tr><td>Continual improvement — August</td><td class="num">€&nbsp;—,—</td></tr>
+      <tr><td>Hosting &amp; monitoring — August</td><td class="num">€&nbsp;—,—</td></tr>
+    </table>
+    <div class="divider row"><span>Balance due</span><span class="tot">€&nbsp;—,—</span></div>
+    <p class="mut" style="font-size:.74rem;margin-top:10px"><span class="stamp">SAMPLE</span>&nbsp; Amounts are agreed in
+    writing — never published.</p>
+  </div></div>
+
+</div></main>
+
+<footer><div class="wrap">Every sheet is rendered from the same tokens in <code>assets/theme.js</code> — change the system or
+the mark and the whole set re-skins. Figures marked SAMPLE are illustrative placeholders; 99 publishes no prices online.</div></footer>
+
+<script>
+  var B = window.Brand99;
+  function sync() {
+    var p = B.current(), l = B.getLogo();
+    document.querySelectorAll('[data-pkg]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.pkg === p));
+    });
+    document.querySelectorAll('[data-logo]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.logo === l));
+    });
+    B.injectLogos();
+  }
+  document.querySelectorAll('[data-pkg]').forEach(function (b) {
+    b.addEventListener('click', function () { B.set(b.dataset.pkg); sync(); });
+  });
+  document.querySelectorAll('[data-logo]').forEach(function (b) {
+    b.addEventListener('click', function () { B.setLogo(b.dataset.logo); sync(); });
+  });
+  sync();
+</script>
+</body>
+</html>
