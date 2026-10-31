@@ -277,6 +277,8 @@ html.js .reveal.in { opacity: 1; transform: none; }
   opacity: .38; transition: opacity .35s ease, border-color .35s ease;
 }
 .jsteps li[aria-current="true"] { opacity: 1; border-bottom-color: rgba(238,90,30,.5); }
+.jsteps li[aria-current="true"] h4 { color: var(--ref-orange-1); }
+.jsteps li[aria-current="true"] p { color: var(--ref-cream); }
 .jsteps .k { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .1em; color: var(--ref-orange-1); }
 .jsteps h4 { margin: 0 0 3px; font-size: 1rem; }
 .jsteps p { margin: 0; font-size: .8rem; color: var(--ref-muted-dark); }
@@ -297,7 +299,7 @@ html.js .reveal.in { opacity: 1; transform: none; }
 }
 .screen {
   position: relative; border-radius: 15px; overflow: hidden;
-  background: var(--ref-panel-2); aspect-ratio: 4 / 3; isolation: isolate;
+  background: var(--ref-panel-2); aspect-ratio: 16 / 10; isolation: isolate;
 }
 .screen::after {  /* screen glare */
   content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -330,10 +332,10 @@ html.js .jscreen.active { opacity: 1; transform: none; pointer-events: auto; }
   margin: 2px 0 0; font-weight: var(--display-weight); color: var(--ref-cream);
 }
 .jscreen .sub { font-size: .72rem; color: var(--ref-muted-dark); margin: 0; }
-.jrows { display: grid; gap: 7px; margin-top: 2px; }
+.jrows { display: grid; gap: 8px; margin-top: 2px; }
 .jrow {
   display: grid; grid-template-columns: 14px 1fr auto; gap: 9px; align-items: center;
-  padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,.035);
+  padding: 11px 12px; border-radius: 8px; background: rgba(255,255,255,.035);
   border: 1px solid rgba(255,255,255,.05); font-size: .76rem; color: var(--ref-cream);
 }
 .jrow .tick { color: var(--ref-orange-1); font-size: .7rem; }
