@@ -55,7 +55,7 @@
         '--surface': '#241A15',
         '--surface-2': '#1F1611',
         '--sand': '#DFC7AC',
-        '--slate': '#8C8078',
+        '--slate': '#948A82',
         '--accent': '#B75B37',
         '--accent-ink': '#AB5534',
         '--accent-text': '#C26641',
@@ -279,7 +279,7 @@
       '.on-cream .tone .t2{color:#756C67 !important}' +
       '.ticks{color:#5E544E !important}' +
       '.plan .price small,.plan li{color:var(--slate) !important}' +
-      '.metrics span{color:#756C67 !important}' +
+      '.metrics span{color:#726965 !important}' +
       '.doc{background:#FFFFFF !important;color:#120C0A !important}' +
       '.doc .mut,.doc .brand .sub,.doc .mono,.doc .row,.doc .run,.doc td,.doc th,.doc .sig .contact,.doc .sig .legal{color:#756C66 !important}' +
       '.doc .nm,.doc h2,.doc .tot,.doc td,.doc .avatar+*{color:#120C0A !important}' +
