@@ -1,0 +1,121 @@
+{
+ "99x": {
+  "url": "https://99x.io/",
+  "bytes": 273680,
+  "top_hex": [],
+  "fonts": []
+ },
+ "thoughtworks": {
+  "url": "https://www.thoughtworks.com/",
+  "bytes": 183881,
+  "top_hex": [
+   [
+    "FFFFFF",
+    22
+   ],
+   [
+    "000000",
+    12
+   ],
+   [
+    "BD4257",
+    7
+   ],
+   [
+    "EDF1F3",
+    6
+   ],
+   [
+    "163C4D",
+    2
+   ]
+  ],
+  "fonts": []
+ },
+ "8thlight": {
+  "url": "https://8thlight.com/",
+  "bytes": 133124,
+  "top_hex": [
+   [
+    "000000",
+    1
+   ],
+   [
+    "FF8300",
+    1
+   ],
+   [
+    "A81B8D",
+    1
+   ],
+   [
+    "93D500",
+    1
+   ],
+   [
+    "FFFFFF",
+    1
+   ]
+  ],
+  "fonts": [
+   "GT Flexa', sans-serif"
+  ]
+ },
+ "madetech": {
+  "url": "https://www.madetech.com/",
+  "bytes": 190215,
+  "top_hex": [
+   [
+    "32373C",
+    3
+   ],
+   [
+    "313131",
+    2
+   ],
+   [
+    "00D084",
+    2
+   ],
+   [
+    "0693E3",
+    2
+   ],
+   [
+    "595959",
+    2
+   ],
+   [
+    "7A00DF",
+    1
+   ],
+   [
+    "007CBA",
+    1
+   ],
+   [
+    "006BA1",
+    1
+   ],
+   [
+    "005A87",
+    1
+   ],
+   [
+    "34E2E4",
+    1
+   ],
+   [
+    "4721FB",
+    1
+   ],
+   [
+    "AB1DFE",
+    1
+   ]
+  ],
+  "fonts": [
+   "inherit"
+  ]
+ }
+}
