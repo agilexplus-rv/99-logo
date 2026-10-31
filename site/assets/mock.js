@@ -4,6 +4,13 @@
 (function () {
   'use strict';
   document.documentElement.classList.add('js');
+  // If anything below throws, content must still be visible. This listener is
+  // registered before init runs, so it fires even when an init step fails.
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      document.querySelectorAll('.reveal').forEach(function (e) { e.classList.add('in'); });
+    }, 1200);
+  });
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 

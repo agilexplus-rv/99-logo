@@ -86,10 +86,10 @@
   .clayout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:26px;align-items:start}
   .clayout > .wrap{display:contents}
   .cview{min-width:0;display:grid}
-  .cpanel{display:none;justify-items:center;padding:22px;background:linear-gradient(180deg,var(--surface),var(--surface-2));
+  .cpanel{display:none;justify-items:center;padding:clamp(24px,4vw,56px);background:linear-gradient(180deg,var(--surface),var(--surface-2));
     border:1px solid var(--line);border-radius:18px}
   .cpanel.active{display:grid}
-  .cpanel .doc{max-width:560px;width:100%}
+  .cpanel .doc{max-width:520px;width:100%}
   .cmenu{position:sticky;top:16px;display:flex;flex-direction:column;gap:6px}
   .cmenu-h{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);
     margin:0 0 6px 2px}

@@ -204,3 +204,9 @@ section { padding: 76px 0; }
   .foot .cols { grid-template-columns: 1fr 1fr; }
   .nav .links { display: none; }
 }
+
+/* real light/dark control in the product nav */
+.navmode{border:1px solid var(--line);background:transparent;color:var(--sand);border-radius:99px;
+  padding:7px 13px;font-size:.8rem;font-family:inherit;cursor:pointer;margin-left:auto}
+.nav .links + .navmode{margin-left:0}
+.navmode:hover{border-color:var(--accent);color:var(--paper)}

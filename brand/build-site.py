@@ -22,6 +22,7 @@ NAV = f"""<header class="nav"><div class="wrap">
     <a href="services#engagement">Engagement</a>
     <a href="about" {{about}}>About</a>
   </nav>
+  <button type="button" class="navmode" id="site-mode" aria-label="Toggle light or dark">Light</button>
   <a class="btn btn-solid cta" href="about#contact">Start a conversation</a>
 </div></header>"""
 
