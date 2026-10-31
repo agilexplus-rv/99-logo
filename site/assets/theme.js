@@ -190,6 +190,13 @@
     try { return global.location && (global.location.pathname === '/' || global.location.pathname === '/index'); }
     catch (e) { return false; }
   }
+  function mode() {
+    try { return global.localStorage.getItem('99-mode') === 'light' ? 'light' : 'dark'; } catch (e) { return 'dark'; }
+  }
+  function setMode(m) {
+    try { global.localStorage.setItem('99-mode', m); } catch (e) {}
+    apply(current()); injectLogos();
+  }
 
   function controlCSS() {
     return '.bc-topbar{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:10px;min-height:48px;' +
@@ -350,6 +357,7 @@
     }
   };
 
+  if (global.document && global.document.documentElement) { try { apply(current()); } catch (e) {} }
   if (global.document) {
     if (global.document.readyState === 'loading') {
       global.document.addEventListener('DOMContentLoaded', boot);
@@ -357,5 +365,3 @@
   }
 })(typeof window !== 'undefined' ? window : this);
 
-  /* paint the stored theme as early as possible */
-  if (typeof document !== 'undefined' && document.documentElement) { try { apply(current()); } catch (e) {} }
