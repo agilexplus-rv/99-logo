@@ -283,8 +283,8 @@ def main():
 </body>
 </html>
 """
-    (ROOT / "index.html").write_text(doc)
-    print(f"wrote brand/index.html  ({len(doc)/1024:.0f} KB, {len(CONCEPTS)} concepts)")
+    (ROOT.parent / "docs" / "index.html").write_text(doc)
+    print(f"wrote docs/index.html  ({len(doc)/1024:.0f} KB, {len(CONCEPTS)} concepts)")
 
 
 main()
