@@ -16,7 +16,7 @@ ASSET_V = "20261031b"
 
 LOGO = '<span data-logo-slot aria-hidden="true"></span>'
 NAV = f"""<header class="nav"><div class="wrap">
-  <a class="logo" href="home" aria-label="99 — home" style="color:var(--accent)">{LOGO}
+  <a class="logo" href="home" aria-label="99 — home" style="color:var(--accent)">{LOGO}<span class="navword" data-wordmark>99</span>
   </a>
   <nav class="links" aria-label="Primary">
     <a href="services" {{svc}}>Services</a>

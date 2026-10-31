@@ -180,6 +180,12 @@
       el.innerHTML = logoMark(key);
       el.setAttribute('data-logo', key);
     });
+    /* Only "The Sign" is a quotation mark, so only then does it need the "99" wordmark
+       beside it. Every other mark already reads "99" — pairing them would say it twice. */
+    var needsWord = (key === 'the-sign');
+    Array.prototype.forEach.call(doc.querySelectorAll('[data-wordmark]'), function (el) {
+      el.style.display = needsWord ? '' : 'none';
+    });
   }
 
   function boot() {

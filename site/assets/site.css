@@ -210,3 +210,7 @@ section { padding: 76px 0; }
   padding:7px 13px;font-size:.8rem;font-family:inherit;cursor:pointer;margin-left:auto}
 .nav .links + .navmode{margin-left:0}
 .navmode:hover{border-color:var(--accent);color:var(--paper)}
+
+/* the "99" wordmark beside the mark: only rendered when the mark is a quotation sign */
+.navword{font-family:var(--font-display);font-weight:var(--display-weight);letter-spacing:var(--display-track);
+  font-size:1.15rem;color:var(--paper);line-height:1}
