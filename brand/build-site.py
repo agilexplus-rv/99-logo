@@ -51,7 +51,7 @@ FOOT = f"""<footer class="foot"><div class="wrap">
       <span style="display:block;padding:4px 0">Malta</span></div>
   </div>
   <div class="legal">
-    <span>© 99 — a mock website, built as a brand-book reference</span>
+    <span>© 99 Invest Ltd · VAT MT 0000 0000 · 16 Named Street, Valletta VLT 1111, Malta · contact@99.system</span>
     <span>One to ninety-nine</span>
   </div>
 </div></footer>"""
