@@ -25,8 +25,11 @@
         '--surface-2': '#150E0B',
         '--sand': '#E9CBA9',
         '--slate': '#8A8078',
-        '--accent': '#D8440B',
-        '--accent-ink': '#CB400A',
+        '--accent': '#D3420B',
+        '--accent-ink': '#C63E0A',
+        '--accent-text': '#DA4B14',
+        '--on-accent': '#FFFFFF',
+        '--muted-ink': '#756C66',
         '--accent-pale': '#FFD9C2',
         '--accent-deep': '#6E1F06',
         '--accent-soft': 'rgba(216,68,11,.14)',
@@ -53,8 +56,11 @@
         '--surface-2': '#1F1611',
         '--sand': '#DFC7AC',
         '--slate': '#8C8078',
-        '--accent': '#C0603A',
-        '--accent-ink': '#AC5634',
+        '--accent': '#B75B37',
+        '--accent-ink': '#AB5534',
+        '--accent-text': '#C26641',
+        '--on-accent': '#FFFFFF',
+        '--muted-ink': '#766B65',
         '--accent-pale': '#EBD6C8',
         '--accent-deep': '#6B2E17',
         '--accent-soft': 'rgba(192,96,58,.15)',
@@ -82,7 +88,10 @@
         '--sand': '#CFC6B4',
         '--slate': '#7F8489',
         '--accent': '#C9973F',
-        '--accent-ink': '#8B692C',
+        '--accent-ink': '#8A682B',
+        '--accent-text': '#C9973F',
+        '--on-accent': '#0C1013',
+        '--muted-ink': '#6A6E73',
         '--accent-pale': '#EFE3C0',
         '--accent-deep': '#6B4E15',
         '--accent-soft': 'rgba(201,151,63,.14)',
@@ -134,6 +143,7 @@
       root.style.setProperty('--accent-soft', 'color-mix(in srgb,' + pkg.tokens['--accent'] + ' 12%, transparent)');
       /* the mock-site "reference" palette was tuned for a dark ground: invert it */
       root.style.setProperty('--sand', '#5A5049');
+      root.style.setProperty('--slate', pkg.tokens['--muted-ink']);
       root.style.setProperty('--ref-muted-dark', '#5A5049');
       root.style.setProperty('--ref-hair', 'rgba(0,0,0,.12)');
       root.style.setProperty('--ref-cream', pkg.tokens['--ink']);
