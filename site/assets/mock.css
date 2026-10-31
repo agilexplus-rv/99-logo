@@ -423,3 +423,28 @@ html:not(.js) .jscreen, .no-journey .jscreen { position: static; }
 .covers p { margin: 0 0 12px; color: #4A403B; font-size: .84rem; }
 /* stronger note on the accent panel */
 .est .right .note { opacity: 1; color: #fff; background: rgba(18,3,1,.30); padding: 7px 10px; border-radius: 8px; }
+
+/* ---- mock-site mobile: horizontal components must not overflow ---- */
+@media (max-width: 640px) {
+  .rail { gap: 12px; -webkit-overflow-scrolling: touch; scroll-padding-left: 4px; }
+  .rail > .slide { flex-basis: 86%; }
+  .railhead .navarrows { display: none; }
+  .seg { flex-wrap: wrap; }
+  .seg button { flex: 1 1 45%; }
+  .est .rowlab { flex-wrap: wrap; gap: 4px; }
+  .est .incl { grid-template-columns: 1fr; }
+  .est .checks div { font-size: .84rem; }
+  .metrics { grid-template-columns: 1fr; }
+  .metrics div { border-right: 0; border-bottom: 1px solid var(--ref-hair-dark); }
+  .covers { grid-template-columns: 1fr; }
+  .jsteps { grid-template-columns: 1fr; }
+  .cpanel .doc.a4 { width: 100%; height: auto; }
+  .cpanel { height: auto; min-height: 300px; }
+  .two, .three { grid-template-columns: 1fr; }
+  .hero-ref .inner { grid-template-columns: 1fr; }
+  .tablet { margin-top: 18px; }
+}
+@media (max-width: 420px) {
+  .rail > .slide { flex-basis: 92%; }
+  .est .left, .est .right { padding: 18px; }
+}
