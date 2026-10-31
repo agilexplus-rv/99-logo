@@ -194,7 +194,7 @@
     });
     /* Only "The Sign" is a quotation mark, so only then does it need the "99" wordmark
        beside it. Every other mark already reads "99" — pairing them would say it twice. */
-    var needsWord = (key === 'the-sign');
+    var needsWord = false;  /* client decision: mark only, never paired with "99" */
     Array.prototype.forEach.call(doc.querySelectorAll('[data-wordmark]'), function (el) {
       el.style.display = needsWord ? '' : 'none';
     });

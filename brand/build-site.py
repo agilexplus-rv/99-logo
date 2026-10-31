@@ -47,7 +47,7 @@ FOOT = f"""<footer class="foot"><div class="wrap">
       <a href="about">About</a><a href="about#contact">Contact</a>
       <a href="../index.html">Brand book</a></div>
     <div><h4>Contact</h4>
-      <a href="mailto:hello@agilexplus.dev">hello@agilexplus.dev</a>
+      <a href="mailto:contact@99.system">contact@99.system</a>
       <span style="display:block;padding:4px 0">Malta</span></div>
   </div>
   <div class="legal">

@@ -5,7 +5,7 @@
 <title>99 — collateral</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Space+Grotesk:wght@400;500;700&display=swap">
-<script src="assets/theme.js?v=1793469872"></script>
+<script src="assets/theme.js?v=1793474165"></script>
 <style>
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -71,11 +71,13 @@
     border-radius:2px;transform:rotate(-4deg);opacity:.92;box-shadow:0 18px 34px -20px #000}
 
   .sig{display:flex;flex-direction:column;gap:10px}
-  .sig .band{border-left:3px solid var(--accent);padding-left:14px;display:flex;gap:14px;align-items:center}
+  .sig .sighead{display:flex;align-items:center;gap:12px}
+  .sig .sighead .c{color:var(--ink);width:34px;height:28px;display:grid;place-items:center}
+  .sig .sighead .c svg{width:100%;height:100%}
   .avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;
     background:linear-gradient(150deg,var(--accent),var(--accent-deep));
     font-family:var(--font-display);font-weight:var(--display-weight);letter-spacing:var(--display-track);font-size:1.05rem;flex:0 0 auto}
-  .sig .who b{font-family:var(--font-display);letter-spacing:-.01em;font-size:1rem}
+  .sig .who b{font-family:var(--font-display);letter-spacing:-.01em;font-size:1.02rem;font-weight:600}
   .sig .who span{display:block;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
   .sig .contact{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--font-mono);font-size:.62rem;color:var(--slate)}
   .sig .contact a{color:var(--accent-ink,#CB400A);text-decoration:none}
@@ -117,7 +119,7 @@
   .cpanel.active{display:grid}
   .cpanel .doc{margin:0 auto;box-shadow:0 34px 64px -34px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.22)}
   .cpanel .doc.c85{width:min(320px,100%);height:auto;aspect-ratio:85/55}
-  .cpanel .doc.a4{width:min(430px,100%);height:auto;aspect-ratio:210/297}
+  .cpanel .doc.a4{width:min(392px,100%);height:auto;aspect-ratio:210/297;margin-block:clamp(14px,2vh,28px)}
   .cpanel .doc.sigstrip{width:min(520px,100%);height:auto}
   .cpanel .back{display:none}
   .cpanel .c85 .bc .brand .sub{white-space:nowrap;font-size:.46rem;letter-spacing:.07em}
@@ -194,11 +196,9 @@
     <div class="stage">
       <div class="doc sigstrip">
         <div class="pad"><div class="sig">
-          <div class="band">
-            <div class="avatar">P</div>
-            <div class="who">
-              <div class="brand" style="margin-bottom:3px"><span class="c" data-logo-slot></span><span class="nm" data-wordmark>99</span></div>
-              <b>Paul Gauci</b><span>Director · 99</span></div>
+          <div class="sighead">
+            <span class="c" data-logo-slot></span>
+            <div class="who"><b>Paul Gauci</b><span>Director · 99</span></div>
           </div>
           <div class="contact">
             <span><i>✉</i> <a href="mailto:paul@99.systems">paul@99.systems</a></span>
@@ -311,7 +311,7 @@
 
 </div></main>
 
-<footer><div class="wrap">Rendered from <code>assets/theme.js?v=1793469872</code> tokens — one mark, one system, everywhere. Figures marked SAMPLE are
+<footer><div class="wrap">Rendered from <code>assets/theme.js?v=1793474165</code> tokens — one mark, one system, everywhere. Figures marked SAMPLE are
 illustrative: 99 publishes no prices online. The email signature uses print-safe HTML, ready to paste into a mail client.</div></footer>
 
 <script>
