@@ -267,7 +267,8 @@ html.js .reveal.in { opacity: 1; transform: none; }
     var(--ref-panel);
 }
 .journey .sticky {
-  position: sticky; top: 0; height: 100vh;
+  position: sticky; top: var(--chrome-h, 116px);
+  height: calc(100vh - var(--chrome-h, 116px));
   display: grid; grid-template-columns: minmax(230px, 300px) 1fr;
   gap: 58px; align-items: center; max-width: 1180px; margin: 0 auto; padding: 0 24px;
 }

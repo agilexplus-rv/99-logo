@@ -180,7 +180,11 @@
   function progress() {
     if (mq.matches || reduced.matches) return null;
     var rect = section.getBoundingClientRect();
-    var total = rect.height - window.innerHeight;
+    // the pinned panel is shorter than the viewport: the brand bar and site nav are
+    // always visible, so the usable height is 100vh - chrome, not 100vh.
+    var sticky = section.querySelector('.sticky');
+    var usable = sticky ? sticky.offsetHeight : window.innerHeight;
+    var total = rect.height - usable;
     if (total <= 0) return null;
     return Math.max(0, Math.min(1, -rect.top / total));
   }

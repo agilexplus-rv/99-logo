@@ -97,3 +97,25 @@ for (const [name, path] of PAGES) {
   await ctx.close();
 }
 await mobile.close();
+
+// ---- anchor scroll accuracy: target must land just below the always-visible chrome ----
+const anc = await chromium.launch();
+console.log('\n=== ANCHOR ALIGNMENT (desktop) ===');
+for (const [name, path, sel] of [['home', '/site/home', '#how'], ['services', '/site/services', '#engagement']]) {
+  const ctx = await anc.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  try {
+    await page.goto(BASE + path, { waitUntil: 'networkidle', timeout: 45000 });
+    await page.evaluate((s) => { const a = document.querySelector('a[href="' + s + '"]'); if (a) a.click(); }, sel);
+    await page.waitForTimeout(1200);
+    const r = await page.evaluate((s) => {
+      const el = document.querySelector(s);
+      const chrome = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--chrome-h')) || 0;
+      return { top: el ? Math.round(el.getBoundingClientRect().top) : null, chrome: Math.round(chrome) };
+    }, sel);
+    const ok = r.top !== null && r.top >= r.chrome - 24 && r.top <= r.chrome + 80;
+    console.log(`${name.padEnd(9)} ${sel} top=${r.top}px chrome=${r.chrome}px ${ok ? 'OK' : 'MISALIGNED'}`);
+  } catch (e) { console.log(`${name} anchor check failed`); }
+  await ctx.close();
+}
+await anc.close();
