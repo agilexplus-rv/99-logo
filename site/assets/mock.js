@@ -67,12 +67,7 @@
     els.forEach(function (e) { io.observe(e); });
     // Safety net: never let content stay invisible if an observer callback is missed.
     window.addEventListener('load', function () {
-      setTimeout(function () {
-        els.forEach(function (e) {
-          var r = e.getBoundingClientRect();
-          if (r.top < window.innerHeight && !e.classList.contains('in')) e.classList.add('in');
-        });
-      }, 400);
+      setTimeout(function () { els.forEach(function (e) { e.classList.add('in'); }); }, 2600);
     });
   }
 

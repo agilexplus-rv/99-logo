@@ -137,6 +137,7 @@
     state.pkg = B.current();
     setPackage(state.pkg, { silent: true });
     paintSpecimen(state.pkg);
+    refreshFrames(state.pkg);
 
     $all('.pkg').forEach(function (el) {
       el.addEventListener('click', function () { setPackage(el.dataset.pkg); });

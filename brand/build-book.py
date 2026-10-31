@@ -158,7 +158,6 @@ def main():
   document <em>and</em> the mock website below, because colour and type are one decision here, not two.</p>
   <p class="small" style="margin-top:14px">Choose the mark and system from the control in the header, then scroll to
   submit your choice. Everything on this page re-skins live.</p>
-  <span data-brand-control></span>
 </div></header>
 
 <section id="story"><div class="wrap">
@@ -273,15 +272,15 @@ def main():
   <div class="frames" style="margin-top:24px">
     <div class="frame-wrap">
       <div class="bar"><span>home.html</span><a href="site/home" target="_blank" rel="noopener">open full page &rarr;</a></div>
-      <iframe data-site="site/home" title="99 mock website — home" loading="lazy"></iframe>
+      <iframe src="site/home" data-site="site/home" title="99 mock website — home" loading="lazy"></iframe>
     </div>
     <div class="frame-wrap">
       <div class="bar"><span>services.html</span><a href="site/services" target="_blank" rel="noopener">open full page &rarr;</a></div>
-      <iframe data-site="site/services" title="99 mock website — services" loading="lazy" class="tall"></iframe>
+      <iframe src="site/services" data-site="site/services" title="99 mock website — services" loading="lazy" class="tall"></iframe>
     </div>
     <div class="frame-wrap">
       <div class="bar"><span>about.html</span><a href="site/about" target="_blank" rel="noopener">open full page &rarr;</a></div>
-      <iframe data-site="site/about" title="99 mock website — about" loading="lazy"></iframe>
+      <iframe src="site/about" data-site="site/about" title="99 mock website — about" loading="lazy"></iframe>
     </div>
   </div>
   <p class="small" style="margin-top:18px">Copy is written to the story and invents no clients, certifications or
@@ -295,7 +294,7 @@ def main():
   email signature, letterhead, proposal, quote and invoice — all live, all re-skinnable.</p>
   <div class="frame-wrap" style="margin-top:24px">
     <div class="bar"><span>collateral.html</span><a href="collateral" target="_blank" rel="noopener">open full page &rarr;</a></div>
-    <iframe data-site="collateral" class="tall" title="99 — collateral, live" loading="lazy"></iframe>
+    <iframe src="collateral" data-site="collateral" class="tall" title="99 — collateral, live" loading="lazy"></iframe>
   </div>
 </div></section>
 

@@ -183,14 +183,24 @@
     });
   }
 
-  /* ---------- global control: navbar dropdowns for mark + system, plus light/dark ---------- */
+  /* ---------- global control: sticky brand bar (mark + system + mode) ---------- */
   var SW_LABELS = { 'the-sign': 'The Sign', 'the-wordmark': 'Wordmark', 'the-sign-off': 'Sign-off', 'the-seal': 'Seal' };
 
+  function isBook() {
+    try { return global.location && (global.location.pathname === '/' || global.location.pathname === '/index'); }
+    catch (e) { return false; }
+  }
+
   function controlCSS() {
-    return '.bc-ctl{display:flex;align-items:center;gap:6px;font-family:var(--font-body)}' +
+    return '.bc-topbar{position:sticky;top:0;z-index:1000;display:flex;align-items:center;gap:10px;min-height:48px;' +
+      'padding:6px 14px;background:color-mix(in srgb,var(--ink) 96%,transparent);backdrop-filter:blur(12px);' +
+      'border-bottom:1px solid var(--line);border-top:2px solid var(--accent);font-family:var(--font-body)}' +
+      '.bc-topbar .bc-tag{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);' +
+      'border:1px solid var(--line);padding:4px 9px;border-radius:6px;white-space:nowrap}' +
+      '.bc-topbar .bc-ctl{display:flex;align-items:center;gap:6px;margin-left:auto}' +
       '.bc-dd{position:relative}' +
       '.bc-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:transparent;' +
-      'color:var(--paper);border-radius:99px;padding:7px 12px;font-size:.78rem;font-family:inherit;cursor:pointer;' +
+      'color:var(--paper);border-radius:99px;padding:6px 11px;font-size:.76rem;font-family:inherit;cursor:pointer;' +
       'transition:.18s;white-space:nowrap}' +
       '.bc-btn:hover{border-color:var(--accent)}' +
       '.bc-mini{width:18px;height:18px;color:var(--accent);display:inline-grid;place-items:center}' +
@@ -198,7 +208,7 @@
       '.bc-sw{display:inline-flex;gap:2px}' +
       '.bc-sw i{width:8px;height:14px;border-radius:2px}' +
       '.bc-menu{position:absolute;right:0;top:calc(100% + 6px);min-width:200px;background:var(--surface-2);' +
-      'border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 24px 60px -24px #000;z-index:10001}' +
+      'border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 24px 60px -24px #000;z-index:1001}' +
       '.bc-menu[hidden]{display:none}' +
       '.bc-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:transparent;' +
       'color:var(--paper);padding:8px 10px;border-radius:8px;font-size:.8rem;font-family:inherit;cursor:pointer}' +
@@ -206,55 +216,60 @@
       '.bc-item[aria-checked="true"]{color:var(--accent)}' +
       '.bc-item .sw{display:inline-flex;gap:2px}' +
       '.bc-item .sw i{width:14px;height:14px;border-radius:3px}' +
-      '.bc-mode{border-color:var(--line)}' +
-      '.bc-progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:10000;transition:width .08s linear}' +
-      '.bc-notice{position:fixed;bottom:16px;left:12px;z-index:10001;max-width:300px;padding:11px 13px;border-radius:12px;' +
+      '.bc-hide{border-color:var(--line);color:var(--slate)}' +
+      'body.bc-collapsed .bc-topbar{display:none}' +
+      'body:not(.bc-collapsed) .nav{top:48px}' +
+      'body:not(.bc-collapsed) .decisionbar{top:48px}' +
+      '.bc-chip{position:fixed;top:8px;right:8px;z-index:1002;display:none;align-items:center;gap:6px;' +
+      'background:var(--surface-2);border:1px solid var(--line);color:var(--paper);border-radius:99px;padding:6px 10px;' +
+      'font-size:.7rem;cursor:pointer;box-shadow:0 12px 30px -16px #000;font-family:var(--font-body)}' +
+      'body.bc-collapsed .bc-chip{display:flex}' +
+      '.bc-progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:2000;transition:width .08s linear}' +
+      '.bc-notice{position:fixed;bottom:16px;left:12px;z-index:1001;max-width:300px;padding:11px 13px;border-radius:12px;' +
       'background:var(--paper);color:var(--ink);box-shadow:0 18px 50px -20px #000;font-size:.8rem;font-family:var(--font-body)}' +
       '.bc-notice b{font-family:var(--font-display);font-weight:var(--display-weight)}' +
-      '.bc-notice button{margin-top:7px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;' +
-      'padding:5px 11px;font-size:.76rem;font-family:inherit;cursor:pointer}';
-  }
-
-  function mode() {
-    try { return global.localStorage.getItem('99-mode') === 'light' ? 'light' : 'dark'; } catch (e) { return 'dark'; }
-  }
-  function setMode(m) {
-    try { global.localStorage.setItem('99-mode', m); } catch (e) {}
-    apply(current()); injectLogos();
+      '.bc-notice button{margin-top:7px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 11px;font-size:.76rem;font-family:inherit;cursor:pointer}';
   }
 
   function mountControl() {
-    if (!global.document || global.document.getElementById('bc-ctl')) return;
+    if (!global.document || global.document.getElementById('bc-topbar')) return;
     if (!global.document.getElementById('bc-style')) {
       var st = global.document.createElement('style'); st.id = 'bc-style'; st.textContent = controlCSS();
       global.document.head.appendChild(st);
     }
-    var ctl = global.document.createElement('div'); ctl.className = 'bc-ctl'; ctl.id = 'bc-ctl';
+    var kick = function (v) { try { global.localStorage.setItem('99-collapsed', v); } catch (e) {} };
 
-    var logoBtn = '<button type="button" class="bc-btn bc-dd-btn" data-dd="bc-mm">' +
-      '<span class="bc-mini" id="bc-logo-preview"></span>Mark &#9662;</button>';
-    var logoMenu = '<div class="bc-menu" id="bc-mm" hidden>' +
-      LOGO_ORDER.map(function (k) {
-        return '<button type="button" class="bc-item" data-logo="' + k + '">' +
-          '<span class="bc-mini" style="width:22px;height:22px">' + LOGOS[k] + '</span>' + SW_LABELS[k] + '</button>';
-      }).join('') + '</div>';
+    var logoMenu = '<div class="bc-menu" id="bc-mm" hidden>' + LOGO_ORDER.map(function (k) {
+      return '<button type="button" class="bc-item" data-logo="' + k + '">'
+        + '<span class="bc-mini" style="width:22px;height:22px">' + LOGOS[k] + '</span>' + SW_LABELS[k] + '</button>';
+    }).join('') + '</div>';
+    var sysMenu = '<div class="bc-menu" id="bc-ms" hidden>' + ORDER.map(function (k) {
+      var t = PACKAGES[k].tokens;
+      return '<button type="button" class="bc-item" data-pkg="' + k + '"><span class="sw">'
+        + '<i style="background:' + t['--accent'] + '"></i><i style="background:' + t['--sand'] + '"></i><i style="background:' + t['--ink'] + '"></i></span>'
+        + PACKAGES[k].name + '</button>';
+    }).join('') + '</div>';
 
-    var sysBtn = '<button type="button" class="bc-btn bc-dd-btn" data-dd="bc-ms">' +
-      '<span class="bc-sw" id="bc-sys-preview"></span>System &#9662;</button>';
-    var sysMenu = '<div class="bc-menu" id="bc-ms" hidden>' +
-      ORDER.map(function (k) {
-        var t = PACKAGES[k].tokens;
-        var sw = '<span class="sw">' +
-          '<i style="background:' + t['--accent'] + '"></i>' +
-          '<i style="background:' + t['--sand'] + '"></i>' +
-          '<i style="background:' + t['--ink'] + '"></i></span>';
-        return '<button type="button" class="bc-item" data-pkg="' + k + '">' + sw + PACKAGES[k].name + '</button>';
-      }).join('') + '</div>';
+    var modeBtn = isBook() ? '' : '<button type="button" class="bc-btn bc-mode" id="bc-mode" title="Light / dark (mock website)">&#9681;</button>';
+    var hideBtn = isBook() ? '' : '<button type="button" class="bc-btn bc-hide" id="bc-hide" title="Hide brand controls">&#8211;</button>';
 
-    var modeBtn = '<button type="button" class="bc-btn bc-mode" id="bc-mode" title="Light / dark">&#9681;</button>';
+    var bar = global.document.createElement('div');
+    bar.className = 'bc-topbar'; bar.id = 'bc-topbar';
+    bar.innerHTML = '<span class="bc-tag">99 &middot; brand system</span><div class="bc-ctl">'
+      + '<div class="bc-dd"><button type="button" class="bc-btn bc-dd-btn" data-dd="bc-mm">'
+      + '<span class="bc-mini" id="bc-logo-preview"></span>Mark &#9662;</button>' + logoMenu + '</div>'
+      + '<div class="bc-dd"><button type="button" class="bc-btn bc-dd-btn" data-dd="bc-ms">'
+      + '<span class="bc-sw" id="bc-sys-preview"></span>System &#9662;</button>' + sysMenu + '</div>'
+      + modeBtn + hideBtn + '</div>';
+    global.document.body.insertBefore(bar, global.document.body.firstChild);
 
-    ctl.innerHTML = '<div class="bc-dd">' + logoBtn + logoMenu + '</div>' +
-      '<div class="bc-dd">' + sysBtn + sysMenu + '</div>' + modeBtn;
+    var chip = global.document.createElement('button');
+    chip.type = 'button'; chip.className = 'bc-chip'; chip.id = 'bc-chip';
+    chip.innerHTML = '<span class="bc-mini" id="bc-chip-logo"></span>Brand';
+    global.document.body.appendChild(chip);
+    chip.addEventListener('click', function () { global.document.body.classList.remove('bc-collapsed'); kick('0'); });
+
+    try { if (global.localStorage.getItem('99-collapsed') === '1') global.document.body.classList.add('bc-collapsed'); } catch (e) {}
 
     var prog = global.document.createElement('div');
     prog.className = 'bc-progress'; prog.id = 'bc-progress';
@@ -264,77 +279,57 @@
       if (ptick) return; ptick = true;
       global.requestAnimationFrame(function () {
         ptick = false;
-        var d = global.document.documentElement;
-        var max = d.scrollHeight - global.innerHeight;
+        var d = global.document.documentElement, max = d.scrollHeight - global.innerHeight;
         prog.style.width = (max > 0 ? ((global.scrollY || d.scrollTop) / max) * 100 : 0) + '%';
       });
     }, { passive: true });
 
-    var host = global.document.querySelector('[data-brand-control]');
-    if (host) { host.appendChild(ctl); }
-    else { ctl.style.cssText += ';position:fixed;top:12px;right:12px;z-index:10000'; global.document.body.insertBefore(ctl, global.document.body.firstChild); }
-
-    // dropdown open/close
-    ctl.addEventListener('click', function (e) {
+    bar.addEventListener('click', function (e) {
       var t = e.target.closest('.bc-dd-btn');
-      if (t) {
-        var menu = global.document.getElementById(t.dataset.dd);
-        if (menu) menu.hidden = !menu.hidden;
-        return;
-      }
+      if (t) { var m = global.document.getElementById(t.dataset.dd); if (m) m.hidden = !m.hidden; return; }
       var it = e.target.closest('.bc-item');
       if (it) {
         if (it.dataset.logo) { setLogo(it.dataset.logo); injectLogos(); closeMenus(); syncControl(); }
         if (it.dataset.pkg) { set(it.dataset.pkg); closeMenus(); syncControl(); }
         return;
       }
-      if (e.target.closest('#bc-mode')) {
-        setMode(mode() === 'light' ? 'dark' : 'light');
-        closeMenus(); syncControl();
-      }
+      if (e.target.closest('#bc-mode')) { setMode(mode() === 'light' ? 'dark' : 'light'); closeMenus(); syncControl(); }
+      if (e.target.closest('#bc-hide')) { global.document.body.classList.add('bc-collapsed'); kick('1'); }
     });
-    global.document.addEventListener('click', function (e) {
-      if (!ctl.contains(e.target)) closeMenus();
-    });
+    global.document.addEventListener('click', function (e) { if (!bar.contains(e.target) && !chip.contains(e.target)) closeMenus(); });
+
     syncControl();
     mountNotice();
+  }
+
+  function closeMenus() {
+    if (!global.document) return;
+    Array.prototype.forEach.call(global.document.querySelectorAll('#bc-topbar .bc-menu'), function (m) { m.hidden = true; });
   }
   function mountNotice() {
     if (!global.document) return;
     try { if (global.localStorage.getItem('99-bright-seen')) return; } catch (e) { return; }
     var n = global.document.createElement('div');
     n.className = 'bc-notice'; n.setAttribute('role', 'note');
-    n.innerHTML = '<b>Full effect at full brightness.</b> This identity is built on deep blacks — if the shadows look '
+    n.innerHTML = '<b>Full effect at full brightness.</b> This identity is built on deep blacks \u2014 if the shadows look '
       + 'flat, raise your display brightness. Reads clearly? '
-      + '<button type="button">Looks good — hide</button>';
+      + '<button type="button">Looks good \u2014 hide</button>';
     global.document.body.appendChild(n);
     n.querySelector('button').addEventListener('click', function () {
       try { global.localStorage.setItem('99-bright-seen', '1'); } catch (e) {}
       n.remove();
     });
   }
-  function closeMenus() {
-    if (!global.document) return;
-    global.document.querySelectorAll('#bc-ctl .bc-menu').forEach(function (m) { m.hidden = true; });
-  }
   function syncControl() {
     if (!global.document) return;
     var lg = getLogo(), pk = current();
-    var lp = global.document.getElementById('bc-logo-preview');
-    if (lp) lp.innerHTML = logoMark(lg);
+    var lp = global.document.getElementById('bc-logo-preview'); if (lp) lp.innerHTML = logoMark(lg);
+    var cp = global.document.getElementById('bc-chip-logo'); if (cp) cp.innerHTML = logoMark(lg);
     var sp = global.document.getElementById('bc-sys-preview');
-    if (sp) {
-      var t = PACKAGES[pk].tokens;
-      sp.innerHTML = '<i style="background:' + t['--accent'] + '"></i><i style="background:' + t['--sand'] + '"></i><i style="background:' + t['--ink'] + '"></i>';
-    }
-    global.document.querySelectorAll('#bc-ctl [data-logo]').forEach(function (b) {
-      b.setAttribute('aria-checked', String(b.dataset.logo === lg));
-    });
-    global.document.querySelectorAll('#bc-ctl [data-pkg]').forEach(function (b) {
-      b.setAttribute('aria-checked', String(b.dataset.pkg === pk));
-    });
-    var mb = global.document.getElementById('bc-mode');
-    if (mb) mb.textContent = mode() === 'light' ? '\u25CB' : '\u25CF';
+    if (sp) { var t = PACKAGES[pk].tokens; sp.innerHTML = '<i style="background:' + t['--accent'] + '"></i><i style="background:' + t['--sand'] + '"></i><i style="background:' + t['--ink'] + '"></i>'; }
+    Array.prototype.forEach.call(global.document.querySelectorAll('#bc-topbar [data-logo]'), function (b) { b.setAttribute('aria-checked', String(b.dataset.logo === lg)); });
+    Array.prototype.forEach.call(global.document.querySelectorAll('#bc-topbar [data-pkg]'), function (b) { b.setAttribute('aria-checked', String(b.dataset.pkg === pk)); });
+    var mb = global.document.getElementById('bc-mode'); if (mb) mb.textContent = mode() === 'light' ? '\u25CB' : '\u25CF';
   }
 
   global.Brand99 = {
@@ -361,3 +356,6 @@
     } else { boot(); }
   }
 })(typeof window !== 'undefined' ? window : this);
+
+  /* paint the stored theme as early as possible */
+  if (typeof document !== 'undefined' && document.documentElement) { try { apply(current()); } catch (e) {} }
