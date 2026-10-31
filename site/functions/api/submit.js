@@ -19,6 +19,9 @@ function field(label, value) {
   return `${label.padEnd(14)} ${value || '—'}`;
 }
 
+function collateralUrl(req) {
+  try { return new URL(req.url).origin + '/collateral'; } catch (e) { return 'https://99-branding.agilexplus.dev/collateral'; }
+}
 function buildBody(p, req) {
   const at = new Date().toISOString();
   const ip = req.headers.get('cf-connecting-ip') || '—';
@@ -33,10 +36,13 @@ function buildBody(p, req) {
     field('Company:', p.company),
     field('Email:', p.email),
     '',
+    'Collateral preview: ' + collateralUrl(req),
+    '', 
     'Notes:',
     p.notes || '—',
     '',
     '—',
+    field('Collateral:', collateralUrl(req)),
     field('Page:', p.page),
     field('Received:', at),
     field('Country:', country),

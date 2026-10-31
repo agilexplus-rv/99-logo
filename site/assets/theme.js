@@ -27,6 +27,7 @@
         '--slate': '#8A8078',
         '--accent': '#D8440B',
         '--accent-ink': '#CB400A',
+        '--accent-pale': '#FFD9C2',
         '--accent-deep': '#6E1F06',
         '--accent-soft': 'rgba(216,68,11,.14)',
         '--line': 'rgba(233,203,169,.16)',
@@ -54,6 +55,7 @@
         '--slate': '#8C8078',
         '--accent': '#C0603A',
         '--accent-ink': '#AC5634',
+        '--accent-pale': '#EBD6C8',
         '--accent-deep': '#6B2E17',
         '--accent-soft': 'rgba(192,96,58,.15)',
         '--line': 'rgba(223,199,172,.17)',
@@ -81,6 +83,7 @@
         '--slate': '#7F8489',
         '--accent': '#C9973F',
         '--accent-ink': '#8B692C',
+        '--accent-pale': '#EFE3C0',
         '--accent-deep': '#6B4E15',
         '--accent-soft': 'rgba(201,151,63,.14)',
         '--line': 'rgba(207,198,180,.16)',
@@ -161,10 +164,96 @@
   function boot() {
     apply(current());
     injectLogos();
+    mountSwitcher();
     // keep sibling mock-site tabs in step
     global.addEventListener('storage', function (e) {
-      if (e.key === '99-package') apply(e.newValue || 'ember');
-      if (e.key === '99-logo') injectLogos();
+      if (e.key === '99-package') { apply(e.newValue || 'ember'); syncSwitcher(); }
+      if (e.key === '99-logo') { injectLogos(); syncSwitcher(); }
+    });
+  }
+
+  /* ---------- single fixed selector: logo + system (palette & fonts) ---------- */
+  var SW_LABELS = { 'the-sign': 'The Sign', 'the-wordmark': 'Wordmark', 'the-sign-off': 'Sign-off', 'the-seal': 'Seal' };
+  function switcherCSS() {
+    return '.bc-bar{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:flex;align-items:center;' +
+      'padding:9px 16px;background:color-mix(in srgb,var(--ink) 92%, transparent);backdrop-filter:blur(12px);' +
+      'border-top:1px solid var(--line);font-family:var(--font-body)}' +
+      '.bc-bar .bc-lab{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin:0 6px 0 12px;white-space:nowrap}' +
+      '.bc-bar .bc-sep{width:1px;height:20px;background:var(--line);margin:0 10px;flex:0 0 auto}' +
+      '.bc-bar button{border:1px solid var(--line);background:transparent;color:var(--sand);border-radius:99px;' +
+      'padding:7px 12px;font-size:.78rem;font-family:inherit;cursor:pointer;white-space:nowrap;transition:.18s}' +
+      '.bc-bar button:hover{color:var(--paper);border-color:var(--accent)}' +
+      '.bc-bar button[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper);font-weight:600}' +
+      '.bc-bar .bc-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}' +
+      '.bc-bar .bc-scroll::-webkit-scrollbar{display:none}' +
+      'body{padding-bottom:58px}' +
+      '.bc-progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:9999;transition:width .08s linear}' +
+      '.bc-notice{position:fixed;top:12px;right:12px;z-index:9998;max-width:320px;padding:12px 14px;border-radius:12px;' +
+      'background:var(--paper);color:var(--ink);box-shadow:0 18px 50px -20px #000;font-size:.82rem;font-family:var(--font-body)}' +
+      '.bc-notice b{font-family:var(--font-display);font-weight:var(--display-weight)}' +
+      '.bc-notice button{margin-top:8px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;' +
+      'padding:6px 12px;font-size:.78rem;font-family:inherit;cursor:pointer}';
+  }
+  function mountSwitcher() {
+    if (!global.document || global.document.getElementById('bc-bar')) return;
+    if (!global.document.getElementById('bc-style')) {
+      var st = global.document.createElement('style');
+      st.id = 'bc-style'; st.textContent = switcherCSS();
+      global.document.head.appendChild(st);
+    }
+    var bar = global.document.createElement('div');
+    bar.className = 'bc-bar'; bar.id = 'bc-bar'; bar.setAttribute('role', 'toolbar'); bar.setAttribute('aria-label', 'Brand system');
+    var html = '<span class="bc-lab">Mark</span><span class="bc-scroll">';
+    LOGO_ORDER.forEach(function (k) { html += '<button type="button" data-logo="' + k + '">' + SW_LABELS[k] + '</button>'; });
+    html += '</span><span class="bc-sep"></span><span class="bc-lab">System</span><span class="bc-scroll">';
+    ORDER.forEach(function (k) { html += '<button type="button" data-pkg="' + k + '">' + PACKAGES[k].name + '</button>'; });
+    html += '</span>';
+    bar.innerHTML = html;
+    var prog = global.document.createElement('div');
+    prog.className = 'bc-progress'; prog.id = 'bc-progress';
+    global.document.body.appendChild(prog);
+    var ticking = false;
+    global.addEventListener('scroll', function () {
+      if (ticking) return; ticking = true;
+      global.requestAnimationFrame(function () {
+        ticking = false;
+        var d = global.document.documentElement;
+        var max = d.scrollHeight - global.innerHeight;
+        prog.style.width = (max > 0 ? ((global.scrollY || d.scrollTop) / max) * 100 : 0) + '%';
+      });
+    }, { passive: true });
+
+    global.document.body.appendChild(bar);
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.logo) { setLogo(b.dataset.logo); injectLogos(); syncSwitcher(); }
+      if (b.dataset.pkg) { set(b.dataset.pkg); syncSwitcher(); }
+    });
+    syncSwitcher();
+    mountNotice();
+  }
+  function mountNotice() {
+    if (!global.document) return;
+    try { if (global.localStorage.getItem('99-bright-seen')) return; } catch (e) { return; }
+    var n = global.document.createElement('div');
+    n.className = 'bc-notice'; n.setAttribute('role', 'note');
+    n.innerHTML = '<b>Full effect at full brightness.</b> This palette is built on deep blacks — if the shadows look '
+      + 'flat, raise your display brightness. Can you read this text clearly? '
+      + '<button type="button">Looks good — hide</button>';
+    global.document.body.appendChild(n);
+    n.querySelector('button').addEventListener('click', function () {
+      try { global.localStorage.setItem('99-bright-seen', '1'); } catch (e) {}
+      n.remove();
+    });
+  }
+  function syncSwitcher() {
+    if (!global.document) return;
+    var p = current(), l = getLogo();
+    Array.prototype.forEach.call(global.document.querySelectorAll('#bc-bar [data-pkg]'), function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.pkg === p));
+    });
+    Array.prototype.forEach.call(global.document.querySelectorAll('#bc-bar [data-logo]'), function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.logo === l));
     });
   }
 
@@ -172,7 +261,7 @@
     PACKAGES: PACKAGES, ORDER: ORDER,
     LOGOS: LOGOS, LOGO_ORDER: LOGO_ORDER,
     apply: apply, set: set, current: current, boot: boot,
-    getLogo: getLogo, setLogo: setLogo, logoMark: logoMark, injectLogos: injectLogos,
+    getLogo: getLogo, setLogo: setLogo, logoMark: logoMark, injectLogos: injectLogos, syncSwitcher: syncSwitcher,
     contrast: contrast,
     ratios: function (key) {
       var t = (PACKAGES[key] || PACKAGES.ember).tokens;
