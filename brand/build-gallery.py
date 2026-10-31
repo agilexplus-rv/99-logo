@@ -92,7 +92,11 @@ def inline(path):
     raw = re.sub(r"\s(width|height)=\"\d+\"", "", raw, count=2)
     raw = re.sub(r"<\?xml[^>]*\?>", "", raw)
     first = raw.index("<svg")
-    return raw[first:]
+    raw = raw[first:]
+    # one canonical mark everywhere: drop the legacy overscale so counters and
+    # framing match the live site exactly
+    raw = re.sub(r'\s*transform="translate\(128 126\) scale\(1\.22\) translate\(-128 -126\)"', '', raw)
+    return raw
 
 
 def esc(s):
