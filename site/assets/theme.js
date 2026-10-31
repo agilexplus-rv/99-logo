@@ -389,10 +389,20 @@
 
     /* same-page anchors must clear the fixed brand bar + sticky nav */
     global.document.addEventListener('click', function (e) {
-      var a = e.target.closest('a[href^="#"]');
+      var a = e.target.closest('a[href*="#"]');
       if (!a) return;
-      var id = a.getAttribute('href').slice(1);
+      var href = a.getAttribute('href');
+      var cut = href.indexOf('#');
+      if (cut === -1) return;
+      var path = href.slice(0, cut);
+      var id = href.slice(cut + 1);
       if (!id) return;
+      if (path) {
+        /* a link like "services#engagement" is same-page when we're already on services */
+        var here = global.location.pathname.replace(/\.html$/, '').replace(/\/$/, '');
+        var there = path.replace(/\.html$/, '').replace(/\/$/, '').replace(/^\//, '');
+        if (!here.endsWith('/' + there) && here !== '/' + there) return;
+      }
       var el = global.document.getElementById(id);
       if (!el) return;
       e.preventDefault();
