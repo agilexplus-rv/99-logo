@@ -19,7 +19,8 @@ const PAGES = [
       { click: '[data-logo="the-seal"]' },
       { path: '/site/home', shot: 'home' },
       { path: '/collateral', shot: 'collateral' },
-      { click: '#bc-mode', shot: 'light' }
+      { eval: "localStorage.setItem('99-mode','light')" },
+      { path: '/collateral', shot: 'light' }
     ] },
 ];
 
@@ -71,7 +72,8 @@ for (const p of PAGES) {
           await page.goto(BASE + step.path, { waitUntil: 'networkidle', timeout: 45000 });
           await page.evaluate(() => document.fonts && document.fonts.ready);
         }
-        if (step.click) { await page.click(step.click); await page.waitForTimeout(800); }
+        if (step.eval) { await page.evaluate(step.eval); await page.waitForTimeout(300); }
+        if (step.click) { await page.click(step.click).catch(function(){ console.log('   ! click skipped: ' + step.click); }); await page.waitForTimeout(800); }
         if (step.shot) {
           await page.screenshot({ path: `shots/${p.name}-${step.shot}.png`, fullPage: false });
         }
