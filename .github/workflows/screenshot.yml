@@ -33,13 +33,18 @@ jobs:
       - name: Install Playwright + Chromium
         run: |
           npm init -y >/dev/null 2>&1 || true
-          npm i --no-audit --no-fund playwright@1.49.1
+          npm i --no-audit --no-fund playwright@1.49.1 axe-core@4.10.2
           npx playwright install --with-deps chromium
 
       - name: Capture
         env:
           BASE: ${{ inputs.base || 'https://99-branding.agilexplus.dev' }}
         run: node .github/screenshot.mjs
+
+      - name: Contrast audit (all package x mode x page)
+        env:
+          BASE: ${{ inputs.base || 'https://99-branding.agilexplus.dev' }}
+        run: node .github/contrast-audit.mjs
 
       - uses: actions/upload-artifact@v4
         if: always()
