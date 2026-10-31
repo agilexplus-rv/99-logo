@@ -3,6 +3,7 @@
    live price, stamped tags) without reusing any of its assets. */
 (function () {
   'use strict';
+  document.documentElement.classList.add('js');
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
@@ -93,8 +94,17 @@
         var n = en.target.querySelector('[data-count]');
         if (n) countUp(n);
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
     els.forEach(function (e) { io.observe(e); });
+    // Safety net: never let content stay invisible if an observer callback is missed.
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        els.forEach(function (e) {
+          var r = e.getBoundingClientRect();
+          if (r.top < window.innerHeight && !e.classList.contains('in')) e.classList.add('in');
+        });
+      }, 400);
+    });
   }
 
   function countUp(el) {

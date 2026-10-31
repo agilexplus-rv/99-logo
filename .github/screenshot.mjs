@@ -29,6 +29,18 @@ async function settle(page) {
     });
   });
   await page.waitForTimeout(700);
+  // report reveal state so a broken observer is visible in CI, then force final state for the capture
+  const state = await page.evaluate(() => {
+    const all = document.querySelectorAll('.reveal');
+    const on = document.querySelectorAll('.reveal.in');
+    return { total: all.length, revealed: on.length };
+  });
+  console.log(`   reveals ${state.revealed}/${state.total}`);
+  await page.evaluate(() => {
+    document.querySelectorAll('.reveal').forEach((e) => e.classList.add('in'));
+    document.querySelectorAll('.acc details').forEach((d, i) => { if (i === 0) d.open = true; });
+  });
+  await page.waitForTimeout(400);
 }
 
 const browser = await chromium.launch();
