@@ -27,8 +27,14 @@ async function settle(page) {
     await page.waitForTimeout(130);
   }
   await page.waitForTimeout(400);
-  await page.evaluate(() => window.scrollTo(0, 0));
-  await page.waitForTimeout(500);
+  // the page sets scroll-behavior:smooth, so a plain scrollTo(0,0) is still animating
+  // when the screenshot is taken — that is what misplaced the sticky nav in full-page shots.
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+  });
+  await page.waitForFunction(() => window.scrollY === 0, null, { timeout: 5000 }).catch(() => {});
+  await page.waitForTimeout(600);
 
   const state = await page.evaluate(() => ({
     total: document.querySelectorAll('.reveal').length,
