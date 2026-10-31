@@ -1,0 +1,48 @@
+name: screenshot
+
+# Renders the live brand book + mock website to PNGs, so the visual result can be
+# reviewed without running a browser on the build host (see AGENTS.md §1).
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: Base URL to screenshot
+        required: false
+        default: https://99-branding.agilexplus.dev
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/screenshot.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  shots:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright + Chromium
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm i --no-audit --no-fund playwright@1.49.1
+          npx playwright install --with-deps chromium
+
+      - name: Capture
+        env:
+          BASE: ${{ inputs.base || 'https://99-branding.agilexplus.dev' }}
+        run: node .github/screenshot.mjs
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: shots/
+          retention-days: 14
