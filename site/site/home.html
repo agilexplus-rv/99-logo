@@ -15,10 +15,11 @@
   </a>
   <nav class="links" aria-label="Primary">
     <a href="services" >Services</a>
-    <a href="services#lifecycle">How we work</a>
+    <a href="#how">How we work</a>
     <a href="services#engagement">Engagement</a>
     <a href="about" >About</a>
   </nav>
+  <span data-brand-control></span>
   <a class="btn btn-solid cta" href="about#contact">Start a conversation</a>
 </div></header>
 
@@ -53,7 +54,7 @@
     <span>Scoping</span><span>Software</span><span>Hosting</span><span>Improvement</span><span>Growth</span>
   </div></div>
 
-  <section><div class="wrap reveal">
+  <section id="how"><div class="wrap reveal">
     <p class="micro">How we work</p>
     <h2 class="tone">Most firms start counting at the launch.
       <span class="t2">We start at one.</span></h2>
@@ -169,41 +170,42 @@
 
 
   <section class="cream on-cream"><div class="wrap">
-    <div class="reveal" style="max-width:60ch;margin-bottom:34px">
-      <p class="micro">Engagement</p>
-      <h2 class="tone">Built right,<span class="t2">and improved continually.</span></h2>
-      <p style="margin-top:14px">Use the slider to describe the size of your system. We never publish prices —
-      every engagement is followed by a scoping conversation and a written proposal.</p>
+    <div class="reveal" style="max-width:62ch;margin-bottom:34px">
+      <p class="micro">The business case</p>
+      <h2 class="tone">What does the manual way <span class="t2">actually cost you?</span></h2>
+      <p style="margin-top:14px">Slide the hours you lose to a paperwork process each week. This is the cost of
+      doing nothing &mdash; estimated before anyone asks you for a cent.</p>
     </div>
 
     <div class="est reveal" id="estimator">
       <div class="left">
-        <div class="seg" role="group" aria-label="Engagement shape">
-          <button type="button" data-mode="project" aria-pressed="true">One project</button>
-          <button type="button" data-mode="partnership" aria-pressed="false">The whole count</button>
+        <div class="seg" role="group" aria-label="The rate you value your people at">
+          <button type="button" data-rate="25" aria-pressed="true">&euro;25/h</button>
+          <button type="button" data-rate="50" aria-pressed="false">&euro;50/h</button>
+          <button type="button" data-rate="100" aria-pressed="false">&euro;100/h</button>
         </div>
 
-        <div class="rowlab"><span>Scale of the work</span><b id="est-summary">25 systems · project</b></div>
-        <input id="devices" type="range" min="0" max="200" step="5" value="25"
-               aria-label="Number of systems under management">
-        <div class="ticks"><span data-at="0">0</span><span data-at="5">5</span><span class="on" data-at="25">25</span><span data-at="50">50</span><span data-at="100">100</span><span data-at="200">200+</span></div>
+        <div class="rowlab"><span>Hours a week lost to a manual process</span><b id="est-summary">10 h &middot; &euro;25/h</b></div>
+        <input id="hours" type="range" min="0" max="40" step="1" value="10"
+               aria-label="Hours per week lost to a manual process">
+        <div class="ticks"><span data-at="0">0</span><span data-at="10">10</span><span class="on" data-at="20">20</span><span data-at="30">30</span><span data-at="40">40</span></div>
 
         <div class="checks">
-          <div><i></i> Scope agreed before you commit</div>
-          <div><i></i> Built to be owned, not just delivered</div>
-          <div><i></i> Improved continually after launch</div>
-          <div><i></i> Clear, agreed cost — no surprise invoices</div>
+          <div><i></i> No commitment &mdash; the scoping call is free</div>
+          <div><i></i> An answer in days, not a sales deck</div>
+          <div><i></i> The number is yours to keep either way</div>
+          <div><i></i> Real figures replace the estimate after scoping</div>
         </div>
       </div>
       <div class="right">
-        <div class="price"><span id="scope">25 systems</span>
-          <small id="scope-note">a defined build, delivered then handed over — always after a proposal</small></div>
+        <div class="price"><span id="est-annual">&euro;11,250</span>
+          <small id="est-note">spent on the manual process every year &mdash; the cost of doing nothing</small></div>
         <div class="incl">
-          <span>One accountable name</span><span>Built to last</span>
-          <span>No handovers</span><span>Improved every month</span>
+          <span>Free scoping</span><span>No obligation</span>
+          <span>One accountable name</span><span>Built to pay back</span>
         </div>
-        <a class="btn" id="est-cta" href="about#contact">Request a proposal</a>
-        <p class="note">No prices online — every engagement starts with a conversation</p>
+        <a class="btn" id="est-cta" href="about#contact">See if it pays back</a>
+        <p class="note">Estimate only &mdash; a free scoping call gives the real figure</p>
       </div>
     </div>
 
@@ -220,31 +222,19 @@
       <h2 class="tone">Built to last.
         <span class="t2">Then improved so it stays that way.</span></h2>
     </div>
-    <div class="acc reveal">
-      <details open>
-        <summary><span class="gloss">01</span><h4>Built to last</h4><span class="plus">+</span></summary>
-        <div class="body">Engineered robustly from the first line: reproducible environments, deploys you can trust,
-        and alerting that reaches a person who can act — not a ticket queue.
-        <div class="tags" style="margin-top:10px"><span class="stamp">Reviewed quarterly</span></div></div>
-      </details>
-      <details>
-        <summary><span class="gloss">02</span><h4>Always current</h4><span class="plus">+</span></summary>
-        <div class="body">Every framework has a use-by date. We keep the calendar, so the solution stays modern and
-        robust — upgraded in the background instead of becoming an emergency.
-        <div class="tags" style="margin-top:10px"><span class="stamp">Tracked on a calendar</span></div></div>
-      </details>
-      <details>
-        <summary><span class="gloss">03</span><h4>Watched, not drifting</h4><span class="plus">+</span></summary>
-        <div class="body">Running costs drift upward quietly. A quarterly review keeps the solution lean — and
-        usually finds money, occasionally an entire service nobody needed.
-        <div class="tags" style="margin-top:10px"><span class="stamp">Line-item reviewed</span></div></div>
-      </details>
-      <details>
-        <summary><span class="gloss">04</span><h4>Continual improvement</h4><span class="plus">+</span></summary>
-        <div class="body">Every month carries improvement time, so the solution keeps getting better and adapting to
-        the business — never as a change request that turns into a negotiation.
-        <div class="tags" style="margin-top:10px"><span class="stamp">Scoped, not assumed</span></div></div>
-      </details>
+    <div class="covers reveal">
+      <article><span class="gloss">01</span><h4>Built to last</h4>
+        <p>Engineered robustly from the first line: reproducible environments, deploys you can trust, and alerting
+        that reaches a person who can act.</p><span class="stamp">Reviewed quarterly</span></article>
+      <article><span class="gloss">02</span><h4>Always current</h4>
+        <p>Every framework has a use-by date. We keep the calendar, so the solution stays modern and robust &mdash;
+        upgraded in the background instead of becoming an emergency.</p><span class="stamp">Tracked on a calendar</span></article>
+      <article><span class="gloss">03</span><h4>Watched, not drifting</h4>
+        <p>Running costs drift upward quietly. A quarterly review keeps the solution lean &mdash; and usually finds
+        money, occasionally an entire service nobody needed.</p><span class="stamp">Line-item reviewed</span></article>
+      <article><span class="gloss">04</span><h4>Continual improvement</h4>
+        <p>Every month carries improvement time, so the solution keeps getting better and adapting to the business
+        &mdash; never as a change request that turns into a negotiation.</p><span class="stamp">Scoped, not assumed</span></article>
     </div>
   </div></section>
 

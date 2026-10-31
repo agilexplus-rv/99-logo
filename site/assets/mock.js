@@ -7,53 +7,44 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-  /* ---------------- estimator: scope, never a price ---------------- */
+  /* ---------------- estimator: the cost of doing nothing (ROI lead) ---------------- */
   function initEstimator() {
-    var root = $('#estimator');
-    if (!root) return;
-    var slider = $('#devices', root);
-    var scope = $('#scope', root);
-    var scopeNote = $('#scope-note', root);
-    var cta = $('#est-cta', root);
+    var root = $('#estimator'); if (!root) return;
+    var slider = $('#hours', root);
+    var annual = $('#est-annual', root);
+    var note = $('#est-note', root);
     var ticks = $$('.ticks span', root);
-    var partnership = false;
+    var rate = 25;
+
+    function money(n) { return '€' + n.toLocaleString('en-IE'); }
 
     function paint() {
-      var v = Number(slider.value);
-      scope.textContent = v > 0 ? v + ' systems' : 'To be scoped';
-      scopeNote.textContent = partnership
-        ? 'the whole count, improved continually — always after a proposal'
-        : 'a defined build, delivered then handed over — always after a proposal';
-      if (cta) cta.textContent = v > 0 ? 'Request a proposal' : 'Start a conversation';
-      var pct = (v / Number(slider.max)) * 100;
+      var h = Number(slider.value);
+      var yr = Math.round(h * 45 * rate);
+      annual.textContent = h > 0 ? money(yr) : '—';
+      note.textContent = h > 0
+        ? h + ' hours a week is ' + money(yr) + ' a year of your team doing work a machine could do'
+        : 'move the slider — even a rough guess is worth having';
+      var pct = (h / Number(slider.max)) * 100;
       slider.style.setProperty('--fill', pct + '%');
-      ticks.forEach(function (t) {
-        t.classList.toggle('on', t.dataset.at === String(v));
-      });
+      ticks.forEach(function (t) { t.classList.toggle('on', t.dataset.at === String(h)); });
       var box = $('#est-summary', root);
-      if (box) box.textContent = (v > 0 ? v + ' systems' : 'scoped first') + (partnership ? ' · partnership' : ' · project');
+      if (box) box.textContent = h + ' h a week · ' + '€' + rate + '/h';
     }
 
     slider.addEventListener('input', paint);
     $$('.seg button', root).forEach(function (b) {
       b.addEventListener('click', function () {
-        partnership = b.dataset.mode === 'partnership';
-        $$('.seg button', root).forEach(function (o) {
-          o.setAttribute('aria-pressed', String(o === b));
-        });
+        rate = Number(b.dataset.rate);
+        $$('.seg button', root).forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
         paint();
       });
     });
-    paint();
-
-    /* click a tick to jump there */
     ticks.forEach(function (t) {
       t.style.cursor = 'pointer';
-      t.addEventListener('click', function () {
-        slider.value = t.dataset.at;
-        paint();
-      });
+      t.addEventListener('click', function () { slider.value = t.dataset.at; paint(); });
     });
+    paint();
   }
 
   /* ---------------- scroll reveal ---------------- */

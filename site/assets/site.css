@@ -39,7 +39,7 @@ p { margin: 0 0 1em; }
 }
 .nav .wrap { display: flex; align-items: center; gap: 28px; height: 68px; }
 .nav .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav .logo svg { height: 26px; width: auto; }
+.nav .logo svg { height: 36px; width: auto; }
 .nav .links { display: flex; gap: 26px; margin-left: auto; }
 .nav .links a {
   text-decoration: none; font-size: 0.94rem; color: var(--sand);
@@ -120,7 +120,7 @@ section { padding: 76px 0; }
 /* ---------- lifecycle ---------- */
 .steps { border-top: var(--rule) solid var(--line); }
 .step {
-  display: grid; grid-template-columns: 88px 1fr 1.2fr; gap: 26px;
+  display: grid; grid-template-columns: 76px minmax(120px, 200px) 1fr; gap: 22px;
   padding: 26px 0; border-bottom: var(--rule) solid var(--line); align-items: start;
 }
 .step .n { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); letter-spacing: .12em; }

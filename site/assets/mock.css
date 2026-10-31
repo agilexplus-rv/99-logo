@@ -410,3 +410,16 @@ html:not(.js) .jscreen, .no-journey .jscreen { position: static; }
 /* leave room under the tab bar so screens don't sit behind it */
 .jscreen .bar-top { padding-top: 12px; }
 @media (prefers-reduced-motion: reduce) { .tablet { transform: none; } }
+
+
+/* "what the whole count covers" — open cards, no click required */
+.covers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.covers article { border: 1px solid var(--ref-hair-dark); border-radius: 14px; padding: 18px 18px 16px;
+  background: #fff; }
+.covers .gloss { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; color: #fff;
+  font-family: var(--font-mono); font-size: .68rem; margin-bottom: 12px;
+  background: radial-gradient(120% 90% at 70% 10%, var(--ref-pale), transparent 45%), linear-gradient(150deg, var(--ref-orange-1), var(--ref-orange-2)); }
+.covers h4 { margin: 0 0 6px; font-size: .98rem; }
+.covers p { margin: 0 0 12px; color: #4A403B; font-size: .84rem; }
+/* stronger note on the accent panel */
+.est .right .note { opacity: 1; color: #fff; background: rgba(18,3,1,.30); padding: 7px 10px; border-radius: 8px; }

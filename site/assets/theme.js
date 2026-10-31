@@ -123,6 +123,16 @@
     Object.keys(pkg.tokens).forEach(function (k) {
       root.style.setProperty(k, pkg.tokens[k]);
     });
+    var m = mode();
+    root.setAttribute('data-mode', m);
+    if (m === 'light') {
+      root.style.setProperty('--ink', pkg.tokens['--paper']);
+      root.style.setProperty('--paper', pkg.tokens['--ink']);
+      root.style.setProperty('--surface', pkg.tokens['--sand']);
+      root.style.setProperty('--surface-2', '#ffffff');
+      root.style.setProperty('--line', 'rgba(0,0,0,.10)');
+      root.style.setProperty('--accent-soft', 'color-mix(in srgb,' + pkg.tokens['--accent'] + ' 12%, transparent)');
+    }
     return key;
   }
 
@@ -164,72 +174,129 @@
   function boot() {
     apply(current());
     injectLogos();
-    mountSwitcher();
+    mountControl();
     // keep sibling mock-site tabs in step
     global.addEventListener('storage', function (e) {
-      if (e.key === '99-package') { apply(e.newValue || 'ember'); syncSwitcher(); }
-      if (e.key === '99-logo') { injectLogos(); syncSwitcher(); }
+      if (e.key === '99-package') { apply(e.newValue || 'ember'); syncControl(); }
+      if (e.key === '99-logo') { injectLogos(); syncControl(); }
+      if (e.key === '99-mode') { apply(current()); syncControl(); }
     });
   }
 
-  /* ---------- single fixed selector: logo + system (palette & fonts) ---------- */
+  /* ---------- global control: navbar dropdowns for mark + system, plus light/dark ---------- */
   var SW_LABELS = { 'the-sign': 'The Sign', 'the-wordmark': 'Wordmark', 'the-sign-off': 'Sign-off', 'the-seal': 'Seal' };
-  function switcherCSS() {
-    return '.bc-bar{position:fixed;left:0;right:0;bottom:0;z-index:9999;display:flex;align-items:center;' +
-      'padding:9px 16px;background:color-mix(in srgb,var(--ink) 92%, transparent);backdrop-filter:blur(12px);' +
-      'border-top:1px solid var(--line);font-family:var(--font-body)}' +
-      '.bc-bar .bc-lab{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin:0 6px 0 12px;white-space:nowrap}' +
-      '.bc-bar .bc-sep{width:1px;height:20px;background:var(--line);margin:0 10px;flex:0 0 auto}' +
-      '.bc-bar button{border:1px solid var(--line);background:transparent;color:var(--sand);border-radius:99px;' +
-      'padding:7px 12px;font-size:.78rem;font-family:inherit;cursor:pointer;white-space:nowrap;transition:.18s}' +
-      '.bc-bar button:hover{color:var(--paper);border-color:var(--accent)}' +
-      '.bc-bar button[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--paper);font-weight:600}' +
-      '.bc-bar .bc-scroll{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}' +
-      '.bc-bar .bc-scroll::-webkit-scrollbar{display:none}' +
-      'body{padding-bottom:58px}' +
-      '.bc-progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:9999;transition:width .08s linear}' +
-      '.bc-notice{position:fixed;bottom:72px;right:12px;z-index:9998;max-width:320px;padding:12px 14px;border-radius:12px;' +
-      'background:var(--paper);color:var(--ink);box-shadow:0 18px 50px -20px #000;font-size:.82rem;font-family:var(--font-body)}' +
+
+  function controlCSS() {
+    return '.bc-ctl{display:flex;align-items:center;gap:6px;font-family:var(--font-body)}' +
+      '.bc-dd{position:relative}' +
+      '.bc-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:transparent;' +
+      'color:var(--paper);border-radius:99px;padding:7px 12px;font-size:.78rem;font-family:inherit;cursor:pointer;' +
+      'transition:.18s;white-space:nowrap}' +
+      '.bc-btn:hover{border-color:var(--accent)}' +
+      '.bc-mini{width:18px;height:18px;color:var(--accent);display:inline-grid;place-items:center}' +
+      '.bc-mini svg{width:100%;height:100%}' +
+      '.bc-sw{display:inline-flex;gap:2px}' +
+      '.bc-sw i{width:8px;height:14px;border-radius:2px}' +
+      '.bc-menu{position:absolute;right:0;top:calc(100% + 6px);min-width:200px;background:var(--surface-2);' +
+      'border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 24px 60px -24px #000;z-index:10001}' +
+      '.bc-menu[hidden]{display:none}' +
+      '.bc-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:transparent;' +
+      'color:var(--paper);padding:8px 10px;border-radius:8px;font-size:.8rem;font-family:inherit;cursor:pointer}' +
+      '.bc-item:hover{background:var(--accent-soft)}' +
+      '.bc-item[aria-checked="true"]{color:var(--accent)}' +
+      '.bc-item .sw{display:inline-flex;gap:2px}' +
+      '.bc-item .sw i{width:14px;height:14px;border-radius:3px}' +
+      '.bc-mode{border-color:var(--line)}' +
+      '.bc-progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:10000;transition:width .08s linear}' +
+      '.bc-notice{position:fixed;bottom:16px;left:12px;z-index:10001;max-width:300px;padding:11px 13px;border-radius:12px;' +
+      'background:var(--paper);color:var(--ink);box-shadow:0 18px 50px -20px #000;font-size:.8rem;font-family:var(--font-body)}' +
       '.bc-notice b{font-family:var(--font-display);font-weight:var(--display-weight)}' +
-      '.bc-notice button{margin-top:8px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;' +
-      'padding:6px 12px;font-size:.78rem;font-family:inherit;cursor:pointer}';
+      '.bc-notice button{margin-top:7px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;' +
+      'padding:5px 11px;font-size:.76rem;font-family:inherit;cursor:pointer}';
   }
-  function mountSwitcher() {
-    if (!global.document || global.document.getElementById('bc-bar')) return;
+
+  function mode() {
+    try { return global.localStorage.getItem('99-mode') === 'light' ? 'light' : 'dark'; } catch (e) { return 'dark'; }
+  }
+  function setMode(m) {
+    try { global.localStorage.setItem('99-mode', m); } catch (e) {}
+    apply(current()); injectLogos();
+  }
+
+  function mountControl() {
+    if (!global.document || global.document.getElementById('bc-ctl')) return;
     if (!global.document.getElementById('bc-style')) {
-      var st = global.document.createElement('style');
-      st.id = 'bc-style'; st.textContent = switcherCSS();
+      var st = global.document.createElement('style'); st.id = 'bc-style'; st.textContent = controlCSS();
       global.document.head.appendChild(st);
     }
-    var bar = global.document.createElement('div');
-    bar.className = 'bc-bar'; bar.id = 'bc-bar'; bar.setAttribute('role', 'toolbar'); bar.setAttribute('aria-label', 'Brand system');
-    var html = '<span class="bc-lab">Mark</span><span class="bc-scroll">';
-    LOGO_ORDER.forEach(function (k) { html += '<button type="button" data-logo="' + k + '">' + SW_LABELS[k] + '</button>'; });
-    html += '</span><span class="bc-sep"></span><span class="bc-lab">System</span><span class="bc-scroll">';
-    ORDER.forEach(function (k) { html += '<button type="button" data-pkg="' + k + '">' + PACKAGES[k].name + '</button>'; });
-    html += '</span>';
-    bar.innerHTML = html;
+    var ctl = global.document.createElement('div'); ctl.className = 'bc-ctl'; ctl.id = 'bc-ctl';
+
+    var logoBtn = '<button type="button" class="bc-btn bc-dd-btn" data-dd="bc-mm">' +
+      '<span class="bc-mini" id="bc-logo-preview"></span>Mark &#9662;</button>';
+    var logoMenu = '<div class="bc-menu" id="bc-mm" hidden>' +
+      LOGO_ORDER.map(function (k) {
+        return '<button type="button" class="bc-item" data-logo="' + k + '">' +
+          '<span class="bc-mini" style="width:22px;height:22px">' + LOGOS[k] + '</span>' + SW_LABELS[k] + '</button>';
+      }).join('') + '</div>';
+
+    var sysBtn = '<button type="button" class="bc-btn bc-dd-btn" data-dd="bc-ms">' +
+      '<span class="bc-sw" id="bc-sys-preview"></span>System &#9662;</button>';
+    var sysMenu = '<div class="bc-menu" id="bc-ms" hidden>' +
+      ORDER.map(function (k) {
+        var t = PACKAGES[k].tokens;
+        var sw = '<span class="sw">' +
+          '<i style="background:' + t['--accent'] + '"></i>' +
+          '<i style="background:' + t['--sand'] + '"></i>' +
+          '<i style="background:' + t['--ink'] + '"></i></span>';
+        return '<button type="button" class="bc-item" data-pkg="' + k + '">' + sw + PACKAGES[k].name + '</button>';
+      }).join('') + '</div>';
+
+    var modeBtn = '<button type="button" class="bc-btn bc-mode" id="bc-mode" title="Light / dark">&#9681;</button>';
+
+    ctl.innerHTML = '<div class="bc-dd">' + logoBtn + logoMenu + '</div>' +
+      '<div class="bc-dd">' + sysBtn + sysMenu + '</div>' + modeBtn;
+
     var prog = global.document.createElement('div');
     prog.className = 'bc-progress'; prog.id = 'bc-progress';
     global.document.body.appendChild(prog);
-    var ticking = false;
+    var ptick = false;
     global.addEventListener('scroll', function () {
-      if (ticking) return; ticking = true;
+      if (ptick) return; ptick = true;
       global.requestAnimationFrame(function () {
-        ticking = false;
+        ptick = false;
         var d = global.document.documentElement;
         var max = d.scrollHeight - global.innerHeight;
         prog.style.width = (max > 0 ? ((global.scrollY || d.scrollTop) / max) * 100 : 0) + '%';
       });
     }, { passive: true });
 
-    global.document.body.appendChild(bar);
-    bar.addEventListener('click', function (e) {
-      var b = e.target.closest('button'); if (!b) return;
-      if (b.dataset.logo) { setLogo(b.dataset.logo); injectLogos(); syncSwitcher(); }
-      if (b.dataset.pkg) { set(b.dataset.pkg); syncSwitcher(); }
+    var host = global.document.querySelector('[data-brand-control]');
+    if (host) { host.appendChild(ctl); }
+    else { ctl.style.cssText += ';position:fixed;top:12px;right:12px;z-index:10000'; global.document.body.insertBefore(ctl, global.document.body.firstChild); }
+
+    // dropdown open/close
+    ctl.addEventListener('click', function (e) {
+      var t = e.target.closest('.bc-dd-btn');
+      if (t) {
+        var menu = global.document.getElementById(t.dataset.dd);
+        if (menu) menu.hidden = !menu.hidden;
+        return;
+      }
+      var it = e.target.closest('.bc-item');
+      if (it) {
+        if (it.dataset.logo) { setLogo(it.dataset.logo); injectLogos(); closeMenus(); syncControl(); }
+        if (it.dataset.pkg) { set(it.dataset.pkg); closeMenus(); syncControl(); }
+        return;
+      }
+      if (e.target.closest('#bc-mode')) {
+        setMode(mode() === 'light' ? 'dark' : 'light');
+        closeMenus(); syncControl();
+      }
     });
-    syncSwitcher();
+    global.document.addEventListener('click', function (e) {
+      if (!ctl.contains(e.target)) closeMenus();
+    });
+    syncControl();
     mountNotice();
   }
   function mountNotice() {
@@ -237,8 +304,8 @@
     try { if (global.localStorage.getItem('99-bright-seen')) return; } catch (e) { return; }
     var n = global.document.createElement('div');
     n.className = 'bc-notice'; n.setAttribute('role', 'note');
-    n.innerHTML = '<b>Full effect at full brightness.</b> This palette is built on deep blacks — if the shadows look '
-      + 'flat, raise your display brightness. Can you read this text clearly? '
+    n.innerHTML = '<b>Full effect at full brightness.</b> This identity is built on deep blacks — if the shadows look '
+      + 'flat, raise your display brightness. Reads clearly? '
       + '<button type="button">Looks good — hide</button>';
     global.document.body.appendChild(n);
     n.querySelector('button').addEventListener('click', function () {
@@ -246,22 +313,35 @@
       n.remove();
     });
   }
-  function syncSwitcher() {
+  function closeMenus() {
     if (!global.document) return;
-    var p = current(), l = getLogo();
-    Array.prototype.forEach.call(global.document.querySelectorAll('#bc-bar [data-pkg]'), function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.pkg === p));
+    global.document.querySelectorAll('#bc-ctl .bc-menu').forEach(function (m) { m.hidden = true; });
+  }
+  function syncControl() {
+    if (!global.document) return;
+    var lg = getLogo(), pk = current();
+    var lp = global.document.getElementById('bc-logo-preview');
+    if (lp) lp.innerHTML = logoMark(lg);
+    var sp = global.document.getElementById('bc-sys-preview');
+    if (sp) {
+      var t = PACKAGES[pk].tokens;
+      sp.innerHTML = '<i style="background:' + t['--accent'] + '"></i><i style="background:' + t['--sand'] + '"></i><i style="background:' + t['--ink'] + '"></i>';
+    }
+    global.document.querySelectorAll('#bc-ctl [data-logo]').forEach(function (b) {
+      b.setAttribute('aria-checked', String(b.dataset.logo === lg));
     });
-    Array.prototype.forEach.call(global.document.querySelectorAll('#bc-bar [data-logo]'), function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.logo === l));
+    global.document.querySelectorAll('#bc-ctl [data-pkg]').forEach(function (b) {
+      b.setAttribute('aria-checked', String(b.dataset.pkg === pk));
     });
+    var mb = global.document.getElementById('bc-mode');
+    if (mb) mb.textContent = mode() === 'light' ? '\u25CB' : '\u25CF';
   }
 
   global.Brand99 = {
     PACKAGES: PACKAGES, ORDER: ORDER,
     LOGOS: LOGOS, LOGO_ORDER: LOGO_ORDER,
     apply: apply, set: set, current: current, boot: boot,
-    getLogo: getLogo, setLogo: setLogo, logoMark: logoMark, injectLogos: injectLogos, syncSwitcher: syncSwitcher,
+    getLogo: getLogo, setLogo: setLogo, logoMark: logoMark, injectLogos: injectLogos, syncControl: syncControl, setMode: setMode, mode: mode,
     contrast: contrast,
     ratios: function (key) {
       var t = (PACKAGES[key] || PACKAGES.ember).tokens;

@@ -82,6 +82,24 @@
   .sig .contact i{color:var(--accent-ink,#CB400A);font-style:normal}
   .sig .legal{border-top:1px solid rgba(0,0,0,.1);padding-top:8px;font-size:.56rem;color:var(--slate);max-width:56ch}
   .sig .legal b{color:var(--accent-ink,#CB400A)}
+  /* 2-column: viewer left, document menu right */
+  .clayout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:26px;align-items:start}
+  .clayout > .wrap{display:contents}
+  .cview{min-width:0;display:grid}
+  .cpanel{display:none;justify-items:center;padding:22px;background:linear-gradient(180deg,var(--surface),var(--surface-2));
+    border:1px solid var(--line);border-radius:18px}
+  .cpanel.active{display:grid}
+  .cpanel .doc{max-width:560px;width:100%}
+  .cmenu{position:sticky;top:16px;display:flex;flex-direction:column;gap:6px}
+  .cmenu-h{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);
+    margin:0 0 6px 2px}
+  .citem{display:flex;justify-content:space-between;gap:10px;align-items:baseline;border:1px solid var(--line);
+    background:transparent;color:var(--paper);border-radius:10px;padding:11px 14px;font-size:.86rem;font-family:inherit;
+    cursor:pointer;text-align:left;transition:.18s}
+  .citem small{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+  .citem:hover{border-color:var(--accent)}
+  .citem[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+  @media(max-width:860px){.clayout{grid-template-columns:1fr}.cmenu{position:static;order:-1;flex-direction:row;overflow-x:auto}}
   footer{padding:30px 0 70px;color:var(--slate);font-size:.82rem;border-top:1px solid var(--line)}
 </style>
 </head>
@@ -89,13 +107,14 @@
 
 <header><div class="wrap">
   <p class="eyebrow">99 · collateral</p>
+  <span data-brand-control></span>
   <h1>One identity,<br><span class="dim">on every sheet of paper.</span></h1>
   <p class="lede">Six documents rendered from the same tokens, at real print proportions. Change the mark or the system
   in the bar at the bottom and everything re-skins. Collapse a sheet to tidy the grid, or maximise it to read.</p>
   <p class="hint">Switch &nbsp;Mark&nbsp;/&nbsp;System&nbsp;in the fixed bar below &mdash; one control, everywhere.</p>
 </div></header>
 
-<main><div class="wrap" style="display:contents">
+<main class="clayout" id="clayout"><div class="wrap" style="display:contents">
 
   <details class="sheet" open>
     <summary>Business card <span class="dim">85 × 55&nbsp;mm</span><button data-max type="button">Maximise</button><span class="chev">›</span></summary>
@@ -249,14 +268,31 @@
 illustrative: 99 publishes no prices online. The email signature uses print-safe HTML, ready to paste into a mail client.</div></footer>
 
 <script>
-  document.querySelectorAll('[data-max]').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault(); e.stopPropagation();
-      var d = btn.closest('details');
-      d.classList.toggle('full');
-      btn.textContent = d.classList.contains('full') ? 'Minimise' : 'Maximise';
+  (function () {
+    var main = document.getElementById('clayout'); if (!main) return;
+    var sheets = Array.prototype.slice.call(main.querySelectorAll('details.sheet'));
+    if (!sheets.length) return;
+    var view = document.createElement('div'); view.className = 'cview';
+    var menu = document.createElement('aside'); menu.className = 'cmenu';
+    var h = document.createElement('p'); h.className = 'cmenu-h'; h.textContent = 'Documents';
+    menu.appendChild(h);
+    main.innerHTML = ''; main.appendChild(view); main.appendChild(menu);
+
+    sheets.forEach(function (d, i) {
+      var title = d.querySelector('summary').childNodes[0].textContent.trim();
+      var sub = d.querySelector('summary .dim');
+      var bt = document.createElement('button'); bt.type = 'button'; bt.className = 'citem';
+      bt.innerHTML = title + (sub ? '<small>' + sub.textContent + '</small>' : '');
+      var panel = document.createElement('section'); panel.className = 'cpanel'; panel.dataset.doc = i;
+      panel.appendChild(d.querySelector('.stage'));
+      view.appendChild(panel); menu.appendChild(bt);
+      bt.addEventListener('click', function () {
+        view.querySelectorAll('.cpanel').forEach(function (p) { p.classList.toggle('active', p === panel); });
+        menu.querySelectorAll('.citem').forEach(function (b) { b.setAttribute('aria-current', String(b === bt)); });
+      });
     });
-  });
+    menu.querySelector('.citem').click();
+  })();
 </script>
 </body>
 </html>

@@ -18,7 +18,8 @@ const PAGES = [
       { path: '/', click: '[data-pkg="clay"]' },
       { click: '[data-logo="the-seal"]' },
       { path: '/site/home', shot: 'home' },
-      { path: '/collateral', shot: 'collateral' }
+      { path: '/collateral', shot: 'collateral' },
+      { click: '#bc-mode', shot: 'light' }
     ] },
 ];
 
