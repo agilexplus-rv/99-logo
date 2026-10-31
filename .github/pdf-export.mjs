@@ -35,7 +35,6 @@ for (const [slug, label, size] of DOCS) {
     await page.pdf({
       path: `pdfs/${slug}.pdf`,
       printBackground: true,
-      pageRanges: '1',
       ...(size ? size : { format: 'A4' })
     });
     // a screenshot proof of the same document (used to confirm nothing is clipped)
