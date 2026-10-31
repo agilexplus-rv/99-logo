@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Space+Grotesk:wght@400;500;700&display=swap">
 <script src="../assets/theme.js"></script>
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/mock.css">
 </head>
 <body>
 <header class="nav"><div class="wrap">
@@ -23,86 +24,132 @@
 </div></header>
 
 <main>
-  <section class="hero"><div class="wrap"><div class="inner">
-    <div>
+  <section class="hero-ref"><div class="wrap"><div class="inner">
+    <div class="reveal">
       <p class="micro">Software · Hosting · Maintenance · Enhancement</p>
-      <h1>One to ninety-nine.<br><span class="dim">We start at one.</span></h1>
-      <p class="lede" style="margin-top:20px">Most firms start counting at the launch. Before that comes the first
-      conversation, the architecture, the hosting plan — the part that decides whether the thing works at all. We are
-      there for all of it, and we are still there after.</p>
+      <h1 class="tone">One to <span class="t2">ninety-nine.</span></h1>
+      <p class="sub">Scoping, software, hosting, maintenance and enhancement under one accountable name — the same
+      small senior team from the first conversation to the last number.</p>
       <div class="actions">
         <a class="btn btn-accent" href="about#contact">Start a conversation</a>
-        <a class="btn btn-ghost" href="services">See the whole count</a>
+        <a class="btn btn-ghost" href="#estimator">Estimate a retainer</a>
       </div>
     </div>
-    <aside class="panel" aria-label="What working with us looks like">
-      <div class="row"><span>Engagement</span><b>Fixed scope or retainer</b></div>
-      <div class="row"><span>Handovers</span><b>0 — no wall</b></div>
-      <div class="row"><span>Monitoring</span><b>24/7</b></div>
-      <div class="row"><span>Who does the work</span><b>The people who scoped it</b></div>
-      <div class="row"><span>Accountable name</span><b>One, for the whole count</b></div>
-    </aside>
+    <div class="reveal orb">
+      <div class="card">
+        <b>Whole count</b>
+        <span>One contract. No handovers. The people who scoped it build it, host it and keep it up.</span>
+      </div>
+    </div>
   </div></div></section>
 
-  <div class="stats"><div class="wrap">
-    <div class="cell"><b>01 → 99</b><span>The whole count</span></div>
-    <div class="cell"><b>5</b><span>Stages, one team</span></div>
-    <div class="cell"><b>0</b><span>Handoffs</span></div>
-    <div class="cell"><b>24/7</b><span>Monitored</span></div>
+  <div class="strip"><div class="wrap">
+    <span class="who">Built for companies that want the process fixed, not a prototype</span>
+    <span>Scoping</span><span>Software</span><span>Hosting</span><span>Maintenance</span><span>Enhancement</span>
   </div></div>
 
-  <section><div class="wrap">
-    <div class="sec-head">
-      <p class="micro">What we do</p>
-      <h2>The count doesn't stop<br><span class="dim">at the launch.</span></h2>
-      <p class="lede" style="margin-top:16px">Five stages, one team, no gap where the project gets handed to somebody
-      else. You can buy the whole count or start part-way in.</p>
-    </div>
-    <div class="cards">
-      <article class="card"><div class="ico">01</div><h3>Scoping</h3>
-        <p>We find the process that actually needs to change, and write down what "finished" means before anyone
-        writes code.</p></article>
-      <article class="card"><div class="ico">02</div><h3>Software</h3>
-        <p>Web, back office, integrations. Built by the people who scoped it, with the boring parts done properly.</p></article>
-      <article class="card"><div class="ico">03</div><h3>Hosting</h3>
-        <p>Infrastructure, deploys, backups, certificates, monitoring. The part that has to stay up on a Sunday.</p></article>
-      <article class="card"><div class="ico">04</div><h3>Maintenance</h3>
-        <p>Patching, dependency upgrades, cost review, the 2 a.m. page. We keep counting so you don't have to think
-        about it.</p></article>
-      <article class="card"><div class="ico">05</div><h3>Enhancement</h3>
-        <p>When the business changes shape, the system should too. A new count starts where the last one ended.</p></article>
-      <article class="card" style="border-color:var(--accent)">
-        <div class="ico">→</div><h3>The whole count</h3>
-        <p>All five stages under one contract and one accountable name. This is what we are actually selling.</p></article>
+  <section><div class="wrap reveal">
+    <p class="micro">How we work</p>
+    <h2 class="tone">Most firms start counting at the launch.
+      <span class="t2">We start at one.</span></h2>
+    <div class="timeline">
+      <div class="tl-step"><div class="dot">01</div><h4>Scoping</h4>
+        <p>A written definition of done, a cost range, and an honest go / no-go.</p></div>
+      <div class="tl-step"><div class="dot">02</div><h4>Software</h4>
+        <p>Web apps, internal tools and the integrations between them.</p></div>
+      <div class="tl-step"><div class="dot">03</div><h4>Hosting</h4>
+        <p>Infrastructure, deploys, backups, certificates, alerting.</p></div>
+      <div class="tl-step"><div class="dot">04</div><h4>Maintenance</h4>
+        <p>Patching, upgrades, cost review and the 2 a.m. page.</p></div>
+      <div class="tl-step"><div class="dot">05</div><h4>Enhancement</h4>
+        <p>When the business changes shape, the next count starts.</p></div>
     </div>
   </div></section>
 
-  <section style="padding-top:0"><div class="wrap">
-    <div class="two">
-      <div>
-        <p class="micro">Why 99</p>
-        <h2>99 is the last number<br><span class="dim">you need to count to.</span></h2>
+  <section class="cream on-cream"><div class="wrap">
+    <div class="reveal" style="max-width:60ch;margin-bottom:34px">
+      <p class="micro">Engagement</p>
+      <h2 class="tone">Pay for the running systems,
+        <span class="t2">not for a project that ends.</span></h2>
+      <p style="margin-top:14px">Move the slider to see the shape of a retainer. This is an illustration on a mock
+      site — real numbers come out of a scoping call.</p>
+    </div>
+
+    <div class="est reveal" id="estimator">
+      <div class="left">
+        <div class="seg" role="group" aria-label="Billing period">
+          <button type="button" data-billing="monthly" aria-pressed="true">Monthly</button>
+          <button type="button" data-billing="yearly" aria-pressed="false">Yearly <em>save 15%</em></button>
+        </div>
+
+        <div class="rowlab"><span>Systems in the count</span><b id="est-summary">25 systems · monthly</b></div>
+        <input id="devices" type="range" min="0" max="200" step="5" value="25"
+               aria-label="Number of systems under management">
+        <div class="ticks"><span data-at="0">0</span><span data-at="5">5</span><span class="on" data-at="25">25</span><span data-at="50">50</span><span data-at="100">100</span><span data-at="200">200+</span></div>
+
+        <div class="checks">
+          <div><i></i> Monitoring and out-of-hours on-call</div>
+          <div><i></i> Patching and dependency upgrades</div>
+          <div><i></i> Backup verification, not just backups</div>
+          <div><i></i> Monthly enhancement time</div>
+        </div>
       </div>
-      <div>
-        <p>You count to 99, then you stop counting and start using the thing. It is the point where a system stops
-        being a project and starts being infrastructure — and the point where most firms leave.</p>
-        <p>We are not arriving there. We were there at one, at forty, at ninety. That is the whole argument: the same
-        small senior team is accountable from the first conversation to the last number, and the next count after it.</p>
-        <p style="color:var(--slate)">We never claim 100. Not because we are incomplete, but because there is always
-        one more count worth starting.</p>
+      <div class="right">
+        <div class="price"><span id="price">€780</span>
+          <small id="price-note">per month, billed monthly</small></div>
+        <div class="incl">
+          <span>One accountable name</span><span>Quarterly cost review</span>
+          <span>No handovers</span><span>Exit with the keys</span>
+        </div>
+        <a class="btn" href="about#contact">Start a conversation</a>
+        <p class="note">Illustrative pricing — not a quote</p>
       </div>
     </div>
-  </div></section>
 
-  <section style="padding-top:0"><div class="wrap">
-    <div class="quote">
-      <p>For companies that want to digitalise how they actually work — and stay ahead of the ones that won't — 99 is
-      a small senior team that owns the whole count, under one accountable name.</p>
-      <cite>99 — positioning</cite>
+    <div class="metrics reveal" style="margin-top:36px">
+      <div><b data-count="5">5</b><span>Stages, one team</span></div>
+      <div><b data-count="0">0</b><span>Handoffs</span></div>
+      <div><b>24/7</b><span>Monitored</span></div>
     </div>
   </div></section>
 
-  <section class="band"><div class="wrap">
+  <section class="cream on-cream" style="padding-top:0"><div class="wrap">
+    <div class="reveal" style="max-width:60ch;margin-bottom:10px">
+      <p class="micro">What the retainer actually covers</p>
+      <h2 class="tone">The unglamorous half of ownership.
+        <span class="t2">Priced, not discovered.</span></h2>
+    </div>
+    <div class="crow reveal">
+      <div class="gloss">01</div>
+      <div><h4>Infrastructure</h4>
+        <div class="tags"><span class="stamp">Reviewed quarterly</span></div></div>
+      <div><p>Reproducible environments, deploys you can trust, certificates that do not expire on a Friday, and
+      alerting that reaches a person who can act on it.</p></div>
+    </div>
+    <div class="crow reveal">
+      <div class="gloss">02</div>
+      <div><h4>Dependencies</h4>
+        <div class="tags"><span class="stamp">Tracked on a calendar</span></div></div>
+      <div><p>Every framework you depend on will end-of-life on a date. We keep that date, and we do something about
+      it before it becomes an incident rather than after.</p></div>
+    </div>
+    <div class="crow reveal">
+      <div class="gloss">03</div>
+      <div><h4>Cost</h4>
+        <div class="tags"><span class="stamp">Line-item reviewed</span></div></div>
+      <div><p>Cloud and hosting bills drift upward quietly. A quarterly review of what is actually running usually
+      finds money, and occasionally a whole service nobody needed.</p></div>
+    </div>
+    <div class="crow reveal">
+      <div class="gloss">04</div>
+      <div><h4>Enhancement</h4>
+        <div class="tags"><span class="stamp">Scoped, not assumed</span></div></div>
+      <div><p>Every month carries enhancement time, so the system can follow the business without a change request
+      turning into a negotiation.</p></div>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap reveal">
     <h2>Tell us the process that hurts.</h2>
     <p style="margin-top:12px">We will tell you honestly whether it is a scoping job, a build, or something a
     spreadsheet already solved.</p>
@@ -133,4 +180,5 @@
     <span>One to ninety-nine</span>
   </div>
 </div></footer>
+<script src="../assets/mock.js"></script>
 </body></html>

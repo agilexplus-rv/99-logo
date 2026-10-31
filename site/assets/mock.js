@@ -1,0 +1,130 @@
+/* 99 — mock website behaviour: interactive estimator, scroll reveals, number counters.
+   Mirrors the interaction model of the reference shot (segmented toggle, device slider,
+   live price, stamped tags) without reusing any of its assets. */
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* Device tiers + a price band. These are illustrative placeholders for a mock site —
+     not 99's published prices. */
+  var TIERS = [
+    { at: 0,   label: '0',    price: 0 },
+    { at: 5,   label: '5',    price: 240 },
+    { at: 25,  label: '25',   price: 780 },
+    { at: 50,  label: '50',   price: 1280 },
+    { at: 100, label: '100',  price: 2100 },
+    { at: 200, label: '200+', price: 3400 }
+  ];
+
+  function bandFor(value) {
+    var pick = TIERS[0];
+    TIERS.forEach(function (t) { if (value >= t.at) pick = t; });
+    return pick;
+  }
+
+  function money(n) {
+    return '€' + n.toLocaleString('en-IE');
+  }
+
+  /* ---------------- estimator ---------------- */
+  function initEstimator() {
+    var root = $('#estimator');
+    if (!root) return;
+    var slider = $('#devices', root);
+    var out = $('#price', root);
+    var outNote = $('#price-note', root);
+    var ticks = $$('.ticks span', root);
+    var yearly = false;
+
+    function paint() {
+      var v = Number(slider.value);
+      var band = bandFor(v);
+      var price = band.price;
+      if (yearly) price = Math.round(price * 0.85);
+      out.textContent = price ? money(price) : 'Scoped';
+      outNote.textContent = price
+        ? (yearly ? 'per month, billed yearly — 15% saved' : 'per month, billed monthly')
+        : 'scoping required — talk to us';
+      var pct = (v / Number(slider.max)) * 100;
+      slider.style.setProperty('--fill', pct + '%');
+      ticks.forEach(function (t) {
+        t.classList.toggle('on', t.dataset.at === String(v));
+      });
+      var box = $('#est-summary', root);
+      if (box) box.textContent = v + ' systems · ' + (yearly ? 'yearly' : 'monthly');
+    }
+
+    slider.addEventListener('input', paint);
+    $$('.seg button', root).forEach(function (b) {
+      b.addEventListener('click', function () {
+        yearly = b.dataset.billing === 'yearly';
+        $$('.seg button', root).forEach(function (o) {
+          o.setAttribute('aria-pressed', String(o === b));
+        });
+        paint();
+      });
+    });
+    paint();
+
+    /* click a tick to jump there */
+    ticks.forEach(function (t) {
+      t.style.cursor = 'pointer';
+      t.addEventListener('click', function () {
+        slider.value = t.dataset.at;
+        paint();
+      });
+    });
+  }
+
+  /* ---------------- scroll reveal ---------------- */
+  function initReveal() {
+    var els = $$('.reveal');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (e) { e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+        var n = en.target.querySelector('[data-count]');
+        if (n) countUp(n);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+    els.forEach(function (e) { io.observe(e); });
+  }
+
+  function countUp(el) {
+    var target = Number(el.dataset.count);
+    var suffix = el.dataset.suffix || '';
+    var dur = 900, t0 = performance.now();
+    function frame(t) {
+      var p = Math.min(1, (t - t0) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased).toLocaleString('en-IE') + suffix;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ---------------- timeline lights up as you scroll ---------------- */
+  function initTimeline() {
+    var steps = $$('.tl-step');
+    if (!steps.length || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) en.target.classList.add('is-on');
+      });
+    }, { threshold: 0.6 });
+    steps.forEach(function (s, i) { s.style.transitionDelay = (i * 90) + 'ms'; io.observe(s); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initEstimator();
+    initReveal();
+    initTimeline();
+  });
+})();
