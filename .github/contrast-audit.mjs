@@ -101,7 +101,7 @@ await mobile.close();
 // ---- anchor scroll accuracy: target must land just below the always-visible chrome ----
 const anc = await chromium.launch();
 console.log('\n=== ANCHOR ALIGNMENT (desktop) ===');
-for (const [name, path, sel] of [['home', '/site/home', '#how'], ['services', '/site/services', '#engagement']]) {
+for (const [name, path, sel] of [['home', '/site/home', '#how'], ['home', '/site/home', '#journey'], ['services', '/site/services', '#engagement']]) {
   const ctx = await anc.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await ctx.newPage();
   try {

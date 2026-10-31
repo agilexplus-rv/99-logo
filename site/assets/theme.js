@@ -417,7 +417,10 @@
       e.preventDefault();
       var bar = global.document.getElementById('bc-topbar');
       var nav = global.document.querySelector('.nav');
-      var off = (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 38;
+      // a pinned (sticky) section must land ON its sticky top; ordinary sections get
+      // extra breathing room so the heading is not jammed under the navbars
+      var pinned = el.classList.contains('journey');
+      var off = (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + (pinned ? 0 : 38);
       var top = el.getBoundingClientRect().top + (global.scrollY || global.document.documentElement.scrollTop) - off;
       global.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
       try { global.history.replaceState(null, '', '#' + id); } catch (err) {}
