@@ -132,12 +132,17 @@
       root.style.setProperty('--surface-2', '#ffffff');
       root.style.setProperty('--line', 'rgba(0,0,0,.10)');
       root.style.setProperty('--accent-soft', 'color-mix(in srgb,' + pkg.tokens['--accent'] + ' 12%, transparent)');
-      /* the mock-site "reference" greys were tuned for a dark ground */
+      /* the mock-site "reference" palette was tuned for a dark ground: invert it */
+      root.style.setProperty('--sand', '#5A5049');
       root.style.setProperty('--ref-muted-dark', '#5A5049');
       root.style.setProperty('--ref-hair', 'rgba(0,0,0,.12)');
+      root.style.setProperty('--ref-cream', pkg.tokens['--ink']);
+      root.style.setProperty('--ref-panel', '#FFFFFF');
+      root.style.setProperty('--ref-panel-2', '#FFFFFF');
     } else {
-      root.style.removeProperty('--ref-muted-dark');
-      root.style.removeProperty('--ref-hair');
+      ['--ref-muted-dark', '--ref-hair', '--ref-cream', '--ref-panel', '--ref-panel-2'].forEach(function (k) {
+        root.style.removeProperty(k);
+      });
     }
     return key;
   }
@@ -346,7 +351,10 @@
     n.innerHTML = '<b>Full effect at full brightness.</b> This identity is built on deep blacks \u2014 if the shadows look '
       + 'flat, raise your display brightness. Reads clearly? '
       + '<button type="button">Looks good \u2014 hide</button>';
+    n.style.display = 'none';
     global.document.body.appendChild(n);
+    global.setTimeout(function () { n.style.display = ''; }, 1600);
+    global.setTimeout(function () { n.remove(); }, 11000);
     n.querySelector('button').addEventListener('click', function () {
       try { global.localStorage.setItem('99-bright-seen', '1'); } catch (e) {}
       n.remove();
