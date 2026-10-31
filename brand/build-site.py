@@ -158,6 +158,7 @@ HOME = """
       <div class="tablet">
         <div class="screen" role="group" aria-label="The five stages, shown as outcomes">
           <div class="screen-nav" role="tablist" aria-label="Stages"><span class="tab" data-goto="0">Scope</span><span class="tab" data-goto="1">Build</span><span class="tab" data-goto="2">Hosting</span><span class="tab" data-goto="3">Maintain</span><span class="tab" data-goto="4">Enhance</span></div>
+          <div class="cursor" aria-hidden="true"></div>
 
           <div class="jscreen" data-step="0">
             <div class="bar-top"><span><b>99</b> · scoping</span></div>

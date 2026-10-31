@@ -405,14 +405,18 @@ html:not(.js) .jscreen, .no-journey .jscreen { position: static; }
   color: var(--ref-cream); border-color: rgba(238,90,30,.6); background: rgba(238,90,30,.14);
 }
 .cursor {
-  position: absolute; top: 0; left: 0; z-index: 12; width: 16px; height: 16px; border-radius: 50%;
-  background: #050403; pointer-events: none;
-  box-shadow: 0 0 0 2px rgba(255,255,255,.9), 0 0 14px rgba(0,0,0,.6), 0 0 0 5px rgba(255,255,255,.12);
-  transform: translate3d(var(--cx, -30px), var(--cy, -30px), 0);
-  transition: transform .42s cubic-bezier(.3,.7,.2,1);
+  position: absolute; z-index: 14; width: 20px; height: 20px; margin: -10px 0 0 -10px;
+  border-radius: 50%; background: #050403; pointer-events: none;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.92), 0 0 18px rgba(0,0,0,.7), 0 0 0 9px rgba(255,255,255,.14);
+  opacity: 0; transition: opacity .2s ease;
+  /* position via left/top so it cannot be thrown by transform stacking */
 }
-.cursor.tap { animation: cursorTap .22s ease; }
-@keyframes cursorTap { 50% { transform: translate3d(var(--cx,-30px), var(--cy,-30px),0) scale(.55); } }
+.cursor.on { opacity: 1; }
+.cursor.tap::after {
+  content: ""; position: absolute; inset: -3px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,.9); animation: cursorRing .3s ease-out;
+}
+@keyframes cursorRing { from { transform: scale(1); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
 
 /* leave room under the tab bar so screens don't sit behind it */
 .jscreen .bar-top { padding-top: 12px; }

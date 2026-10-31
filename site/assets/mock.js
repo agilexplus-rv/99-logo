@@ -214,14 +214,14 @@
     var t = tabs[i], sc = section.querySelector('.screen');
     if (!t || !sc) return;
     var tr = t.getBoundingClientRect(), sr = sc.getBoundingClientRect();
-    var x = tr.left - sr.left + t.offsetWidth / 2 - 8;
-    var y = tr.top - sr.top + t.offsetHeight / 2 - 8;
-    cursor.style.setProperty('--cx', x + 'px');
-    cursor.style.setProperty('--cy', y + 'px');
+    cursor.style.left = (tr.left - sr.left + t.offsetWidth / 2) + 'px';
+    cursor.style.top = (tr.top - sr.top + t.offsetHeight / 2) + 'px';
+    cursor.classList.add('on');
     if (tap) {
       cursor.classList.remove('tap');
       void cursor.offsetWidth;
       cursor.classList.add('tap');
+      setTimeout(function () { cursor.classList.remove('tap'); }, 320);
     }
   }
 
