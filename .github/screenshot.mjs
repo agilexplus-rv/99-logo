@@ -10,6 +10,8 @@ const PAGES = [
   { name: '03-services', path: '/site/services', full: true },
   { name: '04-about', path: '/site/about', full: true },
   { name: '05-home-mobile', path: '/site/home', full: true, w: 390, h: 844 },
+  { name: '06-home-viewport', path: '/site/home', full: false },
+  { name: '07-book-viewport', path: '/', full: false },
 ];
 
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390, height: 844 } };

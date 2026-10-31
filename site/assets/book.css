@@ -182,3 +182,15 @@ blockquote p { font-family: var(--font-display); font-size: 1.2rem; line-height:
 .app .box.paper [data-inject] svg { width: 84px; height: 84px; }
 .card-elem [data-inject] svg { width: 26px; height: 26px; display: block; }
 
+
+/* pillars stack (they live inside a half-width column) */
+.pillars-stack { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.pillars-stack .pillar { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: baseline; }
+.pillars-stack .pillar h3 { font-size: .95rem; }
+.pillars-stack .pillar p { margin: 0; font-size: .84rem; }
+
+/* logo card header: keep the role on its own line so it can't collide with the name */
+.logo-card .nm { display: grid; gap: 3px; }
+.logo-card .nm span { white-space: normal; font-size: .6rem; letter-spacing: .09em; }
+.logo-card .tick { display: none; }
+.logo-card[aria-pressed="true"] .tick { display: block; }
