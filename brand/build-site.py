@@ -21,7 +21,6 @@ LOGO = ('<svg viewBox="0 0 256 256" aria-hidden="true"><g fill="currentColor" '
 
 NAV = f"""<header class="nav"><div class="wrap">
   <a class="logo" href="home" aria-label="99 — home" style="color:var(--accent)">{LOGO}
-    <span style="font-family:var(--font-display);font-weight:var(--display-weight);letter-spacing:var(--display-track);font-size:1.15rem;color:var(--paper)">99</span>
   </a>
   <nav class="links" aria-label="Primary">
     <a href="services" {{svc}}>Services</a>
