@@ -275,6 +275,12 @@
       '.micro,.eyebrow,.step .n,.slide .n,.jsteps .k,.jrow .tick,.jscreen .foot b,.cmenu-h,.citem small{color:var(--accent-text) !important}' +
       '.cream .micro,.on-cream .micro{color:var(--accent-ink) !important}' +
       '.btn-accent{background:var(--accent) !important;color:var(--on-accent) !important}' +
+      /* solid buttons: explicit per-mode pairs so hover can never go white-on-white */
+      'html[data-mode="dark"] .btn-solid{background:#F7F2EB !important;color:#120301 !important}' +
+      'html[data-mode="dark"] .btn-solid:hover{background:#FFFFFF !important;color:#120301 !important}' +
+      'html[data-mode="light"] .btn-solid{background:#120301 !important;color:#F7F2EB !important}' +
+      'html[data-mode="light"] .btn-solid:hover{background:#3A241C !important;color:#F7F2EB !important}' +
+      'html[data-mode="light"] .btn-ghost:hover{color:var(--accent-cream) !important;border-color:var(--accent-cream) !important}' +
       '.band{background:var(--accent) !important;color:var(--on-accent) !important}' +
       '.band h2,.band p{color:var(--on-accent) !important;opacity:1 !important}' +
       '.est .right{color:var(--on-accent) !important}' +
