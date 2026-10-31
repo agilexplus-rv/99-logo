@@ -124,8 +124,13 @@
     .cpanel .doc.c85 .brand .sub{font-size:1.8mm}
     .cpanel .doc.sigstrip{width:210mm !important;height:90mm !important}
     /* keep the sheet a few mm short of the page so nothing can spill onto a blank page */
-    .cpanel .doc.a4{width:210mm !important;height:292mm !important;min-height:0 !important;margin:0 !important}
-    .cpanel .doc.a4 > .pad{padding:14mm 16mm 24mm !important;height:100% !important;box-sizing:border-box !important}
+    /* 268mm leaves ~29mm of slack: no rounding, no trailing blank page */
+    .cpanel .doc.a4{width:210mm !important;height:268mm !important;min-height:0 !important;
+      max-height:268mm !important;margin:0 !important;overflow:hidden !important}
+    .cpanel .doc.a4 > .pad{padding:12mm 16mm 18mm !important;height:auto !important;box-sizing:border-box !important}
+    .cpanel .doc.a4 > .pad:first-of-type{height:100% !important}
+    .margin-note{display:none !important}
+    .doc::after{display:none !important}
     .cpanel .doc.sigstrip > .pad{padding:8mm !important}
     .docfoot{font-size:2.1mm !important;color:#5E544E !important;border-top:1px solid rgba(0,0,0,.18) !important;
       padding-top:2.5mm !important;margin-top:auto !important;display:flex !important}
@@ -173,8 +178,13 @@
     .cpanel .doc.c85 .brand .sub{font-size:1.8mm}
     .cpanel .doc.sigstrip{width:210mm !important;height:90mm !important}
     /* keep the sheet a few mm short of the page so nothing can spill onto a blank page */
-    .cpanel .doc.a4{width:210mm !important;height:292mm !important;min-height:0 !important;margin:0 !important}
-    .cpanel .doc.a4 > .pad{padding:14mm 16mm 24mm !important;height:100% !important;box-sizing:border-box !important}
+    /* 268mm leaves ~29mm of slack: no rounding, no trailing blank page */
+    .cpanel .doc.a4{width:210mm !important;height:268mm !important;min-height:0 !important;
+      max-height:268mm !important;margin:0 !important;overflow:hidden !important}
+    .cpanel .doc.a4 > .pad{padding:12mm 16mm 18mm !important;height:auto !important;box-sizing:border-box !important}
+    .cpanel .doc.a4 > .pad:first-of-type{height:100% !important}
+    .margin-note{display:none !important}
+    .doc::after{display:none !important}
     .cpanel .doc.sigstrip > .pad{padding:8mm !important}
     .docfoot{font-size:2.1mm !important;color:#5E544E !important;border-top:1px solid rgba(0,0,0,.18) !important;
       padding-top:2.5mm !important;margin-top:auto !important;display:flex !important}
