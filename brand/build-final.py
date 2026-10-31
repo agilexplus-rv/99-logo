@@ -237,15 +237,16 @@ def page(made):
     </div>
   </div>
   <div class="card" style="margin-top:26px;border-color:rgba(216,68,11,.4)">
-    <p class="cap" style="color:var(--ember)">Why not &ldquo;A to Z&rdquo;</p>
-    <p style="color:#d8ccc3;margin:0 0 8px">The first draft of this story was built on an A-to-Z frame. It has been
-    dropped: <strong>AtoZ Electronics</strong> is an established Maltese retailer with shops in Attard and PAVI Qormi,
-    and in this market the phrase belongs to them. Using it would make 99 look like a reseller, which is the opposite
-    of the positioning.</p>
-    <p style="color:var(--slate);margin:0">The replacement is &ldquo;<strong>One to ninety-nine</strong>&rdquo;. It
-    says the same thing about coverage, drops the collision entirely, and ties the claim to the name instead of to a
-    borrowed idiom. It also fixes a second problem: &ldquo;after Z&rdquo; made 99 sound like a maintenance shop,
-    when the offer is the whole lifecycle.</p>
+    <p class="cap" style="color:var(--ember)">One naming note &mdash; a direction we rejected</p>
+    <p style="color:#d8ccc3;margin:0 0 8px">The first draft of this story leaned on an alphabetic frame &mdash;
+    the idea of covering the whole range from the first letter to the last. It is out.
+    <strong>AtoZ Electronics</strong> is an established Maltese retailer with shops in Attard and PAVI Qormi; in this
+    market that territory is theirs, and a software firm borrowing it reads as a reseller, which is the opposite of
+    the positioning.</p>
+    <p style="color:var(--slate);margin:0">The replacement, &ldquo;<strong>One to ninety-nine</strong>&rdquo;, claims
+    the same coverage without the collision, ties the claim to the company's own name instead of a borrowed idiom, and
+    fixes a second problem: the earlier wording made the offer sound like post-launch support, when it is the whole
+    lifecycle.</p>
   </div>
 </div></section>
 
@@ -269,7 +270,7 @@ large text and non-text UI only.</p>
   620, &minus;0.03em</span></div>
   <div class="typerow"><span class="big" style="color:var(--slate);font-weight:400">the detail, one shade quieter</span>
   <span style="color:var(--slate)">the two-tone device from your reference</span></div>
-  <div class="typerow"><span class="mono">A TO Z &middot; THEN 99 &middot; 24/7 &middot; 1,200+</span>
+  <div class="typerow"><span class="mono">ONE TO NINETY-NINE &middot; THE WHOLE COUNT &middot; 24/7</span>
   <span style="color:var(--slate)">JetBrains Mono, 600, 0.16em tracking</span></div>
   <p style="color:var(--slate);font-size:.9rem;margin-top:20px">Both OFL-licensed. No font is used inside any logo
   &mdash; every mark is drawn as filled paths, so nothing reflows on a machine without the typeface.</p>

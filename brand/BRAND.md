@@ -38,7 +38,7 @@ The first draft said "99 exists for after Z", which made the offer sound like po
 somewhere else. That is wrong and it was cut. The story now runs **from the first conversation**, and 99 is the
 endpoint of a span the company owns end to end — not the part left over at the end.
 
-## 3. Why not "A to Z"
+## 3. Rejected: the alphabetic "A to Z" frame
 
 The original frame was A→Z. It has been dropped deliberately:
 
