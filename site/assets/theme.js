@@ -188,7 +188,7 @@
       '.bc-bar .bc-scroll::-webkit-scrollbar{display:none}' +
       'body{padding-bottom:58px}' +
       '.bc-progress{position:fixed;top:0;left:0;height:2px;background:var(--accent);width:0;z-index:9999;transition:width .08s linear}' +
-      '.bc-notice{position:fixed;top:12px;right:12px;z-index:9998;max-width:320px;padding:12px 14px;border-radius:12px;' +
+      '.bc-notice{position:fixed;bottom:72px;right:12px;z-index:9998;max-width:320px;padding:12px 14px;border-radius:12px;' +
       'background:var(--paper);color:var(--ink);box-shadow:0 18px 50px -20px #000;font-size:.82rem;font-family:var(--font-body)}' +
       '.bc-notice b{font-family:var(--font-display);font-weight:var(--display-weight)}' +
       '.bc-notice button{margin-top:8px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;' +
