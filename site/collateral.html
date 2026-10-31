@@ -85,7 +85,7 @@
   /* 2-column: viewer left, document menu right */
   .clayout{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:26px;align-items:start}
   .clayout > .wrap{display:contents}
-  .cview{min-width:0;display:grid}
+  .cview{min-width:0;display:grid;max-width:820px;margin-inline:auto}
   .cpanel{display:none;justify-items:center;padding:clamp(18px,2.6vw,34px);background:linear-gradient(180deg,var(--surface),var(--surface-2));
     border:1px solid var(--line);border-radius:18px}
   .cpanel.active{display:grid}
@@ -120,7 +120,7 @@
   <details class="sheet" open>
     <summary>Business card <span class="dim">85 × 55&nbsp;mm</span><button data-max type="button">Maximise</button><span class="chev">›</span></summary>
     <div class="stage">
-      <div style="position:relative;width:100%;max-width:480px">
+      <div style="position:relative;width:100%">
         <div class="back" aria-hidden="true"></div>
         <div class="doc c85 watermark">
           <div class="pad"><div class="bc">
