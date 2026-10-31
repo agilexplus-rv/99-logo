@@ -387,6 +387,23 @@
       });
     }
 
+    /* same-page anchors must clear the fixed brand bar + sticky nav */
+    global.document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      var el = global.document.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      var bar = global.document.getElementById('bc-topbar');
+      var nav = global.document.querySelector('.nav');
+      var off = (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 14;
+      var top = el.getBoundingClientRect().top + (global.scrollY || global.document.documentElement.scrollTop) - off;
+      global.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      try { global.history.replaceState(null, '', '#' + id); } catch (err) {}
+    });
+
     syncControl();
     if (isBook()) mountNotice();
   }
