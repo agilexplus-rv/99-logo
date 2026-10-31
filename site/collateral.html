@@ -117,14 +117,15 @@
   .dlbtn::before{content:"↓"}
   body.printing-doc .cpanel.active{display:grid !important}
   @media print{
-    .cpanel .doc.c85{width:85mm !important;height:55mm !important;min-height:0 !important;margin:0 !important}
+    .cpanel .doc.c85{width:85mm !important;height:53mm !important;min-height:0 !important;margin:0 !important}
     .cpanel .doc.c85 .pad{padding:4mm !important}
     .cpanel .doc.c85 .bc > div:nth-child(2) > div:first-child{font-size:3.6mm}
     .cpanel .doc.c85 .mono{font-size:2.2mm}
     .cpanel .doc.c85 .brand .sub{font-size:1.8mm}
     .cpanel .doc.sigstrip{width:210mm !important;height:90mm !important}
-    .cpanel .doc.a4{width:210mm !important;height:297mm !important;min-height:0 !important;margin:0 !important}
-    .cpanel .doc.a4 > .pad{padding:14mm 16mm 16mm !important;height:297mm !important}
+    /* keep the sheet a few mm short of the page so nothing can spill onto a blank page */
+    .cpanel .doc.a4{width:210mm !important;height:292mm !important;min-height:0 !important;margin:0 !important}
+    .cpanel .doc.a4 > .pad{padding:14mm 16mm 24mm !important;height:100% !important;box-sizing:border-box !important}
     .cpanel .doc.sigstrip > .pad{padding:8mm !important}
     .docfoot{font-size:2.1mm !important;color:#5E544E !important;border-top:1px solid rgba(0,0,0,.18) !important;
       padding-top:2.5mm !important;margin-top:auto !important;display:flex !important}
@@ -165,14 +166,15 @@
   .dlbtn::before{content:"↓"}
   body.printing-doc .cpanel.active{display:grid !important}
   @media print{
-    .cpanel .doc.c85{width:85mm !important;height:55mm !important;min-height:0 !important;margin:0 !important}
+    .cpanel .doc.c85{width:85mm !important;height:53mm !important;min-height:0 !important;margin:0 !important}
     .cpanel .doc.c85 .pad{padding:4mm !important}
     .cpanel .doc.c85 .bc > div:nth-child(2) > div:first-child{font-size:3.6mm}
     .cpanel .doc.c85 .mono{font-size:2.2mm}
     .cpanel .doc.c85 .brand .sub{font-size:1.8mm}
     .cpanel .doc.sigstrip{width:210mm !important;height:90mm !important}
-    .cpanel .doc.a4{width:210mm !important;height:297mm !important;min-height:0 !important;margin:0 !important}
-    .cpanel .doc.a4 > .pad{padding:14mm 16mm 16mm !important;height:297mm !important}
+    /* keep the sheet a few mm short of the page so nothing can spill onto a blank page */
+    .cpanel .doc.a4{width:210mm !important;height:292mm !important;min-height:0 !important;margin:0 !important}
+    .cpanel .doc.a4 > .pad{padding:14mm 16mm 24mm !important;height:100% !important;box-sizing:border-box !important}
     .cpanel .doc.sigstrip > .pad{padding:8mm !important}
     .docfoot{font-size:2.1mm !important;color:#5E544E !important;border-top:1px solid rgba(0,0,0,.18) !important;
       padding-top:2.5mm !important;margin-top:auto !important;display:flex !important}
