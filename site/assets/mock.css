@@ -14,7 +14,7 @@
   --ref-orange-3: var(--accent-deep);
   --ref-pale: var(--accent-pale);
   --ref-muted-dark: #B0A29A;   /* continuation clause on dark */
-  --ref-muted-light: #9C9189;  /* continuation clause on cream */
+  --ref-muted-light: #756C67;  /* continuation clause on cream */
   --ref-hair: rgba(247, 242, 235, 0.14);
   --ref-hair-dark: rgba(18, 3, 1, 0.10);
 }

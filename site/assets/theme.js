@@ -144,6 +144,8 @@
       /* the mock-site "reference" palette was tuned for a dark ground: invert it */
       root.style.setProperty('--sand', '#5A5049');
       root.style.setProperty('--slate', pkg.tokens['--muted-ink']);
+      root.style.setProperty('--accent-text', pkg.tokens['--accent-ink']);
+      root.style.setProperty('--ref-muted-light', '#756C67');
       root.style.setProperty('--ref-muted-dark', '#5A5049');
       root.style.setProperty('--ref-hair', 'rgba(0,0,0,.12)');
       root.style.setProperty('--ref-cream', pkg.tokens['--ink']);
@@ -266,7 +268,7 @@
       '.bc-notice b{font-family:var(--font-display);font-weight:var(--display-weight)}' +
       '.bc-notice button{margin-top:7px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 11px;font-size:.76rem;font-family:inherit;cursor:pointer}' +
       /* ---- WCAG contrast: separate tokens for text vs fill, and for light grounds ---- */
-      '.cream,.on-cream,.est,.doc,.cpanel,.covers,.plan{--slate:var(--muted-ink)}' +
+      '.cream,.on-cream,.est,.doc,.cpanel,.covers{--slate:var(--muted-ink)}' +
       '.micro,.eyebrow,.step .n,.slide .n,.jsteps .k,.jrow .tick,.jscreen .foot b,.cmenu-h,.citem small{color:var(--accent-text) !important}' +
       '.cream .micro,.on-cream .micro{color:var(--accent-ink) !important}' +
       '.btn-accent{background:var(--accent) !important;color:var(--on-accent) !important}' +
@@ -276,7 +278,8 @@
       '.est .right .price,.est .right .incl span,.est .right .note{color:var(--on-accent) !important}' +
       '.on-cream .tone .t2{color:#756C67 !important}' +
       '.ticks{color:#5E544E !important}' +
-      '.plan .price small,.plan li{color:var(--muted-ink) !important}' +
+      '.plan .price small,.plan li{color:var(--slate) !important}' +
+      '.metrics span{color:#756C67 !important}' +
       '.doc .mut,.doc .brand .sub,.doc .mono.mut,.doc .row{color:var(--muted-ink) !important}' +
       '.sig .contact,.sig .legal{color:var(--muted-ink) !important}';
   }
