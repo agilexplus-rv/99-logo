@@ -264,7 +264,21 @@
       '.bc-notice{position:fixed;bottom:16px;right:12px;z-index:1001;max-width:300px;padding:11px 13px;border-radius:12px;' +
       'background:var(--paper);color:var(--ink);box-shadow:0 18px 50px -20px #000;font-size:.8rem;font-family:var(--font-body)}' +
       '.bc-notice b{font-family:var(--font-display);font-weight:var(--display-weight)}' +
-      '.bc-notice button{margin-top:7px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 11px;font-size:.76rem;font-family:inherit;cursor:pointer}';
+      '.bc-notice button{margin-top:7px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 11px;font-size:.76rem;font-family:inherit;cursor:pointer}' +
+      /* ---- WCAG contrast: separate tokens for text vs fill, and for light grounds ---- */
+      '.cream,.on-cream,.est,.doc,.cpanel,.covers,.plan{--slate:var(--muted-ink)}' +
+      '.micro,.eyebrow,.step .n,.slide .n,.jsteps .k,.jrow .tick,.jscreen .foot b,.cmenu-h,.citem small{color:var(--accent-text) !important}' +
+      '.cream .micro,.on-cream .micro{color:var(--accent-ink) !important}' +
+      '.btn-accent{background:var(--accent) !important;color:var(--on-accent) !important}' +
+      '.band{background:var(--accent) !important;color:var(--on-accent) !important}' +
+      '.band h2,.band p{color:var(--on-accent) !important;opacity:1 !important}' +
+      '.est .right{color:var(--on-accent) !important}' +
+      '.est .right .price,.est .right .incl span,.est .right .note{color:var(--on-accent) !important}' +
+      '.on-cream .tone .t2{color:#756C67 !important}' +
+      '.ticks{color:#5E544E !important}' +
+      '.plan .price small,.plan li{color:var(--muted-ink) !important}' +
+      '.doc .mut,.doc .brand .sub,.doc .mono.mut,.doc .row{color:var(--muted-ink) !important}' +
+      '.sig .contact,.sig .legal{color:var(--muted-ink) !important}';
   }
 
   function mountControl() {
