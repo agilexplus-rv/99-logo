@@ -71,6 +71,9 @@
   .watermark::after{content:"SAMPLE";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-16deg);
     font-family:var(--font-mono);font-size:.8rem;letter-spacing:.3em;color:rgba(0,0,0,.05);border:2px solid rgba(0,0,0,.05);
     padding:5px 16px;pointer-events:none;white-space:nowrap}
+  .docfoot{margin-top:auto;padding-top:8px;border-top:1px solid rgba(0,0,0,.1);
+    font-family:var(--font-mono);font-size:.46rem;letter-spacing:.07em;text-transform:uppercase;color:#756C66;
+    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   .margin-note{position:absolute;font-family:var(--font-mono);font-size:.48rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(0,0,0,.25)}
   .fold{position:absolute;left:0;right:0;top:66%;height:0;border-top:1px dashed rgba(0,0,0,.12)}
 
@@ -111,8 +114,16 @@
     color:var(--sand);border:1px solid var(--line);border-radius:99px;padding:6px 11px;text-decoration:none;
     background:color-mix(in srgb,var(--ink) 70%,transparent);transition:.18s}
   .dlbtn:hover{color:var(--paper);border-color:var(--accent)}
-  .dlbtn::before{content:"\\2193"}
-  @media print{.dlbtn{display:none}}
+  .dlbtn::before{content:"↓"}
+  @media print{
+    .cpanel .doc.c85{width:85mm !important;height:55mm !important;min-height:0 !important;margin:0 !important}
+    .cpanel .doc.c85 .pad{padding:4mm !important}
+    .cpanel .doc.c85 .bc > div:nth-child(2) > div:first-child{font-size:3.6mm}
+    .cpanel .doc.c85 .mono{font-size:2.2mm}
+    .cpanel .doc.c85 .brand .sub{font-size:1.8mm}
+    .cpanel .doc.sigstrip{width:210mm !important;height:90mm !important}
+    .cpanel .doc.a4{width:210mm !important;height:297mm !important;min-height:0 !important;margin:0 !important}
+.dlbtn{display:none}}
   .cpanel .doc{width:auto;height:auto;max-width:100%;margin:0 auto}
   .cpanel .doc.c85{width:min(100%,560px);height:auto;aspect-ratio:85/55}
   .cpanel .back{display:none}
@@ -146,8 +157,16 @@
     color:var(--sand);border:1px solid var(--line);border-radius:99px;padding:6px 11px;text-decoration:none;
     background:color-mix(in srgb,var(--ink) 70%,transparent);transition:.18s}
   .dlbtn:hover{color:var(--paper);border-color:var(--accent)}
-  .dlbtn::before{content:"\\2193"}
-  @media print{.dlbtn{display:none}}
+  .dlbtn::before{content:"↓"}
+  @media print{
+    .cpanel .doc.c85{width:85mm !important;height:55mm !important;min-height:0 !important;margin:0 !important}
+    .cpanel .doc.c85 .pad{padding:4mm !important}
+    .cpanel .doc.c85 .bc > div:nth-child(2) > div:first-child{font-size:3.6mm}
+    .cpanel .doc.c85 .mono{font-size:2.2mm}
+    .cpanel .doc.c85 .brand .sub{font-size:1.8mm}
+    .cpanel .doc.sigstrip{width:210mm !important;height:90mm !important}
+    .cpanel .doc.a4{width:210mm !important;height:297mm !important;min-height:0 !important;margin:0 !important}
+.dlbtn{display:none}}
   .cpanel .doc{margin:0 auto;box-shadow:0 34px 64px -34px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.22)}
   .cpanel .doc.c85{width:min(320px,100%);height:auto;aspect-ratio:85/55}
   .cpanel .doc.a4{width:min(320px,100%);height:auto;aspect-ratio:210/297}
@@ -267,7 +286,7 @@
     <div class="stage">
       <div class="doc a4 watermark">
         <div class="fold"></div>
-        <div class="pad" style="height:66%">
+        <div class="pad" style="height:auto;flex:1">
           <div class="brand"><span class="c" data-logo-slot></span>
             <div><span class="nm" data-wordmark>99</span><span class="sub">One to ninety-nine</span></div>
             <span style="margin-left:auto;font-family:var(--font-mono);font-size:.62rem;color:var(--slate);text-align:right">
@@ -278,7 +297,7 @@
           <p class="mut" style="font-size:.82rem;max-width:60ch">We publish no prices — a written proposal follows the
           scoping conversation.</p>
         </div>
-        <div class="pad" style="height:34%;border-top:1px solid rgba(0,0,0,.1)">
+        <div class="pad" style="height:auto;margin-top:auto;padding-top:10px;border-top:1px solid rgba(0,0,0,.1)">
           <div class="brand mut" style="font-size:.62rem">
             <span class="c" data-logo-slot></span>
             <span class="sub">99 &nbsp;·&nbsp; Software · Hosting · Improvement · Growth &nbsp;·&nbsp; One to ninety-nine</span></div>
@@ -307,7 +326,9 @@
             <tr><td>05 · Growth / enhancement</td><td class="mut">Scoped</td><td class="num">As agreed</td></tr>
           </table>
           <div class="divider row"><span>Investment</span><span class="tot">on request</span></div>
-          <p class="mut" style="font-size:.68rem;margin-top:8px">No prices online — agreed in writing after scoping.</p>
+          <p class="mut" style="font-size:.62rem;margin-top:8px">Prepared for Northwind Trading Ltd · ref 99-P-0142 · 31 October 2026.
+          Assumes read-only access to the accounts system, two named people for a half-day workshop, and customer records available as CSV.</p>
+          <div class="docfoot"><span>99 &middot; One to ninety-nine</span><span>contact@99.system &middot; 99.systems</span><span>16 Named Street, Malta</span></div>
         </div>
       </div>
     </div>
@@ -320,15 +341,23 @@
         <div class="pad">
           <div class="brand"><span class="c" data-logo-slot></span>
             <div><span class="nm" data-wordmark>99</span><span class="sub">Quote · valid 30 days</span></div></div>
-          <table style="margin-top:18px">
+          <div style="display:flex;justify-content:space-between;gap:12px;margin-top:12px;
+            font-family:var(--font-mono);font-size:.5rem;line-height:1.7;color:#756C66">
+            <span>PREPARED FOR<br><span style="color:#4A403B">Northwind Trading Ltd</span></span>
+            <span style="text-align:right">VALID UNTIL<br><span style="color:#4A403B">30 November 2026</span></span>
+          </div>
+          <table style="margin-top:12px">
             <tr><th>Item</th><th>Qty</th><th class="num">Rate</th><th class="num">Amount</th></tr>
             <tr><td>Scoping &amp; definition of done</td><td class="num">1</td><td class="num">—</td><td class="num">—</td></tr>
             <tr><td>Software delivery</td><td class="num">1</td><td class="num">—</td><td class="num">—</td></tr>
             <tr><td>Hosting &amp; monitoring</td><td class="num">12 mo</td><td class="num">—</td><td class="num">—</td></tr>
             <tr><td>Continual improvement</td><td class="num">12 mo</td><td class="num">—</td><td class="num">—</td></tr>
           </table>
+          <div class="row" style="margin-top:8px"><span class="mut" style="font-size:.64rem">Subtotal</span><span class="mono" style="font-size:.64rem">€ —,—</span></div>
+          <div class="row"><span class="mut" style="font-size:.64rem">VAT (18%)</span><span class="mono" style="font-size:.64rem">€ —,—</span></div>
           <div class="divider row"><span>Total</span><span class="tot">€ —,—</span></div>
-          <p class="mut" style="font-size:.68rem;margin-top:9px"><span class="stamp">Sample</span>&nbsp; amounts agreed in writing — never published.</p>
+          <p class="mut" style="font-size:.62rem;margin-top:8px"><span class="stamp">Sample</span>&nbsp; amounts agreed in writing — never published.</p>
+          <div class="docfoot"><span>99 &middot; One to ninety-nine</span><span>contact@99.system &middot; 99.systems</span><span>16 Named Street, Malta</span></div>
         </div>
       </div>
     </div>
@@ -350,8 +379,11 @@
             <tr><td>Continual improvement — October</td><td class="num">€ —,—</td></tr>
             <tr><td>Hosting &amp; monitoring — October</td><td class="num">€ —,—</td></tr>
           </table>
+          <div class="row" style="margin-top:8px"><span class="mut" style="font-size:.64rem">Subtotal</span><span class="mono" style="font-size:.64rem">€ —,—</span></div>
+          <div class="row"><span class="mut" style="font-size:.64rem">VAT (18%)</span><span class="mono" style="font-size:.64rem">€ —,—</span></div>
           <div class="divider row"><span>Balance due</span><span class="tot">€ —,—</span></div>
-          <p class="mut" style="font-size:.68rem;margin-top:9px">Payment by bank transfer · <span class="stamp">Sample</span></p>
+          <p class="mut" style="font-size:.62rem;margin-top:8px">Payment by bank transfer · IBAN MT00 0000 0000 0000 0000 0000 000 · <span class="stamp">Sample</span></p>
+          <div class="docfoot"><span>99 &middot; One to ninety-nine</span><span>contact@99.system &middot; 99.systems</span><span>16 Named Street, Malta</span></div>
         </div>
       </div>
     </div>
