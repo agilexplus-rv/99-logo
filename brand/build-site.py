@@ -21,7 +21,7 @@ NAV = f"""<header class="nav"><div class="wrap">
   </a>
   <nav class="links" id="navlinks" aria-label="Primary">
     <a href="services" {{svc}}>Services</a>
-    <a href="#how">How we work</a>
+    <a href="{{how}}">How we work</a>
     <a href="services#engagement">Engagement</a>
     <a href="about" {{about}}>About</a>
   </nav>
@@ -57,7 +57,7 @@ FOOT = f"""<footer class="foot"><div class="wrap">
 </div></footer>"""
 
 
-def page(title, body, svc="", about="", extra_css="", extra_js=""):
+def page(title, body, svc="", about="", extra_css="", extra_js="", how="home#how"):
     return f"""<!doctype html>
 <html lang="en" data-package="ember">
 <head>
@@ -70,7 +70,7 @@ def page(title, body, svc="", about="", extra_css="", extra_js=""):
 {extra_css}
 </head>
 <body>
-{NAV.format(svc=svc, about=about)}
+{NAV.format(svc=svc, about=about, how=how)}
 {body}
 {FOOT}
 {extra_js}
@@ -128,7 +128,7 @@ HOME = """
       <article class="slide"><span class="n">02</span><h4>Software</h4>
         <p>Web apps, internal tools and the integrations between them — built by the people who scoped it.</p></article>
       <article class="slide"><span class="n">03</span><h4>Hosting</h4>
-        <p>Infrastructure, deploys, backups you have actually restored, certificates, alerting.</p></article>
+        <p>Servers, safe releases, backups we have actually test-restored, certificates and alerting.</p></article>
       <article class="slide"><span class="n">04</span><h4>Improvement</h4>
         <p>Continual improvement so the solution stays modern, robust and lean — never left to go stale.</p></article>
       <article class="slide"><span class="n">05</span><h4>Growth</h4>
@@ -328,11 +328,11 @@ SERVICES = """
       <div class="step" id="software">
         <span class="n">02</span>
         <h3>Software</h3>
-        <div><p>Web applications, internal tools, back-office systems and the integrations between them. Same team
+        <div><p>Web applications, internal tools, back-office systems and the connections between them. Same team
         that scoped it, so the decision trail survives.</p>
         <div class="tags" style="margin-top:14px"><span class="tag">Web apps</span>
         <span class="tag">Internal tools</span><span class="tag">Integrations</span>
-        <span class="tag">Data migration</span></div></div>
+        <span class="tag">Moving data safely</span></div></div>
       </div>
       <div class="step" id="hosting">
         <span class="n">03</span>
@@ -340,7 +340,7 @@ SERVICES = """
         <div><p>Where the thing lives. Reproducible environments, deploys you can trust, backups you have actually
         restored, and alerting that reaches a person.</p>
         <div class="tags" style="margin-top:14px"><span class="tag">Infrastructure</span>
-        <span class="tag">CI/CD</span><span class="tag">Backups</span><span class="tag">Monitoring</span></div></div>
+        <span class="tag">Safe releases</span><span class="tag">Backups</span><span class="tag">Monitoring</span></div></div>
       </div>
       <div class="step" id="maintenance">
         <span class="n">04</span>
@@ -458,7 +458,7 @@ def stamp_collateral():
     p.write_text(t)
 
 stamp_collateral()
-(SITE / "site" / "home.html").write_text(page("99 — One to ninety-nine", HOME,
+(SITE / "site" / "home.html").write_text(page("99 — One to ninety-nine", HOME, how="#how",
     extra_css=f'<link rel="stylesheet" href="../assets/mock.css?v={ASSET_V}">',
     extra_js=f'<script src="../assets/mock.js?v={ASSET_V}"></script>'))
 (SITE / "site" / "services.html").write_text(page("99 — Services", SERVICES, svc='aria-current="page"'))

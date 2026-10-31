@@ -411,11 +411,24 @@
       e.preventDefault();
       var bar = global.document.getElementById('bc-topbar');
       var nav = global.document.querySelector('.nav');
-      var off = (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 14;
+      var off = (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 38;
       var top = el.getBoundingClientRect().top + (global.scrollY || global.document.documentElement.scrollTop) - off;
       global.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
       try { global.history.replaceState(null, '', '#' + id); } catch (err) {}
     });
+
+    /* arriving from another page with #how in the URL must also clear the chrome */
+    if (global.location.hash) {
+      global.setTimeout(function () {
+        var el = global.document.getElementById(global.location.hash.slice(1));
+        if (!el) return;
+        var bar = global.document.getElementById('bc-topbar');
+        var nav = global.document.querySelector('.nav');
+        var off = (bar ? bar.offsetHeight : 0) + (nav ? nav.offsetHeight : 0) + 38;
+        var top = el.getBoundingClientRect().top + (global.scrollY || 0) - off;
+        global.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
+      }, 260);
+    }
 
     syncControl();
     if (isBook()) mountNotice();
