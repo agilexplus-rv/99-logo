@@ -214,3 +214,22 @@ section { padding: 76px 0; }
 /* the "99" wordmark beside the mark: only rendered when the mark is a quotation sign */
 .navword{font-family:var(--font-display);font-weight:var(--display-weight);letter-spacing:var(--display-track);
   font-size:1.15rem;color:var(--paper);line-height:1}
+
+/* ---- mobile navigation: hamburger that becomes an X ---- */
+.navtoggle{display:none;margin-left:8px;background:transparent;border:0;cursor:pointer;padding:9px;gap:5px}
+.navtoggle i{display:block;width:22px;height:2px;background:var(--paper);border-radius:2px;transition:transform .26s,opacity .2s}
+.navmode{display:inline-grid;place-items:center;width:36px;height:36px;padding:0;font-size:1rem;line-height:1;margin-left:0}
+@media (max-width:900px){
+  .nav .wrap{position:relative;gap:10px}
+  .navtoggle{display:flex;flex-direction:column;align-items:center;margin-left:auto}
+  .nav.open .navtoggle i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav.open .navtoggle i:nth-child(2){opacity:0;transform:scaleX(.4)}
+  .nav.open .navtoggle i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .nav .links{position:absolute;left:0;right:0;top:100%;display:none;flex-direction:column;gap:0;
+    padding:6px 24px 14px;background:color-mix(in srgb,var(--ink) 97%,transparent);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav.open .links{display:flex}
+  .nav .links a{padding:13px 0;border-bottom:1px solid var(--line);width:100%}
+  .nav .cta{display:none}
+  .navmode{order:-1}
+}

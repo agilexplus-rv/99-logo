@@ -7,25 +7,29 @@ Every page loads assets/theme.js + assets/site.css, so switching package in the 
 book re-skins these pages too. Copy is written to the brand story and invents no
 clients, no certifications and no performance statistics.
 """
+import time
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent / "site"
 (SITE / "site").mkdir(parents=True, exist_ok=True)
 
-ASSET_V = "20261031b"
+ASSET_V = str(int(time.time()))  # bumped every build: defeats CDN/edge caching
 
 LOGO = '<span data-logo-slot aria-hidden="true"></span>'
 NAV = f"""<header class="nav"><div class="wrap">
   <a class="logo" href="home" aria-label="99 — home" style="color:var(--accent)">{LOGO}<span class="navword" data-wordmark>99</span>
   </a>
-  <nav class="links" aria-label="Primary">
+  <nav class="links" id="navlinks" aria-label="Primary">
     <a href="services" {{svc}}>Services</a>
     <a href="#how">How we work</a>
     <a href="services#engagement">Engagement</a>
     <a href="about" {{about}}>About</a>
   </nav>
-  <button type="button" class="navmode" id="site-mode" aria-label="Toggle light or dark">Light</button>
+  <button type="button" class="navmode" id="site-mode" aria-label="Toggle light or dark mode" title="Light / dark">
+    <span aria-hidden="true" id="site-mode-ico">&#9789;</span></button>
   <a class="btn btn-solid cta" href="about#contact">Start a conversation</a>
+  <button type="button" class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="navlinks" aria-label="Menu">
+    <i></i><i></i><i></i></button>
 </div></header>"""
 
 FOOT = f"""<footer class="foot"><div class="wrap">

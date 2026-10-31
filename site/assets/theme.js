@@ -137,7 +137,7 @@
     if (m === 'light') {
       root.style.setProperty('--ink', pkg.tokens['--paper']);
       root.style.setProperty('--paper', pkg.tokens['--ink']);
-      root.style.setProperty('--surface', pkg.tokens['--sand']);
+      root.style.setProperty('--surface', '#FFFDFA');
       root.style.setProperty('--surface-2', '#ffffff');
       root.style.setProperty('--line', 'rgba(0,0,0,.10)');
       root.style.setProperty('--accent-soft', 'color-mix(in srgb,' + pkg.tokens['--accent'] + ' 12%, transparent)');
@@ -342,13 +342,29 @@
     global.document.addEventListener('click', function (e) { if (!bar.contains(e.target) && !chip.contains(e.target)) closeMenus(); });
 
     var site = global.document.getElementById('site-mode');
+    var siteIco = global.document.getElementById('site-mode-ico');
+    function paintSiteMode() { if (siteIco) siteIco.textContent = mode() === 'light' ? '\u2600' : '\u263D'; }
     if (site) {
       site.addEventListener('click', function () {
         setMode(mode() === 'light' ? 'dark' : 'light');
-        site.textContent = mode() === 'light' ? 'Dark' : 'Light';
-        syncControl();
+        paintSiteMode(); syncControl();
       });
-      site.textContent = mode() === 'light' ? 'Dark' : 'Light';
+      paintSiteMode();
+    }
+
+    /* mobile menu: hamburger that becomes an X */
+    var burger = global.document.getElementById('navtoggle');
+    var navEl = global.document.querySelector('.nav');
+    if (burger && navEl) {
+      burger.addEventListener('click', function () {
+        var open = navEl.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(open));
+      });
+      global.document.querySelectorAll('#navlinks a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          navEl.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+        });
+      });
     }
 
     syncControl();

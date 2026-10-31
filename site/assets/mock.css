@@ -117,7 +117,7 @@
 .est .rowlab { display: flex; justify-content: space-between; align-items: baseline;
   margin: 26px 0 8px; }
 .est .rowlab span { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .12em;
-  text-transform: uppercase; color: #6B5F58; }
+  text-transform: uppercase; color: #5E544E; }
 .est .rowlab b { font-family: var(--font-mono); font-size: .95rem; color: var(--ref-ink); }
 
 input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 22px;
@@ -133,7 +133,7 @@ input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius
   border: 1px solid #C9BDB4; }
 
 .ticks { display: flex; justify-content: space-between; font-family: var(--font-mono);
-  font-size: .62rem; color: #8A7F77; margin-top: 4px; }
+  font-size: .62rem; color: #6E655E; margin-top: 4px; }
 .ticks span.on { color: var(--accent-ink); font-weight: 700; }
 
 .est .checks { margin-top: 22px; border-top: 1px solid var(--ref-hair-dark); }
