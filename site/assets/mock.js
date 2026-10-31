@@ -182,12 +182,15 @@
   paint();
 })();
 
-/* ---------------- tablet journey: scroll drives the screens ---------------- */
+/* ---------------- tablet journey: scroll drives the screens, the tilt and the cursor ---------------- */
 (function () {
   var section = document.getElementById('journey');
   if (!section) return;
   var screens = Array.prototype.slice.call(section.querySelectorAll('.jscreen'));
   var steps = Array.prototype.slice.call(section.querySelectorAll('.jsteps li'));
+  var tabs = Array.prototype.slice.call(section.querySelectorAll('.screen-nav .tab'));
+  var tablet = section.querySelector('.tablet');
+  var cursor = section.querySelector('.cursor');
   var bar = section.querySelector('.jbar i');
   var current = -1;
   var mq = window.matchMedia('(max-width: 980px)');
@@ -201,6 +204,25 @@
       s.setAttribute('aria-hidden', String(j !== i));
     });
     steps.forEach(function (s, j) { s.setAttribute('aria-current', String(j === i)); });
+    tabs.forEach(function (t, j) { t.setAttribute('aria-current', String(j === i)); });
+    placeCursor(i, true);
+  }
+
+  /* the black dot travels to the active tab and "taps" it, as if opening a page */
+  function placeCursor(i, tap) {
+    if (!cursor || !tabs.length) return;
+    var t = tabs[i], sc = section.querySelector('.screen');
+    if (!t || !sc) return;
+    var tr = t.getBoundingClientRect(), sr = sc.getBoundingClientRect();
+    var x = tr.left - sr.left + t.offsetWidth / 2 - 8;
+    var y = tr.top - sr.top + t.offsetHeight / 2 - 8;
+    cursor.style.setProperty('--cx', x + 'px');
+    cursor.style.setProperty('--cy', y + 'px');
+    if (tap) {
+      cursor.classList.remove('tap');
+      void cursor.offsetWidth;
+      cursor.classList.add('tap');
+    }
   }
 
   function progress() {
@@ -215,28 +237,39 @@
   function update() {
     ticking = false;
     var p = progress();
-    if (p === null) { setStep(0); return; }
+    if (p === null) { setStep(0); resetTilt(); return; }
     if (bar) bar.style.width = (p * 100).toFixed(1) + '%';
+
+    /* tilt inwards then outwards: rotateY sweeps +11° -> 0 -> -11° across the section */
+    if (tablet) {
+      var ang = (0.5 - p) * 22;                 // +11 at start, 0 at middle, -11 at end
+      tablet.style.transform = 'rotateY(' + ang.toFixed(2) + 'deg) translateZ(10px)';
+    }
+
     var i = Math.min(screens.length - 1, Math.floor(p * screens.length * 0.999));
     setStep(i);
   }
-  function onScroll() {
-    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
-  }
+  function resetTilt() { if (tablet) tablet.style.transform = 'rotateY(0deg)'; }
+  function onScroll() { if (!ticking) { ticking = true; window.requestAnimationFrame(update); } }
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll);
+
   setStep(0);
   update();
 
-  /* reduced motion / small screens: show every screen, stop pinning */
+  /* narrowing the layout re-measures the cursor anchor */
+  if (window.ResizeObserver) {
+    new ResizeObserver(function () { if (current >= 0) placeCursor(current, false); })
+      .observe(section.querySelector('.screen'));
+  }
+
+  /* reduced motion / small screens: show every screen, stop pinning and tilt */
   function applyMode() {
-    if (mq.matches || reduced.matches) {
-      screens.forEach(function (s) { s.setAttribute('aria-hidden', 'false'); });
-      document.body.classList.add('no-journey');
-    } else {
-      document.body.classList.remove('no-journey');
-    }
+    var small = mq.matches || reduced.matches;
+    document.body.classList.toggle('no-journey', small);
+    screens.forEach(function (s) { s.setAttribute('aria-hidden', String(small ? false : s !== screens[current])); });
+    if (small) resetTilt(); else { setStep(0); }
     onScroll();
   }
   if (mq.addEventListener) { mq.addEventListener('change', applyMode); reduced.addEventListener('change', applyMode); }
