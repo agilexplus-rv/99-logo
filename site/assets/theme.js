@@ -336,7 +336,7 @@
     }
 
     syncControl();
-    mountNotice();
+    if (isBook()) mountNotice();
   }
 
   function closeMenus() {
