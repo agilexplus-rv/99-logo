@@ -28,7 +28,15 @@ MARKS = [
              "small on an invoice footer.",
          risk="Quiet. It asks the rest of the identity to carry the personality.",
          pick="Pick it if you want quiet authority and zero misreading."),
-    dict(id="03", slug="the-seal", name="The Seal", source="gemini-pro-round1/concepts/b-keystone-seal.svg",
+    dict(id="03", slug="the-sign-off", name="Sign-off", source="opus-round1/concepts/b-sign-off.svg",
+         role="Craft-led \u00b7 underlined wordmark",
+         idea="The last stroke keeps going and underlines both numerals: the work is underlined, then signed off.",
+         why="The underline is the only element carrying meaning rather than decoration \u2014 it reads as a signature "
+             "line and gives the wordmark a baseline to sit on in dark UI.",
+         risk="An underline can also read as a hyperlink or as emphasis. It competes directly with 02 for the same "
+              "role \u2014 pick one of the two, not both.",
+         pick="Pick it if you want the wordmark to end on a line rather than on a curve."),
+    dict(id="04", slug="the-seal", name="The Seal", source="gemini-pro-round1/concepts/b-keystone-seal.svg",
          role="Strategy-led · negative-space emblem",
          idea="Two negative-space 9s carved through one solid, chamfered monolith.",
          why="Reads as finished and sealed \u2014 the A-to-Z promise as a single mass. Works as an app icon, avatar or "
@@ -176,56 +184,68 @@ def page(made):
     return f"""<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>99 — brand story and three final logos</title><style>{CSS}</style></head>
+<title>99 — brand story and final logos</title><style>{CSS}</style></head>
 <body>
 <div class="nav"><div class="wrap">
   <a href="#story">Story</a><a href="#palette">Palette</a><a href="#type">Type</a>
-  <a href="#logos">Three logos</a><a href="#usage">Usage</a>
+  <a href="#logos">Final logos</a><a href="#usage">Usage</a>
 </div></div>
 
 <header><div class="wrap">
   <p class="eyebrow">99 &nbsp;/&nbsp; brand proposal v1</p>
-  <h1>A to Z.<br><span class="dim">Then 99.</span></h1>
-  <p class="lede" style="margin-top:22px">Three final directions, one story. The marks are drawn, the palette is
-  set against the website direction you sent, and the type is chosen. What is left is the decision.</p>
+  <h1>One to<br><span class="dim">ninety-nine.</span></h1>
+  <p class="lede" style="margin-top:22px">Four final directions, one story. The marks are drawn, the palette is set against the website
+  direction you sent, and the type is chosen. What is left is the decision.</p>
 </div></header>
 
 <section id="story"><div class="wrap">
   <p class="eyebrow">The story</p>
-  <h2>Most firms hand over the alphabet.<br><span class="dim">We stay for the rest of the language.</span></h2>
+  <h2>Most firms start counting<br><span class="dim">at the launch. We start at one.</span></h2>
   <div class="two">
     <div>
-      <p>Every project has an <strong>A</strong>. A first conversation, a first line of code, a process that still
-      runs on paper.</p>
-      <p>Most firms are excellent at the A. They are brilliant at the <strong>Z</strong> &mdash; the launch, the demo,
-      the invoice. What they are not good at is <em>everything after Z</em>: the hosting that has to stay up, the
-      dependency that needs upgrading in eighteen months, the enhancement the business needs the moment it changes
-      shape.</p>
-      <p><strong>99 exists for after Z.</strong></p>
-      <p>We are a small senior team, so nothing is thrown over a wall &mdash; there is no wall. The people who scope
-      your work are the people who build it, host it, and keep it alive. Software, hosting, maintenance,
-      enhancements: one accountable name from the first letter to the last number.</p>
-      <p>And the name. <span class="hl">99 is the last number you need to count to.</span> You count to 99, then you
-      stop counting and start using the thing. It is the point where a project stops being a project.</p>
-      <p>We never claim 100 &mdash; not because we are incomplete, but because there is always one more improvement
-      worth making, and that is precisely the work we are signing up for.</p>
+      <p>Most software firms start counting at the launch. Before that there is the first conversation, the
+      scoping, the architecture, the hosting plan &mdash; the part nobody is watching, and the part that decides
+      whether the thing works at all.</p>
+      <p><strong>We start at one.</strong></p>
+      <p><span class="hl">99 is the last number you need to count to.</span> It is the point where a system stops
+      being a project and starts being infrastructure &mdash; and it is the point where most firms leave. We are not
+      arriving there. We were there at one, at forty, at ninety.</p>
+      <p>One to ninety-nine: scoping, engineering, hosting, maintenance, enhancement. A small senior team, so nothing
+      is thrown over a wall &mdash; there is no wall. The people who scope your work are the people who build it, host
+      it and keep it alive. One accountable name for the whole count.</p>
+      <p>And when a count ends, the next one starts. Enhancements are not an afterthought or an upsell &mdash; they
+      are the next count, and they are part of the job we signed up for.</p>
+      <p style="color:var(--slate);font-size:.92rem">We never claim 100. Not because we are incomplete, but because
+      there is always one more count worth starting.</p>
     </div>
     <div>
       <p class="quote">For companies that want to digitalise how they actually work &mdash; and stay ahead of the ones
-      that won't &mdash; <strong>99</strong> is the small senior team that takes a process from A to Z and then keeps
-      it running: software, hosting, maintenance and enhancements, under one accountable name.</p>
+      that won't &mdash; <strong>99</strong> is a small senior team that owns the <em>whole count</em>: scoping,
+      software, hosting, maintenance and enhancement, under one accountable name, from the first conversation to the
+      last number &mdash; and the next one after it.</p>
       <div class="grid3" style="margin-top:26px">
         <div class="card"><p class="cap">Pillar 01</p><h3>Engineered</h3>
           <p style="color:#d8ccc3;font-size:.92rem;margin:.4em 0 0">Exactness is the argument. Drawn geometry, real
           numbers, hairline rules, nothing decorative.</p></div>
-        <div class="card"><p class="cap">Pillar 02</p><h3>Whole</h3>
-          <p style="color:#d8ccc3;font-size:.92rem;margin:.4em 0 0">A to Z, and after Z. One team, one contract,
-          one name. Nothing handed off.</p></div>
+        <div class="card"><p class="cap">Pillar 02</p><h3>Whole count</h3>
+          <p style="color:#d8ccc3;font-size:.92rem;margin:.4em 0 0">Scope to enhancement, build to hosting. One team,
+          one contract, one name. Nothing handed off, nothing left at the launch.</p></div>
         <div class="card"><p class="cap">Pillar 03</p><h3>Human</h3>
           <p style="color:#d8ccc3;font-size:.92rem;margin:.4em 0 0">Precise never means cold. Sentence case, plain
           words, warm palette.</p></div>
       </div>
     </div>
+  </div>
+  <div class="card" style="margin-top:26px;border-color:rgba(216,68,11,.4)">
+    <p class="cap" style="color:var(--ember)">Why not &ldquo;A to Z&rdquo;</p>
+    <p style="color:#d8ccc3;margin:0 0 8px">The first draft of this story was built on an A-to-Z frame. It has been
+    dropped: <strong>AtoZ Electronics</strong> is an established Maltese retailer with shops in Attard and PAVI Qormi,
+    and in this market the phrase belongs to them. Using it would make 99 look like a reseller, which is the opposite
+    of the positioning.</p>
+    <p style="color:var(--slate);margin:0">The replacement is &ldquo;<strong>One to ninety-nine</strong>&rdquo;. It
+    says the same thing about coverage, drops the collision entirely, and ties the claim to the name instead of to a
+    borrowed idiom. It also fixes a second problem: &ldquo;after Z&rdquo; made 99 sound like a maintenance shop,
+    when the offer is the whole lifecycle.</p>
   </div>
 </div></section>
 
@@ -256,10 +276,9 @@ large text and non-text UI only.</p>
 </div></section>
 
 <section id="logos"><div class="wrap">
-  <p class="eyebrow">Three final directions</p>
-  <h2>Choose one.<br><span class="dim">Each is a different strategy, not a different drawing.</span></h2>
-  <p class="lede" style="margin-bottom:30px">All three read as &ldquo;ninety-nine&rdquo; without a wordmark and survive
-  one colour. They differ in what they ask the rest of the identity to do.</p>
+  <p class="eyebrow">Final directions</p>
+  <h2>Choose one.<br><span class="dim">02 and 03 answer the same question &mdash; take one of them.</span></h2>
+  <p class="lede" style="margin-bottom:30px">All four read as &ldquo;ninety-nine&rdquo; with no wordmark and survive one colour. They differ in what they ask the rest of the identity to do.</p>
   <div class="opts">{cards}</div>
 </div></section>
 
@@ -269,10 +288,11 @@ large text and non-text UI only.</p>
   <div class="grid3">{colour_cards}</div>
   <table class="tbl" style="margin-top:34px">
     <tr><th>If you want</th><th>Choose</th></tr>
-    <tr><td>Maximum distinctiveness</td><td>01 &mdash; The Sign. It is the only one of the three where the name and
-      the symbol are the same object.</td></tr>
-    <tr><td>Zero misreading risk</td><td>02 &mdash; The Wordmark.</td></tr>
-    <tr><td>A mark that works as an icon and a stamp</td><td>03 &mdash; The Seal. Needs a small-size cut below
+    <tr><td>Maximum distinctiveness</td><td>01 &mdash; The Sign. The only one where the name and the symbol are the
+      same object.</td></tr>
+    <tr><td>Zero misreading risk, softest</td><td>02 &mdash; The Wordmark.</td></tr>
+    <tr><td>Zero misreading risk, most structured</td><td>03 &mdash; Sign-off. Shares a role with 02: pick one.</td></tr>
+    <tr><td>A mark that works as an icon and a stamp</td><td>04 &mdash; The Seal. Needs a small-size cut below
       24&nbsp;px.</td></tr>
   </table>
 </div></section>
