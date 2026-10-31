@@ -14,6 +14,8 @@ const PAGES = [
   { name: '07-book-viewport', path: '/', full: false },
   { name: '08-journey-step2', path: '/site/home', full: false, anchor: '#journey', frac: 0.34 },
   { name: '09-journey-step4', path: '/site/home', full: false, anchor: '#journey', frac: 0.78 },
+  { name: '11-natural-home', path: '/site/home', natural: true },
+  { name: '12-natural-collateral', path: '/collateral', natural: true },
   { name: '10-flow', flow: [
       { path: '/', click: '[data-pkg="clay"]' },
       { click: '[data-logo="the-seal"]' },
@@ -83,6 +85,19 @@ for (const p of PAGES) {
     }
     const res = await page.goto(BASE + p.path, { waitUntil: 'networkidle', timeout: 45000 });
     let state = { total: 0, revealed: 0 };
+    if (p.natural) {
+      // load exactly like a first-time visitor: no scrolling, no forcing reveals
+      await page.waitForTimeout(3500);
+      const st = await page.evaluate(() => ({
+        total: document.querySelectorAll('.reveal').length,
+        revealed: document.querySelectorAll('.reveal.in').length,
+        js: document.documentElement.classList.contains('js')
+      }));
+      console.log(`   NATURAL reveals ${st.revealed}/${st.total} (html.js=${st.js})`);
+      await page.screenshot({ path: `shots/${p.name}.png`, fullPage: false });
+      await ctx.close();
+      continue;
+    }
     if (p.anchor) {
       // jump straight into a scroll-driven section so the pinned state is captured
       await page.evaluate(([sel, frac]) => {
