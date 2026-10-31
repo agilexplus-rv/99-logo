@@ -107,6 +107,39 @@
   .citem:hover{border-color:var(--accent)}
   .citem[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
   @media(max-width:860px){.clayout{grid-template-columns:1fr}.cmenu{position:static;order:-1;flex-direction:row;overflow-x:auto}}
+  /* ---- premium layout: contained 2-column, viewer centred, menu as a card ---- */
+  .clayout{display:block}
+  .clayout > .wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:start}
+  .cview{min-width:0}
+  .cpanel{display:none;place-items:center;height:min(74vh,660px);padding:clamp(22px,3vw,48px);
+    background:radial-gradient(120% 100% at 50% 0%, var(--surface), var(--surface-2) 72%);
+    border:1px solid var(--line);border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);overflow:auto}
+  .cpanel.active{display:grid}
+  .cpanel .doc{margin:0 auto;box-shadow:0 34px 64px -34px rgba(0,0,0,.6), 0 2px 8px rgba(0,0,0,.22)}
+  .cpanel .doc.c85{width:min(100%,600px);height:auto;aspect-ratio:85/55}
+  .cpanel .doc.a4{height:100%;width:auto;max-width:100%;aspect-ratio:210/297}
+  .cpanel .doc.sigstrip{width:min(100%,600px);height:auto}
+  .cpanel .back{display:none}
+  .cpanel .c85 .bc .brand .sub{white-space:nowrap;font-size:.46rem;letter-spacing:.07em}
+  .cmenu{position:sticky;top:calc(var(--bc-bar-h,48px) + 16px);display:flex;flex-direction:column;gap:3px;
+    border:1px solid var(--line);border-radius:16px;padding:10px;
+    background:linear-gradient(180deg,var(--surface),var(--surface-2))}
+  .cmenu-h{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--slate);margin:8px 10px 10px}
+  .citem{display:flex;justify-content:space-between;gap:12px;align-items:baseline;border:0;background:transparent;
+    color:var(--sand);border-radius:10px;padding:12px 12px;font-size:.88rem;font-family:inherit;cursor:pointer;
+    text-align:left;transition:.16s}
+  .citem small{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+  .citem:hover{background:var(--accent-soft);color:var(--paper)}
+  .citem[aria-current="true"]{background:var(--accent-soft);color:var(--accent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 55%,transparent)}
+  .citem[aria-current="true"] small{color:color-mix(in srgb,var(--accent) 70%,var(--slate))}
+  @media(max-width:900px){
+    .clayout > .wrap{grid-template-columns:1fr;gap:18px}
+    .cmenu{position:static;order:-1;flex-direction:row;overflow-x:auto}
+    .cpanel{height:auto;min-height:320px}
+    .cpanel .doc.a4{height:auto;width:min(100%,420px)}
+  }
   footer{padding:30px 0 70px;color:var(--slate);font-size:.82rem;border-top:1px solid var(--line)}
 </style>
 </head>
@@ -276,13 +309,14 @@ illustrative: 99 publishes no prices online. The email signature uses print-safe
 <script>
   (function () {
     var main = document.getElementById('clayout'); if (!main) return;
+    var wrap = main.querySelector('.wrap') || main;
     var sheets = Array.prototype.slice.call(main.querySelectorAll('details.sheet'));
     if (!sheets.length) return;
     var view = document.createElement('div'); view.className = 'cview';
     var menu = document.createElement('aside'); menu.className = 'cmenu';
     var h = document.createElement('p'); h.className = 'cmenu-h'; h.textContent = 'Documents';
     menu.appendChild(h);
-    main.innerHTML = ''; main.appendChild(view); main.appendChild(menu);
+    wrap.innerHTML = ''; wrap.appendChild(view); wrap.appendChild(menu);
 
     sheets.forEach(function (d, i) {
       var title = d.querySelector('summary').childNodes[0].textContent.trim();
@@ -290,7 +324,8 @@ illustrative: 99 publishes no prices online. The email signature uses print-safe
       var bt = document.createElement('button'); bt.type = 'button'; bt.className = 'citem';
       bt.innerHTML = title + (sub ? '<small>' + sub.textContent + '</small>' : '');
       var panel = document.createElement('section'); panel.className = 'cpanel'; panel.dataset.doc = i;
-      panel.appendChild(d.querySelector('.stage'));
+      var art = d.querySelector('.doc') || d.querySelector('.stage');
+      panel.appendChild(art);
       view.appendChild(panel); menu.appendChild(bt);
       bt.addEventListener('click', function () {
         view.querySelectorAll('.cpanel').forEach(function (p) { p.classList.toggle('active', p === panel); });
