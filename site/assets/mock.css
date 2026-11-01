@@ -209,8 +209,8 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .hero-ref::before {
   content: ""; position: absolute; inset: -30% -12% auto -12%; height: 118%;
   background:
-    radial-gradient(46% 52% at 74% 26%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 72%),
-    radial-gradient(40% 44% at 8% 4%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+    radial-gradient(46% 52% at 74% 26%, color-mix(in srgb, var(--paper) 9%, transparent), transparent 72%),
+    radial-gradient(40% 44% at 8% 4%, color-mix(in srgb, var(--paper) 5%, transparent), transparent 70%);
   filter: blur(24px); pointer-events: none; animation: ambient 18s ease-in-out infinite alternate;
 }
 .hero-ref .inner { position: relative; }
@@ -266,9 +266,10 @@ html.js .reveal.in { opacity: 1; transform: none; }
 .journey {
   position: relative; height: 360vh;
   background:
-    radial-gradient(60% 50% at 78% 22%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%),
-    radial-gradient(50% 40% at 6% 80%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
-    var(--ref-panel);
+    /* neutral depth, not an accent wash: an amber tint over near-black reads brown */
+    radial-gradient(60% 50% at 78% 22%, color-mix(in srgb, var(--paper) 7%, transparent), transparent 70%),
+    radial-gradient(50% 40% at 6% 80%, color-mix(in srgb, var(--paper) 4%, transparent), transparent 70%),
+    var(--surface);
 }
 .journey .sticky {
   position: sticky; top: 116px;
