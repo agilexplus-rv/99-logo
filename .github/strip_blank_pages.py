@@ -19,6 +19,8 @@ for f in sorted(Path("pdfs").glob("*.pdf")):
             keep.append(page)
         else:
             total_removed += 1
+            preview = repr(text[:60])
+            print(f"  REMOVED {f.name} page {i+1}: text={preview}")
     if not keep:
         keep = [reader.pages[0]]  # never produce an empty document
     if len(keep) != len(reader.pages):
