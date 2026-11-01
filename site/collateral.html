@@ -442,18 +442,15 @@ illustrative: 99 publishes no prices online. The email signature uses print-safe
       var panel = document.createElement('section'); panel.className = 'cpanel'; panel.dataset.doc = i;
       var art = d.querySelector('.doc') || d.querySelector('.stage');
       panel.appendChild(art);
-      var dl = document.createElement('button');
-      dl.type = 'button'; dl.className = 'dlbtn';
+      var dl = document.createElement('a');
+      dl.className = 'dlbtn'; dl.setAttribute('download', '');
       dl.innerHTML = 'Download PDF';
-      dl.addEventListener('click', function (e) {
-        e.preventDefault(); e.stopPropagation();
-        // show only this sheet, then let the browser print it in the current theme
-        view.querySelectorAll('.cpanel').forEach(function (p) { p.classList.toggle('active', p === panel); });
-        document.body.classList.add('printing-doc');
-        var done = function () { document.body.classList.remove('printing-doc'); window.removeEventListener('afterprint', done); };
-        window.addEventListener('afterprint', done);
-        setTimeout(function () { window.print(); }, 60);
-      });
+      function pdfHref() {
+        var pkg = (window.Brand99 && window.Brand99.current()) || 'ember';
+        var mark = (window.Brand99 && window.Brand99.getLogo()) || 'the-sign';
+        return '../downloads/' + (SLUGS[i] || 'document') + '-' + pkg + '-' + mark + '.pdf';
+      }
+      dl.href = pdfHref();
       panel.appendChild(dl);
       view.appendChild(panel); menu.appendChild(bt);
       bt.addEventListener('click', function () {
@@ -462,6 +459,17 @@ illustrative: 99 publishes no prices online. The email signature uses print-safe
       });
     });
     menu.querySelector('.citem').click();
+
+    function refreshDownloads() {
+      document.querySelectorAll('.cpanel').forEach(function (p, idx) {
+        var a = p.querySelector('.dlbtn'); if (!a) return;
+        var pkg = (window.Brand99 && window.Brand99.current()) || 'ember';
+        var mark = (window.Brand99 && window.Brand99.getLogo()) || 'the-sign';
+        a.href = '../downloads/' + (SLUGS[idx] || 'document') + '-' + pkg + '-' + mark + '.pdf';
+      });
+    }
+    document.addEventListener('click', function () { setTimeout(refreshDownloads, 40); }, true);
+    refreshDownloads();
   })();
 </script>
 </body>
