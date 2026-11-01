@@ -11,7 +11,7 @@ Tracked so nothing is lost between review rounds.
 - [ ] **Custom-domain cache.** The Pages custom domain has served stale HTML more than once.
       `_headers` now revalidates HTML, and zone purge is scripted — confirm on a clean browser.
 - [ ] **Contact form does not send email.** `/api/submit` returns 503; blocked on a mail transport.
-- [ ] **`contact@99.system` vs `99.systems`.** Footers use `contact@99.system` as instructed;
+- [ ] **`contact@99.systems` vs `99.systems`.** Footers use `contact@99.systems` as instructed;
       the domain research recommended `99.systems`. Confirm which is the real domain before print.
 - [ ] **Trademark clearance.** Name is close to 99x and 99designs; a professional search is required.
 - [ ] **Favicon / web manifest.** No favicon set; browsers and bookmarks show a blank tab icon.
