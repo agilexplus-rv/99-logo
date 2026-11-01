@@ -9,7 +9,7 @@ const BASE = (process.env.BASE || 'https://99-branding.agilexplus.dev').replace(
 const SYSTEMS = ['ember', 'clay', 'forge'];
 const MARKS = ['the-sign', 'the-wordmark', 'the-sign-off', 'the-seal'];
 const DOCS = [
-  ['business-card', 'Business card', { width: '85mm', height: '55mm' }],
+  ['business-card', 'Business card', null],
   ['email-signature', 'Email signature', { width: '210mm', height: '90mm' }],
   ['letterhead', 'Letterhead', null],
   ['proposal', 'Proposal', null],
