@@ -13,7 +13,7 @@ from pathlib import Path
 SITE = Path(__file__).resolve().parent.parent / "site"
 (SITE / "site").mkdir(parents=True, exist_ok=True)
 
-ASSET_V = str(int(time.time()))  # bumped every build: defeats CDN/edge caching
+ASSET_V = __import__("hashlib") and "d1e35a7d1b"
 
 LOGO = '<span data-logo-slot aria-hidden="true"></span>'
 NAV = f"""<header class="nav"><div class="wrap">

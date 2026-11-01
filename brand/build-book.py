@@ -35,7 +35,7 @@ SEAL = ('<svg viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor"
         'H 200 L 212 64 V 192 L 200 204 H 152 L 176 180 H 188 V 136 H 152 L 140 124 V 64 Z M 164 76 '
         'H 188 V 112 H 164 Z"/></svg>')
 
-ASSET_V = str(int(time.time()))
+ASSET_V = "8aa653af05"
 
 MARKS = [
     dict(id="the-sign", name="The Sign", role="Idea-led · typographic", svg=SIGN, rec=True,
