@@ -342,32 +342,42 @@ SERVICES = """
         <h3>Scoping</h3>
         <div><p>We sit with the people doing the work, not just the people buying it. The output is a written
         definition of done, a rough cost, and an honest answer about whether the thing is worth building.</p>
+        <p>Before anyone quotes, we also work out which rules apply to the thing — data protection, accessibility,
+        sector requirements — and put the evidence obligations into the definition of done rather than discovering
+        them after launch.</p>
         <div class="tags" style="margin-top:14px"><span class="tag">Process mapping</span>
-        <span class="tag">Definition of done</span><span class="tag">Cost range</span>
-        <span class="tag">Go / no-go</span></div></div>
+        <span class="tag">Definition of done</span><span class="tag">Rules that apply</span>
+        <span class="tag">Cost range</span><span class="tag">Go / no-go</span></div></div>
       </div>
       <div class="step" id="software">
         <span class="n">02</span>
         <h3>Software</h3>
         <div><p>Web applications, internal tools, back-office systems and the connections between them. Same team
         that scoped it, so the decision trail survives.</p>
+        <p>That includes AI where it earns its place — and where the data cannot leave the building, models that
+        run on your own hardware rather than someone else's cloud.</p>
         <div class="tags" style="margin-top:14px"><span class="tag">Web apps</span>
         <span class="tag">Internal tools</span><span class="tag">Integrations</span>
-        <span class="tag">Moving data safely</span></div></div>
+        <span class="tag">Local AI</span><span class="tag">Moving data safely</span></div></div>
       </div>
       <div class="step" id="hosting">
         <span class="n">03</span>
         <h3>Hosting</h3>
-        <div><p>Where the thing lives. Reproducible environments, deploys you can trust, backups you have actually
-        restored, and alerting that reaches a person.</p>
-        <div class="tags" style="margin-top:14px"><span class="tag">Infrastructure</span>
+        <div><p>Where the thing lives: our cloud, your cloud, or servers in your own building — including the machine
+        under the desk that runs an AI model. Reproducible environments, releases you can trust, backups we have
+        actually test-restored, alerting that reaches a person.</p>
+        <p>If we operate systems for you, we say so in writing, with the security and reporting duties that come
+        with it.</p>
+        <div class="tags" style="margin-top:14px"><span class="tag">Our cloud</span>
+        <span class="tag">Your servers</span><span class="tag">On-premises AI</span>
         <span class="tag">Safe releases</span><span class="tag">Backups</span><span class="tag">Monitoring</span></div></div>
       </div>
       <div class="step" id="maintenance">
         <span class="n">04</span>
         <h3>Maintenance</h3>
         <div><p>Patching, dependency upgrades, cost review, and the out-of-hours page. The unglamorous half of
-        ownership, priced as a retainer rather than a surprise.</p>
+        ownership, agreed as a retainer rather than a surprise.</p>
+        <p>Support arrangements are written down: what is covered, what is not, how fast, and who is accountable.</p>
         <div class="tags" style="margin-top:14px"><span class="tag">Patching</span>
         <span class="tag">Upgrades</span><span class="tag">Cost review</span><span class="tag">On-call</span></div></div>
       </div>
@@ -484,7 +494,7 @@ stamp_collateral()
     extra_css=f'<link rel="stylesheet" href="../assets/mock.css?v={ASSET_V}">',
     extra_js=f'<script src="../assets/mock.js?v={ASSET_V}"></script>'))
 (SITE / "site" / "services.html").write_text(page("Services — ninetynine", SERVICES, svc='aria-current="page"', path="/site/services",
-    desc="Scoping, build, hosting, improvement and growth under one accountable name. No published price list — every engagement starts with a written proposal."))
+    desc="Scoping, software, hosting, improvement and growth under one accountable name — including software that runs on your own infrastructure. No published price list; every engagement starts with a written proposal."))
 (SITE / "site" / "about.html").write_text(page("About — ninetynine", ABOUT, about='aria-current="page"', path="/site/about",
     desc="99 is a small senior team in Malta. The people who scope your work build it, host it and keep improving it."))
 print("wrote site/site/{home,services,about}.html")
