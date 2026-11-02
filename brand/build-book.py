@@ -210,9 +210,9 @@ def main():
 <section id="logos"><div class="wrap">
   <p class="eyebrow">02 — Logo directions</p>
   <h2>Five directions.<br><span class="dim">Pick one.</span></h2>
-  <p class="lede" style="margin-top:16px">All five read as “ninety-nine” without a wordmark and survive a single
-  colour. They differ in what they ask the rest of the identity to do. <strong>02 and 03 answer the same question —
-  choose one of those two, not both.</strong></p>
+  <p class="lede" style="margin-top:16px">Choose between the written name, <strong>ninetynine</strong>, and the compact
+  numeral-led marks. Each works in one colour and stands alone—no extra symbol or repeated “99”. The written name is
+  especially clear in website headers and business documents; use a compact mark for tiny favicon sizes.</p>
   <div class="logo-grid" style="margin-top:26px">{logo_cards}
   </div>
   <p class="small" style="margin-top:22px">Marks are drawn as filled vector paths — no font is used inside any logo,
