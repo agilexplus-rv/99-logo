@@ -456,3 +456,8 @@ html:not(.js) .jscreen, .no-journey .jscreen { position: static; }
 }
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1!important;transform:none!important}}
+
+/* measured fixes: muted labels on the pale estimator ground, and brass-as-text on Paper */
+html[data-mode="light"] .est .mut,html[data-mode="light"] .est .meta,html[data-mode="light"] .est small,
+html[data-mode="light"] .est label,html[data-mode="light"] .est .note{color:#565A5E !important}
+.est .micro,.est .eyebrow,.cream .micro,.on-cream .micro,.collateral .micro{color:var(--accent-ink) !important}

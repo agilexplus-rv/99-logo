@@ -297,6 +297,7 @@
       /* ---- WCAG contrast: separate tokens for text vs fill, and for light grounds ---- */
       '.cream,.on-cream,.est,.doc,.cpanel,.covers{--slate:var(--muted-ink)}' +
       '.micro,.eyebrow,.step .n,.slide .n,.jsteps .k,.jrow .tick,.jscreen .foot b,.cmenu-h,.citem small{color:var(--accent-text) !important}' +
+      'html[data-mode="light"] .micro,html[data-mode="light"] .eyebrow,html[data-mode="light"] .citem[aria-current="true"]{color:var(--accent-ink) !important}' +
       '.cream .micro,.on-cream .micro{color:var(--accent-ink) !important}' +
       '.btn-accent{background:var(--accent) !important;color:var(--on-accent) !important}' +
       /* solid buttons: explicit per-mode pairs so hover can never go white-on-white */
