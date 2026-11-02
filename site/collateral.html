@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="https://99-branding.agilexplus.dev/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Space+Grotesk:wght@400;500;700&display=swap">
-<script src="assets/theme.js?v=a4aac80185ae"></script>
+<script src="assets/theme.js?v=1032fad3d8a3"></script>
 <style>
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -252,8 +252,8 @@
   }
 
   /* A written name needs more width than a compact numeral mark. */
-  .brand .c[data-logo="ninetynine"],.sig .sighead .c[data-logo="ninetynine"]{width:108px;height:28px;flex:0 0 108px}
-  .brand .c[data-logo="ninetynine"] svg{max-width:none;width:100%;height:100%}
+  .brand .c[data-logo^="ninetynine"],.sig .sighead .c[data-logo^="ninetynine"]{width:108px;height:28px;flex:0 0 108px}
+  .brand .c[data-logo^="ninetynine"] svg{max-width:none;width:100%;height:100%}
 </style>
 </head>
 <body>
@@ -428,7 +428,7 @@
 
 </div></main>
 
-<footer><div class="wrap">Rendered from <code>assets/theme.js?v=a4aac80185ae</code> tokens — one mark, one system, everywhere. Figures marked SAMPLE are
+<footer><div class="wrap">Rendered from <code>assets/theme.js?v=1032fad3d8a3</code> tokens — one mark, one system, everywhere. Figures marked SAMPLE are
 illustrative: 99 publishes no prices online. The email signature uses print-safe HTML, ready to paste into a mail client.</div></footer>
 
 <script>
@@ -479,6 +479,8 @@ illustrative: 99 publishes no prices online. The email signature uses print-safe
       });
     }
     document.addEventListener('click', function () { setTimeout(refreshDownloads, 40); }, true);
+    window.addEventListener('brand99:change', refreshDownloads);
+    window.addEventListener('storage', refreshDownloads);
     refreshDownloads();
   })();
 </script>

@@ -1,4 +1,4 @@
-// Renders every collateral document for every brand combination (3 systems x 4 marks).
+// Renders every collateral document for every brand combination (3 systems x 9 logos).
 // Filenames: pdfs/<slug>-<system>-<mark>.pdf  — so a download always matches the
 // user's current selection, is a real single-page PDF, and never depends on the
 // browser's print dialog (which was emitting a trailing blank page).
@@ -7,7 +7,7 @@ import { mkdir } from 'node:fs/promises';
 
 const BASE = (process.env.BASE || 'https://99-branding.agilexplus.dev').replace(/\/$/, '');
 const SYSTEMS = ['ember', 'clay', 'forge'];
-const MARKS = ['the-sign', 'the-wordmark', 'the-sign-off', 'the-seal', 'ninetynine'];
+const MARKS = ["the-sign", "the-wordmark", "the-sign-off", "the-seal", "ninetynine", "ninetynine-the-sign", "ninetynine-the-wordmark", "ninetynine-the-sign-off", "ninetynine-the-seal"];
 const DOCS = [
   ['business-card', 'Business card', null],
   ['email-signature', 'Email signature', { width: '210mm', height: '90mm' }],

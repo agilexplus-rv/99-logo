@@ -1,4 +1,5 @@
-ninetynine wordmark source typeface: Inter Tight, weight 650.
+ninetynine wordmark source typeface: Inter Tight, weight 400 for "ninety" and 750 for the final "nine".
+The symbol-and-wordmark lockups use the same outlined lettering.
 The logo is an outlined rendering with optical tracking applied; no font is needed to display the SVG.
 Source: https://github.com/google/fonts/tree/main/ofl/intertight
 Inter Tight is licensed under the SIL Open Font License 1.1.

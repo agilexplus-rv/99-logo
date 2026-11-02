@@ -41,13 +41,13 @@ ASSET_V = hashlib.sha256(b"".join(p.read_bytes() for p in sorted((SITE / "assets
 NINETYNINE = (SITE / "assets" / "ninetynine.svg").read_text()
 
 MARKS = [
-    dict(id="ninetynine", name="ninetynine", role="Lowercase wordmark · written name", svg=NINETYNINE,
+    dict(id="ninetynine", name="ninetynine", role="Mixed-weight wordmark · written name", svg=NINETYNINE,
          idea="The name written in full: approachable, clear and quietly confident.",
-         note="An outlined Inter Tight wordmark with considered spacing. It stands alone—no duplicate 99 or symbol. Best from 100 px wide; use a compact mark for favicons."),
+         note="Light “ninety” (400) and bold “nine” (750), outlined as vector paths. It stands alone—no duplicate 99 or symbol. Best from 100 px wide; use a compact mark for favicons."),
     dict(id="the-sign", name="The Sign", role="Idea-led · typographic", svg=SIGN, rec=True,
          idea="A closing quotation mark is a 99 — the sign that ends the statement.",
          note="The name and the symbol are the same object, so a lockup never repeats “9 + 99”. "
-              "Strongest of the four at 16 px."),
+              "A compact option for small spaces."),
     dict(id="the-wordmark", name="The Wordmark", role="Craft-led · custom numerals", svg=WORDMARK,
          idea="Two drawn numerals: round bowls, decisive swept tails, flat-cut terminals.",
          note="The plainest reading of the name and the warmest. Nothing to decode."),
@@ -59,6 +59,21 @@ MARKS = [
          note="Reads as finished and sealed. Works as an app icon or a stamp with no container; "
               "needs a small-size cut below 24 px."),
 ]
+
+
+# Paired versions are explicit alternatives, never forced on the standalone symbols.
+LOCKUPS = [
+    ("the-sign", "The Sign"), ("the-wordmark", "Wordmark"),
+    ("the-sign-off", "Sign-off"), ("the-seal", "Seal"),
+]
+for symbol, label in LOCKUPS:
+    MARKS.append(dict(
+        id="ninetynine-" + symbol, name=label + " + ninetynine",
+        role="Symbol + mixed-weight wordmark",
+        svg=(SITE / "assets" / ("ninetynine-" + symbol + ".svg")).read_text(),
+        idea="The familiar symbol beside the full written name: light ninety, bold nine.",
+        note="A horizontal lockup for websites, business cards and document headers. Standalone versions remain available for compact spaces.",
+    ))
 
 PACKAGES = [
     dict(key="ember", name="Ember", tagline="Warm black, one vermilion accent, grotesk voice",
@@ -209,9 +224,9 @@ def main():
 
 <section id="logos"><div class="wrap">
   <p class="eyebrow">02 — Logo directions</p>
-  <h2>Five directions.<br><span class="dim">Pick one.</span></h2>
+  <h2>Standalone logos &amp; paired lockups.<br><span class="dim">Pick one.</span></h2>
   <p class="lede" style="margin-top:16px">Choose between the written name, <strong>ninetynine</strong>, and the compact
-  numeral-led marks. Each works in one colour and stands alone—no extra symbol or repeated “99”. The written name is
+  numeral-led marks. Choose the written name alone, a standalone symbol, or one of the four symbol-and-name lockups below. The written name is
   especially clear in website headers and business documents; use a compact mark for tiny favicon sizes.</p>
   <div class="logo-grid" style="margin-top:26px">{logo_cards}
   </div>
