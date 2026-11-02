@@ -8,12 +8,13 @@ book re-skins these pages too. Copy is written to the brand story and invents no
 clients, no certifications and no performance statistics.
 """
 import time
+import hashlib
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent / "site"
 (SITE / "site").mkdir(parents=True, exist_ok=True)
 
-ASSET_V = __import__("hashlib") and "d1e35a7d1b"
+ASSET_V = hashlib.sha256(b"".join(p.read_bytes() for p in sorted((SITE / "assets").glob("*")) if p.is_file())).hexdigest()[:12]
 
 LOGO = '<span data-logo-slot aria-hidden="true"></span>'
 NAV = f"""<header class="nav"><div class="wrap">

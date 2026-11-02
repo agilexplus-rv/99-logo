@@ -1,0 +1,6 @@
+ninetynine wordmark source typeface: Inter Tight, weight 650.
+The logo is an outlined rendering with optical tracking applied; no font is needed to display the SVG.
+Source: https://github.com/google/fonts/tree/main/ofl/intertight
+Inter Tight is licensed under the SIL Open Font License 1.1.
+See ninetynine-OFL.txt for the complete typeface licence.
+The palette and website display fonts can change independently of the outlined logo geometry.

@@ -236,3 +236,7 @@ section { padding: 76px 0; }
   .nav .cta{display:none}
   .navmode{order:-1}
 }
+
+/* Written-name wordmark: preserve its horizontal proportions in the navigation. */
+.nav [data-logo="ninetynine"] svg{width:132px;height:auto;display:block}
+.foot [data-logo="ninetynine"] svg{width:140px;height:auto;display:block}

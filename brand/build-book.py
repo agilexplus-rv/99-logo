@@ -5,6 +5,7 @@
 """
 import json
 import time
+import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -35,9 +36,14 @@ SEAL = ('<svg viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor"
         'H 200 L 212 64 V 192 L 200 204 H 152 L 176 180 H 188 V 136 H 152 L 140 124 V 64 Z M 164 76 '
         'H 188 V 112 H 164 Z"/></svg>')
 
-ASSET_V = "8aa653af05"
+ASSET_V = hashlib.sha256(b"".join(p.read_bytes() for p in sorted((SITE / "assets").glob("*")) if p.is_file())).hexdigest()[:12]
+
+NINETYNINE = (SITE / "assets" / "ninetynine.svg").read_text()
 
 MARKS = [
+    dict(id="ninetynine", name="ninetynine", role="Lowercase wordmark · written name", svg=NINETYNINE,
+         idea="The name written in full: approachable, clear and quietly confident.",
+         note="An outlined Inter Tight wordmark with considered spacing. It stands alone—no duplicate 99 or symbol. Best from 100 px wide; use a compact mark for favicons."),
     dict(id="the-sign", name="The Sign", role="Idea-led · typographic", svg=SIGN, rec=True,
          idea="A closing quotation mark is a 99 — the sign that ends the statement.",
          note="The name and the symbol are the same object, so a lockup never repeats “9 + 99”. "
@@ -203,8 +209,8 @@ def main():
 
 <section id="logos"><div class="wrap">
   <p class="eyebrow">02 — Logo directions</p>
-  <h2>Four directions.<br><span class="dim">Pick one.</span></h2>
-  <p class="lede" style="margin-top:16px">All four read as “ninety-nine” without a wordmark and survive a single
+  <h2>Five directions.<br><span class="dim">Pick one.</span></h2>
+  <p class="lede" style="margin-top:16px">All five read as “ninety-nine” without a wordmark and survive a single
   colour. They differ in what they ask the rest of the identity to do. <strong>02 and 03 answer the same question —
   choose one of those two, not both.</strong></p>
   <div class="logo-grid" style="margin-top:26px">{logo_cards}

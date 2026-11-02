@@ -36,6 +36,18 @@ jobs:
           npm i --no-audit --no-fund playwright@1.49.1 axe-core@4.10.2
           npx playwright install --with-deps chromium
 
+      - name: Verify ninetynine wordmark integration
+        env:
+          BASE: ${{ inputs.base || 'https://99-branding.agilexplus.dev' }}
+        run: node .github/wordmark-check.mjs
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wordmark-proofs
+          path: wordmark-proofs/
+          retention-days: 14
+
       - name: Capture
         env:
           BASE: ${{ inputs.base || 'https://99-branding.agilexplus.dev' }}

@@ -148,9 +148,26 @@
     var f = $('#choose-form');
     if (f) f.addEventListener('submit', submit);
 
-    // default to the recommended direction so the page opens in a real state
-    var rec = document.querySelector('.logo-card[data-recommended="true"]');
-    if (rec) setLogo(rec.dataset.logo);
-    paintSummary();
+    // Restore the client's choice instead of overwriting it on every book visit.
+    function reflectBrand() {
+      state.logo = B.getLogo();
+      state.pkg = B.current();
+      $all('.logo-card').forEach(function (el) {
+        el.setAttribute('aria-pressed', String(el.dataset.logo === state.logo));
+      });
+      $all('.pkg').forEach(function (el) {
+        el.setAttribute('aria-pressed', String(el.dataset.pkg === state.pkg));
+      });
+      $all('[data-inject]').forEach(function (slot) { slot.innerHTML = B.logoMark(state.logo); });
+      var chosen = document.querySelector('.logo-card[data-logo="' + state.logo + '"]');
+      $all('[data-inject-name]').forEach(function (el) {
+        el.textContent = chosen ? chosen.dataset.name : state.logo;
+      });
+      paintSpecimen(state.pkg);
+      paintSummary();
+    }
+    window.addEventListener('brand99:change', reflectBrand);
+    window.addEventListener('storage', reflectBrand);
+    reflectBrand();
   });
 })();
