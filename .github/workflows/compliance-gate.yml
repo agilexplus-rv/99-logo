@@ -1,0 +1,67 @@
+name: compliance-gate
+
+# Runs the delivery compliance gate. Applicability is computed from a manifest; automated
+# evidence is collected with a browser here in CI, because browsers never run on the build host.
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: Base URL of the delivery under test
+        required: true
+      manifest:
+        description: Path to the delivery manifest
+        required: false
+        default: compliance-gate/manifests/local-ai-b2b.json
+  push:
+    branches: [main]
+    paths:
+      - 'compliance-gate/**'
+      - '.github/workflows/compliance-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install browser tooling
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm i --no-audit --no-fund playwright@1.49.1 axe-core@4.10.2
+          npx playwright install --with-deps chromium
+
+      - name: Collect automated evidence
+        env:
+          BASE: ${{ inputs.base || 'https://99-branding.agilexplus.dev' }}
+          GATE_DSR_ROUTE: ${{ vars.GATE_DSR_ROUTE }}
+          GATE_EXPORT_ROUTE: ${{ vars.GATE_EXPORT_ROUTE }}
+          GATE_ATTESTATION: ${{ vars.GATE_ATTESTATION }}
+        run: node compliance-gate/checks/web_checks.mjs
+
+      - name: Evaluate gate
+        run: |
+          python3 compliance-gate/gate.py \
+            --manifest "${{ inputs.manifest || 'compliance-gate/manifests/local-ai-b2b.json' }}" \
+            --evidence evidence/auto.json \
+            --root . --out compliance-out --strict
+
+      - name: Self-test the rules engine
+        if: always()
+        run: python3 compliance-gate/selftest.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compliance-report
+          path: |
+            compliance-out/
+            evidence/
+          retention-days: 30

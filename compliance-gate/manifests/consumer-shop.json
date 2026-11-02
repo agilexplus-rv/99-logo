@@ -1,0 +1,17 @@
+{
+  "name": "Retail checkout (consumer)",
+  "delivery": "saas",
+  "customers": "b2c",
+  "hosting": "our cloud",
+  "managed_service": false,
+  "data": ["personal", "financial"],
+  "accounts": true,
+  "cookies": true,
+  "marketing": true,
+  "analytics": true,
+  "ai": "none",
+  "payments": true,
+  "esignature": false,
+  "websites_operated": true,
+  "public_service": false
+}

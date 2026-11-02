@@ -1,0 +1,17 @@
+{
+  "name": "Northwind local AI quoting assistant (ninetynine)",
+  "delivery": "bespoke",
+  "customers": "b2b",
+  "hosting": "we operate",
+  "managed_service": true,
+  "data": ["personal"],
+  "accounts": true,
+  "cookies": false,
+  "marketing": false,
+  "analytics": false,
+  "ai": "assistive",
+  "payments": false,
+  "esignature": false,
+  "websites_operated": false,
+  "public_service": false
+}
