@@ -1,26 +1,20 @@
 #!/usr/bin/env python3
-"""Minimal regression check for outlined mixed-weight wordmark and shared catalogue."""
-import json
-import subprocess
-import xml.etree.ElementTree as ET
+"""Regression check for the approved Forge+Ember and rounded-99 primary identity."""
+import json,subprocess
 from pathlib import Path
-
-ROOT = Path(__file__).resolve().parent.parent
-NS = '{http://www.w3.org/2000/svg}'
-script = "const fs=require('fs'),vm=require('vm'); const s={}; vm.runInNewContext(fs.readFileSync('site/assets/theme.js','utf8'),s); console.log(JSON.stringify({logos:s.Brand99.LOGOS,order:s.Brand99.LOGO_ORDER}));"
-catalogue = json.loads(subprocess.check_output(['node', '-e', script], cwd=ROOT, text=True))
-assert len(catalogue['order']) == 9
-word = ET.parse(ROOT / 'site/assets/ninetynine.svg').getroot()
-assert [(p.get('data-part'), p.get('data-weight')) for p in word.findall(NS+'path')] == [('ninety','400'),('nine','750')]
-ids = ['ninetynine'] + ['ninetynine-'+k for k in ['the-sign','the-wordmark','the-sign-off','the-seal']]
-for key in ids:
-    file = ROOT / 'site/assets' / (key + '.svg')
-    svg = file.read_text().strip()
-    assert svg == catalogue['logos'][key]
-    root = ET.fromstring(svg)
-    assert root.get('viewBox')
-    assert not any(el.tag.split('}')[-1] in ('text','image','filter','mask') for el in root.iter())
-    assert root.findall('.//' + NS + 'path')
-    book = (ROOT/'site/index.html').read_text()
-    assert book.count('data-logo="'+key+'"') == 1
-print('PASS: two outlined weights; all four composed lockups; nine unique selections; book matches live canonical artwork.')
+import xml.etree.ElementTree as ET
+ROOT=Path(__file__).resolve().parent.parent
+script="const fs=require('fs'),vm=require('vm');const s={};vm.runInNewContext(fs.readFileSync('site/assets/theme.js','utf8'),s);console.log(JSON.stringify({t:s.Brand99.PACKAGES.forge.tokens,key:s.Brand99.current(),logo:s.Brand99.getLogo(),order:s.Brand99.LOGO_ORDER,svg:s.Brand99.LOGOS['ninetynine-the-wordmark']}));"
+d=json.loads(subprocess.check_output(['node','-e',script],cwd=ROOT,text=True))
+assert d['key']=='forge';assert d['logo']=='ninetynine-the-wordmark'
+assert d['order']==['ninetynine-the-wordmark','the-wordmark']
+assert 'Inter Tight' in d['t']['--font-display'];assert 'Inter Tight' in d['t']['--font-body']
+assert d['t']['--ink']=='#0C1013';assert d['t']['--accent']=='#C9973F'
+svg=(ROOT/'site/assets/ninetynine-the-wordmark.svg').read_text().strip();assert svg==d['svg']
+r=ET.fromstring(svg);ns='{http://www.w3.org/2000/svg}'
+assert [x.get('data-weight') for x in r.findall('.//'+ns+'path') if x.get('data-weight')]==['400','750']
+for p in (ROOT/'site/site').glob('*.html'):
+    text=p.read_text();assert '99.system' not in text;assert 'contact@ninetynine.eu' in text;assert 'fonts.googleapis.com' not in text
+for f in ['site/index.html','site/collateral.html']:
+    text=(ROOT/f).read_text();assert '99.system' not in text;assert 'ninetynine.eu' in text
+print('PASS: approved primary logo, compact alternate, Forge colours, Ember typography, domain and offline fonts')

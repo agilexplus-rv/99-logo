@@ -1,57 +1,24 @@
-// Renders every collateral document for every brand combination (3 systems x 9 logos).
-// Filenames: pdfs/<slug>-<system>-<mark>.pdf  — so a download always matches the
-// user's current selection, is a real single-page PDF, and never depends on the
-// browser's print dialog (which was emitting a trailing blank page).
+import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { mkdir } from 'node:fs/promises';
-
-const BASE = (process.env.BASE || 'https://99-branding.agilexplus.dev').replace(/\/$/, '');
-const SYSTEMS = ['ember', 'clay', 'forge'];
-const MARKS = ["the-sign", "the-wordmark", "the-sign-off", "the-seal", "ninetynine", "ninetynine-the-sign", "ninetynine-the-wordmark", "ninetynine-the-sign-off", "ninetynine-the-seal"];
-const DOCS = [
-  ['business-card', 'Business card', null],
-  ['email-signature', 'Email signature', { width: '210mm', height: '90mm' }],
-  ['letterhead', 'Letterhead', null],
-  ['proposal', 'Proposal', null],
-  ['quote', 'Quote', null],
-  ['invoice', 'Invoice', null]
-];
-
-await mkdir('pdfs', { recursive: true });
-const browser = await chromium.launch();
-let made = 0;
-
-for (const pkg of SYSTEMS) {
-  for (const mark of MARKS) {
-    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-    await ctx.addInitScript(([p, m]) => {
-      try { localStorage.setItem('99-package', p); localStorage.setItem('99-logo', m); } catch (e) {}
-    }, [pkg, mark]);
-    const page = await ctx.newPage();
-    try {
-      await page.goto(BASE + '/collateral', { waitUntil: 'networkidle', timeout: 45000 });
-      await page.waitForTimeout(300);
-      for (const [slug, label, size] of DOCS) {
-        await page.evaluate((lab) => {
-          const it = [...document.querySelectorAll('.citem')].find((b) => b.textContent.includes(lab));
-          if (it) it.click();
-        }, label);
-        await page.waitForTimeout(220);
-        await page.emulateMedia({ media: 'print' });
-        await page.waitForTimeout(120);
-        await page.pdf({
-          path: `pdfs/${slug}-${pkg}-${mark}.pdf`,
-          printBackground: true,
-          ...(size ? size : { format: 'A4' })
-        });
-        await page.emulateMedia({ media: 'screen' });
-        made++;
-      }
-    } catch (e) {
-      console.log(`FAILED ${pkg}/${mark}: ${String(e).slice(0, 100)}`);
-    }
-    await ctx.close();
+const base=(process.env.BASE||'https://99-branding.agilexplus.dev').replace(/\/$/,'');
+await mkdir('pdfs',{recursive:true});await mkdir('wordmark-proofs',{recursive:true});
+const browser=await chromium.launch();
+try {
+  const page=await browser.newPage({viewport:{width:1440,height:1000}});
+  await page.goto(base+'/collateral',{waitUntil:'networkidle'});
+  await page.evaluate(()=>document.fonts.ready);
+  for(const slug of ['business-card','email-signature','letterhead','proposal','quote','invoice']) {
+    await page.locator(`.citem[data-target="${slug}"]`).click();
+    await page.emulateMedia({media:'print'});
+    await page.pdf({path:`pdfs/${slug}.pdf`,format:'A4',printBackground:true,tagged:true});
+    await page.emulateMedia({media:'screen'});
+    await page.locator('.cpanel.active .doc').screenshot({path:`pdfs/final-${slug}.png`});
   }
-}
-await browser.close();
-console.log(`exported ${made} PDFs`);
+  for(const [path,name] of [['/','brand-guidelines'],['/company-activities','company-activities']]) {
+    await page.goto(base+path,{waitUntil:'networkidle'});await page.evaluate(()=>document.fonts.ready);
+    await page.pdf({path:`pdfs/${name}.pdf`,format:'A4',printBackground:true,preferCSSPageSize:true,tagged:true});
+  }
+  await page.close();
+  console.log('PASS: exported six final specimen PDFs, brand guidelines and company activities');
+} finally {await browser.close();}

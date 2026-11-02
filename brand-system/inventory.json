@@ -1,0 +1,35 @@
+{
+  "identity": {
+    "primary": "site/assets/ninetynine-the-wordmark.svg",
+    "compact": "site/assets/the-wordmark.svg",
+    "palette": "Forge",
+    "typography": "Inter Tight + JetBrains Mono (local TTF, SIL OFL)",
+    "domain": "ninetynine.eu",
+    "email": "contact@ninetynine.eu"
+  },
+  "deliverables": {
+    "guidelines": [
+      "brand-system/GUIDELINES.md",
+      "site/index.html",
+      "site/downloads/brand-guidelines.pdf"
+    ],
+    "claude": [
+      "brand-system/CLAUDE.md",
+      "site/downloads/brand-system.zip"
+    ],
+    "company": [
+      "brand-system/COMPANY-ACTIVITIES.md",
+      "site/downloads/company-activities.pdf"
+    ],
+    "collateral": "site/downloads/{business-card,email-signature,letterhead,proposal,quote,invoice}.pdf"
+  },
+  "unverified": [
+    "registered address",
+    "company registration number",
+    "VAT number/status",
+    "domain registration and DNS",
+    "mailbox delivery",
+    "professional trademark clearance",
+    "print colour conversion"
+  ]
+}

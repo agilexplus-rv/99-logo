@@ -81,6 +81,7 @@
   function countUp(el) {
     var target = Number(el.dataset.count);
     var suffix = el.dataset.suffix || '';
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = target.toLocaleString('en-IE') + suffix; return; }
     var dur = 900, t0 = performance.now();
     function frame(t) {
       var p = Math.min(1, (t - t0) / dur);
@@ -141,7 +142,7 @@
   }
   function go(i) {
     var s = slides[Math.max(0, Math.min(slides.length - 1, i))];
-    if (s) rail.scrollTo({ left: s.offsetLeft - rail.offsetLeft, behavior: 'smooth' });
+    if (s) rail.scrollTo({ left: s.offsetLeft - rail.offsetLeft, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   }
   rail.addEventListener('scroll', function () { window.requestAnimationFrame(paint); }, { passive: true });
   document.getElementById('rail-prev').addEventListener('click', function () { go(current() - 1); });

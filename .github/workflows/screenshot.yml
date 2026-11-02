@@ -48,11 +48,6 @@ jobs:
           path: wordmark-proofs/
           retention-days: 14
 
-      - name: Capture
-        env:
-          BASE: ${{ inputs.base || 'https://99-branding.agilexplus.dev' }}
-        run: node .github/screenshot.mjs
-
       - name: Contrast audit (all package x mode x page)
         env:
           BASE: ${{ inputs.base || 'https://99-branding.agilexplus.dev' }}

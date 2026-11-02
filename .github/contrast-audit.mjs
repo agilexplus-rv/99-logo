@@ -4,7 +4,7 @@ import { chromium } from 'playwright';
 import { readFileSync } from 'node:fs';
 
 const BASE = (process.env.BASE || 'https://99-branding.agilexplus.dev').replace(/\/$/, '');
-const PACKAGES = ['ember', 'clay', 'forge'];
+const PACKAGES = ['forge'];
 const MODES = ['dark', 'light'];
 const PAGES = [
   ['home', '/site/home'],
